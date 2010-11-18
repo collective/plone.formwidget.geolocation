@@ -16,7 +16,7 @@ setup(name='plone.formwidget.geolocation',
       keywords='',
       author='David Glick',
       author_email='dglick@gmail.com',
-      url='http://svn.plone.org/svn/collective/',
+      url='http://svn.plone.org/svn/plone/plone.formwidget.geolocation/trunk',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['plone', 'plone.formwidget'],
@@ -25,6 +25,7 @@ setup(name='plone.formwidget.geolocation',
       install_requires=[
           'setuptools',
           'z3c.form',
+          'Products.Maps',
           # -*- Extra requirements: -*-
       ],
       entry_points="""

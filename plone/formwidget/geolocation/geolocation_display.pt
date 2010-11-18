@@ -1,6 +1,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       tal:omit-tag="">
+    <div class="googleMapView">
+      <dl>
+        <dt class="title">
+          <img tal:attributes="src string:${context/portal_url}/marker-red.png" alt="Red Marker" width="20" height="34" class="marker" />
+        </dt>
+        <dd class="geo">
+          <span class="latitude" tal:content="python:view.value[0]" />
+          <span class="longitude" tal:content="python:view.value[1]" />
+        </dd>
+      </dl>
+    </div>
     <span id="" class=""
           tal:attributes="id string:${view/id}_latitude;
                           class view/klass;
