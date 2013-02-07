@@ -5,7 +5,7 @@ version = '1.0'
 
 setup(name='plone.formwidget.geolocation',
       version=version,
-      description="",
+      description="Geolocation field and widget for use with collective.geolocationbehavior",
       long_description=open("README.txt").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       # Get more strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
@@ -16,7 +16,7 @@ setup(name='plone.formwidget.geolocation',
       keywords='',
       author='David Glick',
       author_email='dglick@gmail.com',
-      url='http://svn.plone.org/svn/plone/plone.formwidget.geolocation/trunk',
+      url='https://github.com/collective/plone.formwidget.geolocation',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['plone', 'plone.formwidget'],
