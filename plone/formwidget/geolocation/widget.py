@@ -1,5 +1,5 @@
 from zope.interface import implementer, implementsOnly
-from zope.component import adapter, getMultiAdapter
+from zope.component import adapter, queryMultiAdapter
 
 from z3c.form.interfaces import IFieldWidget, IFormLayer
 from z3c.form.widget import FieldWidget
@@ -20,9 +20,12 @@ class GeolocationWidget(TextWidget):
             self.value = self._default_loc()
     
     def _default_loc(self):
-        config = getMultiAdapter((self.context, self.request), 
-                                    name="maps_configuration")
-        return tuple(config.default_location)
+        config = queryMultiAdapter((self.context, self.request), 
+                                  name="maps_configuration", default=None)
+        ret = (0.0, 0.0)
+        if config and hasattr(config, 'default_location'):
+            ret = config.default_location
+        return tuple(ret)
 
 
 @implementer(IFieldWidget)
