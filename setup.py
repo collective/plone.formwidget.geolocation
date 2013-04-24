@@ -25,7 +25,6 @@ setup(name='plone.formwidget.geolocation',
       install_requires=[
           'setuptools',
           'z3c.form',
-          'Products.Maps',
           # -*- Extra requirements: -*-
       ],
       entry_points="""
