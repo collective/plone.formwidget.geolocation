@@ -5,7 +5,6 @@ from z3c.form.interfaces import IWidget
 from plone.formwidget.geolocation import _
 
 class IGeolocation(Interface):
-
     latitude = schema.Float(title = _(u'Latitude'))
     longitude = schema.Float(title = _(u'Longitude'))
 
