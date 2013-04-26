@@ -4,7 +4,9 @@ Changelog
 1.1 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Remove dependency on Products.Maps. Don't fail, if default_location is not
+  set or maps_configuration adapter not found.
+  [thet]
 
 
 1.0 (2013-02-07)
