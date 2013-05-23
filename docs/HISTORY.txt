@@ -4,6 +4,12 @@ Changelog
 1.1 (unreleased)
 ----------------
 
+- Add supermodel import/export handler.
+  [davisagli]
+
+- Fix declaration of exported names.
+  [davisagli]
+
 - Remove dependency on Products.Maps. Don't fail, if default_location is not
   set or maps_configuration adapter not found.
   [thet]

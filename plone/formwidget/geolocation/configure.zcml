@@ -1,6 +1,7 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:z3c="http://namespaces.zope.org/z3c"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="plone.formwidget.geolocation">
 
   <adapter factory=".widget.GeolocationFieldWidget" />
@@ -18,6 +19,12 @@
       widget=".interfaces.IGeolocationWidget"
       layer="z3c.form.interfaces.IFormLayer"
       template="geolocation_input.pt"
+      />
+
+ <utility
+      zcml:condition="installed plone.supermodel"
+      component=".supermodel.GeolocationHandler"
+      name="plone.formwidget.geolocation.GeolocationField"
       />
 
 </configure>
