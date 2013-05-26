@@ -4,6 +4,10 @@ Changelog
 1.1 (unreleased)
 ----------------
 
+- Fix display template markup to be compatible with recent versions
+  of Products.Maps.
+  [davisagli]
+
 - Add supermodel import/export handler.
   [davisagli]
 
