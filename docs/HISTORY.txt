@@ -4,7 +4,8 @@ Changelog
 1.1 (unreleased)
 ----------------
 
-- Fix conversion of missing geolocation (0, 0).
+- Improve handling of non-required geolocation fields
+  with missing values.
   [davisagli]
 
 - Fix display template markup to be compatible with recent versions

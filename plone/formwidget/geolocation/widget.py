@@ -16,7 +16,7 @@ class GeolocationWidget(TextWidget):
     
     def update(self):
         super(GeolocationWidget, self).update()
-        if self.value is None:
+        if self.value is None and self.mode == 'input':
             self.value = self._default_loc()
     
     def _default_loc(self):

@@ -1,6 +1,5 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:tal="http://xml.zope.org/namespaces/tal"
-      tal:omit-tag="">
+<tal:block tal:condition="view/value"
+           xmlns:tal="http://xml.zope.org/namespaces/tal">
     <div class="googleMapView">
       <ul>
         <li>
@@ -48,4 +47,4 @@
                           onkeydown view/onkeydown;
                           onkeyup view/onkeyup"
           tal:content="python:view.value[1]"/>
-</html>
+</tal:block>

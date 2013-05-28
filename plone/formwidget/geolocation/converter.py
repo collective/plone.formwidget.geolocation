@@ -11,7 +11,8 @@ class GeolocationConverter(BaseDataConverter):
     adapts(IGeolocationField, IGeolocationWidget)
 
     def toWidgetValue(self, value):
-        return (value.latitude, value.longitude)
+        if value:
+            return (value.latitude, value.longitude)
 
     def toFieldValue(self, value):
         if value is None or value == ('0', '0'):
