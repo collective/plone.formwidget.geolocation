@@ -1,6 +1,5 @@
 from zope.component import adapts
 from z3c.form.converter import BaseDataConverter
-
 from plone.formwidget.geolocation.interfaces import IGeolocation, IGeolocationField, IGeolocationWidget
 from plone.formwidget.geolocation.geolocation import Geolocation
 
@@ -20,5 +19,5 @@ class GeolocationConverter(BaseDataConverter):
 
         if IGeolocation.providedBy(value):
             return value
-        
+
         return Geolocation(value[0], value[1])
