@@ -4,6 +4,9 @@ Changelog
 1.1 (unreleased)
 ----------------
 
+- Convert default locations strings from Products.Maps to tuples with floats.
+  [thet]
+
 - Improve handling of non-required geolocation fields
   with missing values.
   [davisagli]

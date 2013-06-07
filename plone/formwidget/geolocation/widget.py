@@ -22,10 +22,14 @@ class GeolocationWidget(TextWidget):
     def _default_loc(self):
         config = queryMultiAdapter((self.context, self.request), 
                                   name="maps_configuration", default=None)
-        ret = (0.0, 0.0)
+        default = ret = (0.0, 0.0)
         if config and hasattr(config, 'default_location'):
             ret = config.default_location
-        return tuple(ret)
+            if isinstance(ret, basestring):
+                ret = ret.split(',')
+        if len(ret) != 2:
+            return default
+        return (float(ret[0]), float(ret[1]))
 
 
 @implementer(IFieldWidget)
