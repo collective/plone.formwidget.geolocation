@@ -1,50 +1,13 @@
-<tal:block tal:condition="view/value"
-           xmlns:tal="http://xml.zope.org/namespaces/tal">
-    <div class="googleMapView">
-      <ul>
-        <li>
-          <div class="title">
-            <img tal:attributes="src string:${context/portal_url}/marker-red.png" alt="Red Marker" width="20" height="34" class="marker" />
-          </div>
-          <div class="geo">
-            <span class="latitude" tal:content="python:view.value[0]" />
-            <span class="longitude" tal:content="python:view.value[1]" />
-          </div>
-        </li>
-      </ul>
-    </div>
-    <span id="" class=""
-          tal:attributes="id string:${view/id}_latitude;
-                          class view/klass;
-                          style view/style;
-                          title view/title;
-                          lang view/lang;
-                          onclick view/onclick;
-                          ondblclick view/ondblclick;
-                          onmousedown view/onmousedown;
-                          onmouseup view/onmouseup;
-                          onmouseover view/onmouseover;
-                          onmousemove view/onmousemove;
-                          onmouseout view/onmouseout;
-                          onkeypress view/onkeypress;
-                          onkeydown view/onkeydown;
-                          onkeyup view/onkeyup"
-          tal:content="python:view.value[0]"/>
-    <span id="" class=""
-          tal:attributes="id string:${view/id}_longitude;
-                          class view/klass;
-                          style view/style;
-                          title view/title;
-                          lang view/lang;
-                          onclick view/onclick;
-                          ondblclick view/ondblclick;
-                          onmousedown view/onmousedown;
-                          onmouseup view/onmouseup;
-                          onmouseover view/onmouseover;
-                          onmousemove view/onmousemove;
-                          onmouseout view/onmouseout;
-                          onkeypress view/onkeypress;
-                          onkeydown view/onkeydown;
-                          onkeyup view/onkeyup"
-          tal:content="python:view.value[1]"/>
-</tal:block>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      tal:omit-tag="">
+  <div class="geolocation_wrapper"
+      tal:define="lat python:view.value[0];
+                  lng python:view.value[1]"
+      tal:condition="python:lat and lng">
+    <div class="geolocation"
+        tal:attributes="data-latitude lat;
+                        data-longitude lng"/>
+    <div class="geomap"></div>
+  </div>
+</html>
