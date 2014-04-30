@@ -4,6 +4,9 @@ Changelog
 1.1 (unreleased)
 ----------------
 
+- Simplify templates and cleanup Google Map leftovers.
+  [thet]
+
 - Convert default locations strings from Products.Maps to tuples with floats.
   [thet]
 
