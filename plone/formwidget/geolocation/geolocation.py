@@ -1,5 +1,5 @@
-from zope.interface import implements
 from plone.formwidget.geolocation.interfaces import IGeolocation
+from zope.interface import implements
 
 
 class Geolocation(object):
