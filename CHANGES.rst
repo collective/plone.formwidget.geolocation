@@ -1,10 +1,11 @@
 Changelog
 =========
 
-1.3 (unreleased)
-----------------
+1.2.1 (2015-03-04)
+------------------
 
-- Nothing changed yet.
+- Avoid circular imports by removing the package level imports.
+  [thet]
 
 
 1.2 (2015-03-04)
