@@ -5,18 +5,18 @@
     <div class="geolocation"
         tal:attributes="data-latitude python:view.value[0];
                         data-longitude python:view.value[1]"/>
-    <input id="" name="" class="" style="" value="" type="text"
+    <input type="text"
         tal:attributes="id string:${view/id}_latitude;
                         name string:${view/name}:tuple;
                         class string:${view/klass} latitude;
                         style view/style;
                         value python:view.value[0]" />
-    <input id="" name="" class="" style="" value="" type="text"
+    <input type="text"
         tal:attributes="id string:${view/id}_longitude;
                         name string:${view/name}:tuple;
                         class string:${view/klass} longitude;
                         style view/style;
                         value python:view.value[1]" />
-    <div id="geomap"></div>
+    <div class="map"></div>
   </div>
 </html>

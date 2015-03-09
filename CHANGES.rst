@@ -4,7 +4,9 @@ Changelog
 1.3 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Remove the ``map`` id attrbute on the map element and use instead a ``map``
+  css class.
+  [thet]
 
 
 1.2.1 (2015-03-04)

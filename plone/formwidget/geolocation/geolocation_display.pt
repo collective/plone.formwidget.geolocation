@@ -8,6 +8,6 @@
     <div class="geolocation"
         tal:attributes="data-latitude lat;
                         data-longitude lng"/>
-    <div class="geomap"></div>
+    <div class="map"></div>
   </div>
 </html>
