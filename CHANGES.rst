@@ -4,6 +4,10 @@ Changelog
 1.3 (unreleased)
 ----------------
 
+- Reintroduce package level imports and avoid circular import by moving out the
+  message factory.
+  [thet]
+
 - Remove the ``map`` id attrbute on the map element and use instead a ``map``
   css class.
   [thet]

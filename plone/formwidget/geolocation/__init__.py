@@ -1,2 +1,4 @@
-from zope.i18nmessageid import MessageFactory
-_ = MessageFactory('plone.formwidget.geolocation')
+from plone.formwidget.geolocation.field import GeolocationField
+from plone.formwidget.geolocation.geolocation import Geolocation
+
+__all__ = ('Geolocation', 'GeolocationField')
