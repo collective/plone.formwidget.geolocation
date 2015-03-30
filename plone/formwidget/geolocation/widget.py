@@ -5,6 +5,7 @@ from z3c.form.interfaces import IFieldWidget, IFormLayer
 from z3c.form.widget import FieldWidget
 from zope.component import adapter, queryMultiAdapter
 from zope.interface import implementer, implementsOnly
+import json
 
 
 class GeolocationWidget(TextWidget):
@@ -17,6 +18,15 @@ class GeolocationWidget(TextWidget):
         super(GeolocationWidget, self).update()
         if self.value is None and self.mode == 'input':
             self.value = self._default_loc()
+
+    def json_value(self):
+        title = getattr(self.context, 'title', '')
+        description = getattr(self.context, 'description', '')
+        return json.dumps([{
+            'lat': self.value[0],
+            'lng': self.value[1],
+            'popup': '<h3>{0}</h3><p>{1}</p>'.format(title, description)
+        }])
 
     def _default_loc(self):
         config = queryMultiAdapter((self.context, self.request),

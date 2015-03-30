@@ -1,13 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       tal:omit-tag="">
-  <div class="geolocation_wrapper"
-      tal:define="lat python:view.value[0];
-                  lng python:view.value[1]"
-      tal:condition="python:lat and lng">
-    <div class="geolocation"
-        tal:attributes="data-latitude lat;
-                        data-longitude lng"/>
-    <div class="map"></div>
+  <div class="geolocation_wrapper" tal:condition="view/value">
+    <div class="map" tal:attributes="data-geopoints view/json_value"></div>
   </div>
 </html>

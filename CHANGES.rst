@@ -4,6 +4,11 @@ Changelog
 1.3 (unreleased)
 ----------------
 
+- Remove the ``div.geolocation`` elements. Instead, render the list of
+  geolocation points as JSON value on a ``data-geopoints`` attrbute on the map
+  element.
+  [thet]
+
 - Reintroduce package level imports and avoid circular import by moving out the
   message factory.
   [thet]
