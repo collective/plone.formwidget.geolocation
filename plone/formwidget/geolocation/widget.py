@@ -1,3 +1,4 @@
+from Products.CMFPlone.utils import safe_unicode
 from plone.formwidget.geolocation.interfaces import IGeolocationField
 from plone.formwidget.geolocation.interfaces import IGeolocationWidget
 from z3c.form.browser.text import TextWidget
@@ -25,7 +26,10 @@ class GeolocationWidget(TextWidget):
         return json.dumps([{
             'lat': self.value[0],
             'lng': self.value[1],
-            'popup': '<h3>{0}</h3><p>{1}</p>'.format(title, description)
+            'popup': u'<h3>{0}</h3><p>{1}</p>'.format(
+                safe_unicode(title),
+                safe_unicode(description)
+            )
         }])
 
     def _default_loc(self):
