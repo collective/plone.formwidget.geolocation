@@ -91,6 +91,7 @@
       _initialize_map(this);
     });
   };
+  window.plone_formwidget_geolocation__initialize_map = initialize_map;
 
   $(document).ready(function() {
     initialize_map();
