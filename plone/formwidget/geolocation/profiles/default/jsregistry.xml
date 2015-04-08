@@ -3,7 +3,7 @@
 
   <javascript
       bundle="default"
-      id="++resource++plone.formwidget.geolocation/libs.min.js"
+      id="++resource++plone.formwidget.geolocation/libs.js"
       cacheable="True"
       compression="none"
       cookable="True"
