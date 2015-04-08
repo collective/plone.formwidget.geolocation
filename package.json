@@ -6,7 +6,8 @@
     "grunt": "",
     "grunt-contrib-concat": "",
     "grunt-contrib-uglify": "",
-    "grunt-contrib-copy": ""
+    "grunt-contrib-copy": "",
+    "grunt-sed": ""
   },
   "repository": {
     "type": "git",

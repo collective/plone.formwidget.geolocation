@@ -35,6 +35,7 @@ module.exports = function(grunt) {
         dest: dest_path + 'libs.css'
       }
     },
+
     uglify: {
       default: {
         options: {
@@ -61,7 +62,7 @@ module.exports = function(grunt) {
             expand: true,
             cwd: 'bower_components/Leaflet.fullscreen/dist/',
             src: ['*.png'],
-            dest: dest_path  // keep here, so no sed task in css is necessary.
+            dest: dest_path + 'images/'
           },
           {
             expand: true,
@@ -71,6 +72,24 @@ module.exports = function(grunt) {
           }
         ]
       }
+    },
+
+    sed: {
+      'leaflet': {
+        path: dest_path + 'libs.css',
+        pattern: 'images/',
+        replacement: '++resource++plone.formwidget.geolocation/images/'
+      },
+      'leaflet-fullscreen-1': {
+        path: dest_path + 'libs.css',
+        pattern: 'fullscreen.png',
+        replacement: '++resource++plone.formwidget.geolocation/images/fullscreen.png'
+      },
+      'leaflet-fullscreen-2': {
+        path: dest_path + 'libs.css',
+        pattern: 'fullscreen@2x.png',
+        replacement: '++resource++plone.formwidget.geolocation/images/fullscreen@2x.png'
+      },
     }
 
   });
@@ -78,8 +97,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-sed');
 
   // Default task(s).
-  grunt.registerTask('default', ['concat', 'uglify', 'copy']);
+  grunt.registerTask('default', ['concat', 'uglify', 'copy', 'sed']);
 
 };

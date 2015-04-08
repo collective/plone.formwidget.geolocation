@@ -4,7 +4,7 @@
   <stylesheet
       bundle="default"
       id="++resource++plone.formwidget.geolocation/libs.css"
-      applyPrefix="True"
+      applyPrefix="False"
       cacheable="True"
       compression="safe"
       cookable="True"
@@ -18,7 +18,7 @@
   <stylesheet
       bundle="default"
       id="++resource++plone.formwidget.geolocation/maps.css"
-      applyPrefix="True"
+      applyPrefix="False"
       cacheable="True"
       compression="safe"
       cookable="True"

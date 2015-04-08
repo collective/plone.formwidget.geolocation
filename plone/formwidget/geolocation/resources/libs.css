@@ -278,12 +278,12 @@
 	border-radius: 5px;
 	}
 .leaflet-control-layers-toggle {
-	background-image: url(images/layers.png);
+	background-image: url(++resource++plone.formwidget.geolocation/images/layers.png);
 	width: 36px;
 	height: 36px;
 	}
 .leaflet-retina .leaflet-control-layers-toggle {
-	background-image: url(images/layers-2x.png);
+	background-image: url(++resource++plone.formwidget.geolocation/images/layers-2x.png);
 	background-size: 26px 26px;
 	}
 .leaflet-touch .leaflet-control-layers-toggle {
@@ -479,7 +479,7 @@
 
 
 .leaflet-control-fullscreen a {
-  background:#fff url(fullscreen.png) no-repeat 0 0;
+  background:#fff url(++resource++plone.formwidget.geolocation/images/fullscreen.png) no-repeat 0 0;
   background-size:26px 52px;
   }
   .leaflet-fullscreen-on .leaflet-control-fullscreen a {
@@ -509,7 +509,7 @@
   (-webkit-min-device-pixel-ratio:2),
   (min-resolution:192dpi) {
     .leaflet-control-fullscreen a {
-      background-image:url(fullscreen@2x.png);
+      background-image:url(++resource++plone.formwidget.geolocation/images/fullscreen@2x.png);
     }
   }
 
@@ -630,7 +630,7 @@ Version: 1.0
 
 /* Marker setup */
 .awesome-marker {
-  background: url('images/markers-soft.png') no-repeat 0 0;
+  background: url('++resource++plone.formwidget.geolocation/images/markers-soft.png') no-repeat 0 0;
   width: 35px;
   height: 46px;
   position:absolute;
@@ -641,7 +641,7 @@ Version: 1.0
 }
 
 .awesome-marker-shadow {
-  background: url('images/markers-shadow.png') no-repeat 0 0;
+  background: url('++resource++plone.formwidget.geolocation/images/markers-shadow.png') no-repeat 0 0;
   width: 36px;
   height: 16px;
 }
@@ -650,11 +650,11 @@ Version: 1.0
 @media (min--moz-device-pixel-ratio: 1.5),(-o-min-device-pixel-ratio: 3/2),
 (-webkit-min-device-pixel-ratio: 1.5),(min-device-pixel-ratio: 1.5),(min-resolution: 1.5dppx) {
  .awesome-marker {
-  background-image: url('images/markers-soft@2x.png');
+  background-image: url('++resource++plone.formwidget.geolocation/images/markers-soft@2x.png');
   background-size: 720px 46px;
  }
  .awesome-marker-shadow {
-  background-image: url('images/markers-shadow@2x.png');
+  background-image: url('++resource++plone.formwidget.geolocation/images/markers-shadow@2x.png');
   background-size: 35px 16px;
  }
 }
