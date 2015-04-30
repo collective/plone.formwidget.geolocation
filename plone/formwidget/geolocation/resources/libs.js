@@ -9398,16 +9398,29 @@ L.control.fullscreen = function (options) {
 		OpenStreetMap: {
 			url: '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
 			options: {
+				maxZoom: 19,
 				attribution:
 					'&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 			},
 			variants: {
 				Mapnik: {},
 				BlackAndWhite: {
-					url: 'http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png'
+					url: 'http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png',
+					options: {
+						maxZoom: 18
+					}
 				},
 				DE: {
-					url: 'http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png'
+					url: 'http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png',
+					options: {
+						maxZoom: 18
+					}
+				},
+				France: {
+					url: 'http://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png',
+					options: {
+						attribution: '&copy; Openstreetmap France | {attribution.OpenStreetMap}'
+					}
 				},
 				HOT: {
 					url: 'http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
@@ -9439,8 +9452,18 @@ L.control.fullscreen = function (options) {
 			},
 			variants: {
 				OpenCycleMap: 'cycle',
-				Transport: 'transport',
-				TransportDark: 'transport-dark',
+				Transport: {
+					options: {
+						variant: 'transport',
+						maxZoom: 19
+					}
+				},
+				TransportDark: {
+					options: {
+						variant: 'transport-dark',
+						maxZoom: 19
+					}
+				},
 				Landscape: 'landscape',
 				Outdoors: 'outdoors'
 			}
@@ -9448,7 +9471,6 @@ L.control.fullscreen = function (options) {
 		OpenMapSurfer: {
 			url: 'http://openmapsurfer.uni-hd.de/tiles/{variant}/x={x}&y={y}&z={z}',
 			options: {
-				minZoom: 0,
 				maxZoom: 20,
 				variant: 'roads',
 				attribution: 'Imagery from <a href="http://giscience.uni-hd.de/">GIScience Research Group @ University of Heidelberg</a> &mdash; Map data {attribution.OpenStreetMap}'
@@ -9472,8 +9494,6 @@ L.control.fullscreen = function (options) {
 		Hydda: {
 			url: 'http://{s}.tile.openstreetmap.se/hydda/{variant}/{z}/{x}/{y}.png',
 			options: {
-				minZoom: 0,
-				maxZoom: 18,
 				variant: 'full',
 				attribution: 'Tiles courtesy of <a href="http://openstreetmap.se/" target="_blank">OpenStreetMap Sweden</a> &mdash; Map data {attribution.OpenStreetMap}'
 			},
@@ -9528,7 +9548,7 @@ L.control.fullscreen = function (options) {
 			}
 		},
 		Stamen: {
-			url: 'http://{s}.tile.stamen.com/{variant}/{z}/{x}/{y}.{ext}',
+			url: '//stamen-tiles-{s}.a.ssl.fastly.net/{variant}/{z}/{x}/{y}.png',
 			options: {
 				attribution:
 					'Map tiles by <a href="http://stamen.com">Stamen Design</a>, ' +
@@ -9673,6 +9693,7 @@ L.control.fullscreen = function (options) {
 		OpenWeatherMap: {
 			url: 'http://{s}.tile.openweathermap.org/map/{variant}/{z}/{x}/{y}.png',
 			options: {
+				maxZoom: 19,
 				attribution: 'Map data &copy; <a href="http://openweathermap.org">OpenWeatherMap</a>',
 				opacity: 0.5
 			},
@@ -9713,7 +9734,6 @@ L.control.fullscreen = function (options) {
 				'app_code': '<insert your app_code here>',
 				base: 'base',
 				variant: 'normal.day',
-				minZoom: 0,
 				maxZoom: 20
 			},
 			variants: {
@@ -9806,8 +9826,7 @@ L.control.fullscreen = function (options) {
 			options: {
 				attribution: '{attribution.OpenStreetMap} &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
 				subdomains: 'abcd',
-				minZoom: 0,
-				maxZoom: 18,
+				maxZoom: 19,
 				variant: 'light_all'
 			},
 			variants: {
@@ -9818,41 +9837,40 @@ L.control.fullscreen = function (options) {
 			}
 		},
 		HikeBike: {
-			url: 'http://{s}.tiles.wmflabs.org/hikebike/{z}/{x}/{y}.png',
+			url: 'http://{s}.tiles.wmflabs.org/{variant}/{z}/{x}/{y}.png',
 			options: {
-				attribution: '{attribution.OpenStreetMap}'
+				maxZoom: 19,
+				attribution: '{attribution.OpenStreetMap}',
+				variant: 'hikebike'
+			},
+			variants: {
+				HikeBike: {},
+				HillShading: {
+					options: {
+						maxZoom: 15,
+						variant: 'hillshading'
+					}
+				}
 			}
 		},
 		BasemapAT: {
 			url: '//maps{s}.wien.gv.at/basemap/{variant}/normal/google3857/{z}/{y}/{x}.{format}',
 			options: {
+				maxZoom: 19,
 				attribution: 'Datenquelle: <a href="www.basemap.at">basemap.at</a>',
 				subdomains: ['', '1', '2', '3', '4'],
-				bounds: [[46.358770, 8.782379], [49.037872, 17.189532]]
+				format: 'png',
+				bounds: [[46.358770, 8.782379], [49.037872, 17.189532]],
+				variant: 'geolandbasemap'
 			},
 			variants: {
-				basemap: {
-					options: {
-						variant: 'geolandbasemap',
-						format: 'jpeg'
-					}
-				},
+				basemap: 'geolandbasemap',
+				grau: 'bmapgrau',
+				overlay: 'bmapoverlay',
 				highdpi: {
 					options: {
 						variant: 'bmaphidpi',
 						format: 'jpeg'
-					}
-				},
-				grau: {
-					options: {
-						variant: 'bmapgrau',
-						format: 'png'
-					}
-				},
-				overlay: {
-					options: {
-						variant: 'bmapoverlay',
-						format: 'png'
 					}
 				},
 				orthofoto: {
