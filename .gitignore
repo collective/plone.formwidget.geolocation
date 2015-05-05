@@ -1,2 +1,8 @@
+*.egg-info
 *.pyc
-plone.formwidget.geolocation.egg-info/
+.*
+bower_components/
+dist/
+node_modules/
+!.gitignore
+!.jshintrc

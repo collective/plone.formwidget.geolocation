@@ -1,0 +1,12 @@
+{
+  "name": "plone.formwidget.geolocation",
+  "description": "Leaflet widget for plone.formwidget.geolocation",
+  "dependencies": {
+    "leaflet": "",
+    "leaflet.markercluster": "",
+    "Leaflet.fullscreen": "git@github.com:Leaflet/Leaflet.fullscreen#v0.0.4",
+    "leaflet-providers": "",
+    "L.GeoSearch": "git@github.com:thet/L.GeoSearch.git",
+    "Leaflet.awesome-markers": "git@github.com:lvoogdt/Leaflet.awesome-markers.git"
+  }
+}

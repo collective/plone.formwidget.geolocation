@@ -1,0 +1,16 @@
+{
+  "name": "plone.formwidget.geolocation",
+  "description": "Leaflet widget for plone.formwidget.geolocation",
+  "version": "1.0.0",
+  "devDependencies": {
+    "grunt": "",
+    "grunt-contrib-concat": "",
+    "grunt-contrib-uglify": "",
+    "grunt-contrib-copy": "",
+    "grunt-sed": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/collective/plone.formwidget.geolocation"
+  }
+}

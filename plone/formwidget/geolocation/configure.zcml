@@ -1,11 +1,18 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     xmlns:z3c="http://namespaces.zope.org/z3c"
     xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="plone.formwidget.geolocation">
 
   <adapter factory=".widget.GeolocationFieldWidget" />
   <adapter factory=".converter.GeolocationConverter" />
+
+  <browser:resourceDirectory
+      name="plone.formwidget.geolocation"
+      directory="resources"
+      />
 
   <z3c:widgetTemplate
       mode="display"
@@ -25,6 +32,22 @@
       zcml:condition="installed plone.supermodel"
       component=".supermodel.GeolocationHandler"
       name="plone.formwidget.geolocation.GeolocationField"
+      />
+
+  <genericsetup:registerProfile
+      name="default"
+      title="plone.formwidget.geolocation map install"
+      directory="profiles/default"
+      description='Extension profile for Plone.'
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+  <genericsetup:registerProfile
+      name="uninstall"
+      title="plone.formwidget.geolocation map uninstall"
+      directory="profiles/uninstall"
+      description='Extension profile for Plone.'
+      provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
 </configure>

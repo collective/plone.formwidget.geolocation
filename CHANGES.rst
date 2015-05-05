@@ -4,6 +4,9 @@ Changelog
 1.3 (unreleased)
 ----------------
 
+- Add Leaflet as mapping widget. Use bower/grunt managed resources.
+  [thet]
+
 - Remove the ``div.geolocation`` elements. Instead, render the list of
   geolocation points as JSON value on a ``data-geopoints`` attrbute on the map
   element.
