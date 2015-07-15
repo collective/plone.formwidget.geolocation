@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.3 (unreleased)
+1.3 (2015-07-15)
 ----------------
 
 - Add Leaflet as mapping widget. Use bower/grunt managed resources.
