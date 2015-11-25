@@ -7,7 +7,16 @@
 var oldL = window.L,
     L = {};
 
-L.version = '0.7.3';
+L.version = '0.7.7';
+
+// define Leaflet for Node module pattern loaders, including Browserify
+if (typeof module === 'object' && typeof module.exports === 'object') {
+	module.exports = L;
+
+// define Leaflet as an AMD module
+} else if (typeof define === 'function' && define.amd) {
+	define(L);
+}
 
 // define Leaflet as a global L variable, saving the original L to restore later if needed
 
@@ -510,9 +519,8 @@ L.Mixin.Events.fire = L.Mixin.Events.fireEvent;
 		gecko = ua.indexOf('gecko') !== -1,
 
 	    mobile = typeof orientation !== undefined + '',
-	    msPointer = window.navigator && window.navigator.msPointerEnabled &&
-	              window.navigator.msMaxTouchPoints && !window.PointerEvent,
-		pointer = (window.PointerEvent && window.navigator.pointerEnabled && window.navigator.maxTouchPoints) ||
+	    msPointer = !window.PointerEvent && window.MSPointerEvent,
+		pointer = (window.PointerEvent && window.navigator.pointerEnabled) ||
 				  msPointer,
 	    retina = ('devicePixelRatio' in window && window.devicePixelRatio > 1) ||
 	             ('matchMedia' in window && window.matchMedia('(min-resolution:144dpi)') &&
@@ -525,38 +533,8 @@ L.Mixin.Events.fire = L.Mixin.Events.fireEvent;
 	    opera3d = 'OTransition' in doc.style,
 	    any3d = !window.L_DISABLE_3D && (ie3d || webkit3d || gecko3d || opera3d) && !phantomjs;
 
-
-	// PhantomJS has 'ontouchstart' in document.documentElement, but doesn't actually support touch.
-	// https://github.com/Leaflet/Leaflet/pull/1434#issuecomment-13843151
-
-	var touch = !window.L_NO_TOUCH && !phantomjs && (function () {
-
-		var startName = 'ontouchstart';
-
-		// IE10+ (We simulate these into touch* events in L.DomEvent and L.DomEvent.Pointer) or WebKit, etc.
-		if (pointer || (startName in doc)) {
-			return true;
-		}
-
-		// Firefox/Gecko
-		var div = document.createElement('div'),
-		    supported = false;
-
-		if (!div.setAttribute) {
-			return false;
-		}
-		div.setAttribute(startName, 'return;');
-
-		if (typeof div[startName] === 'function') {
-			supported = true;
-		}
-
-		div.removeAttribute(startName);
-		div = null;
-
-		return supported;
-	}());
-
+	var touch = !window.L_NO_TOUCH && !phantomjs && (pointer || 'ontouchstart' in window ||
+		(window.DocumentTouch && document instanceof window.DocumentTouch));
 
 	L.Browser = {
 		ie: ie,
@@ -1623,14 +1601,15 @@ L.Map = L.Class.extend({
 		var paddingTL = L.point(options.paddingTopLeft || options.padding || [0, 0]),
 		    paddingBR = L.point(options.paddingBottomRight || options.padding || [0, 0]),
 
-		    zoom = this.getBoundsZoom(bounds, false, paddingTL.add(paddingBR)),
-		    paddingOffset = paddingBR.subtract(paddingTL).divideBy(2),
+		    zoom = this.getBoundsZoom(bounds, false, paddingTL.add(paddingBR));
+
+		zoom = (options.maxZoom) ? Math.min(options.maxZoom, zoom) : zoom;
+
+		var paddingOffset = paddingBR.subtract(paddingTL).divideBy(2),
 
 		    swPoint = this.project(bounds.getSouthWest(), zoom),
 		    nePoint = this.project(bounds.getNorthEast(), zoom),
 		    center = this.unproject(swPoint.add(nePoint).divideBy(2).add(paddingOffset), zoom);
-
-		zoom = options && options.maxZoom ? Math.min(options.maxZoom, zoom) : zoom;
 
 		return this.setView(center, zoom, options);
 	},
@@ -2773,7 +2752,7 @@ L.TileLayer = L.Class.extend({
 		}
 
 		if (options.bounds) {
-			var tileSize = options.tileSize,
+			var tileSize = this._getTileSize(),
 			    nwPoint = tilePoint.multiplyBy(tileSize),
 			    sePoint = nwPoint.add([tileSize, tileSize]),
 			    nw = this._map.unproject(nwPoint),
@@ -3558,10 +3537,8 @@ L.Marker = L.Class.extend({
 
 	update: function () {
 		if (this._icon) {
-			var pos = this._map.latLngToLayerPoint(this._latlng).round();
-			this._setPos(pos);
+			this._setPos(this._map.latLngToLayerPoint(this._latlng).round());
 		}
-
 		return this;
 	},
 
@@ -3584,7 +3561,7 @@ L.Marker = L.Class.extend({
 			if (options.title) {
 				icon.title = options.title;
 			}
-			
+
 			if (options.alt) {
 				icon.alt = options.alt;
 			}
@@ -4219,6 +4196,7 @@ L.Marker.include({
 		if (content instanceof L.Popup) {
 			L.setOptions(content, options);
 			this._popup = content;
+			content._source = this;
 		} else {
 			this._popup = new L.Popup(options, this)
 				.setContent(content);
@@ -4411,7 +4389,9 @@ L.FeatureGroup = L.LayerGroup.extend({
 			layer = this._layers[layer];
 		}
 
-		layer.off(L.FeatureGroup.EVENTS, this._propagateEvent, this);
+		if ('off' in layer) {
+			layer.off(L.FeatureGroup.EVENTS, this._propagateEvent, this);
+		}
 
 		L.LayerGroup.prototype.removeLayer.call(this, layer);
 
@@ -4731,7 +4711,7 @@ L.Path = L.Path.extend({
 	},
 
 	_fireMouseEvent: function (e) {
-		if (!this.hasEventListeners(e.type)) { return; }
+		if (!this._map || !this.hasEventListeners(e.type)) { return; }
 
 		var map = this._map,
 		    containerPoint = map.mouseEventToContainerPoint(e),
@@ -5105,6 +5085,13 @@ L.Path = (L.Path.SVG && !window.L_PREFER_CANVAS) || !L.Browser.canvas ? L.Path :
 		if (options.fill) {
 			this._ctx.fillStyle = options.fillColor || options.color;
 		}
+
+		if (options.lineCap) {
+			this._ctx.lineCap = options.lineCap;
+		}
+		if (options.lineJoin) {
+			this._ctx.lineJoin = options.lineJoin;
+		}
 	},
 
 	_drawPath: function () {
@@ -5142,7 +5129,7 @@ L.Path = (L.Path.SVG && !window.L_PREFER_CANVAS) || !L.Browser.canvas ? L.Path :
 
 		if (options.fill) {
 			ctx.globalAlpha = options.fillOpacity;
-			ctx.fill();
+			ctx.fill(options.fillRule || 'evenodd');
 		}
 
 		if (options.stroke) {
@@ -5157,15 +5144,14 @@ L.Path = (L.Path.SVG && !window.L_PREFER_CANVAS) || !L.Browser.canvas ? L.Path :
 
 	_initEvents: function () {
 		if (this.options.clickable) {
-			// TODO dblclick
 			this._map.on('mousemove', this._onMouseMove, this);
-			this._map.on('click', this._onClick, this);
+			this._map.on('click dblclick contextmenu', this._fireMouseEvent, this);
 		}
 	},
 
-	_onClick: function (e) {
+	_fireMouseEvent: function (e) {
 		if (this._containsPoint(e.layerPoint)) {
-			this.fire('click', e);
+			this.fire(e.type, e);
 		}
 	},
 
@@ -7183,8 +7169,9 @@ L.extend(L.DomEvent, {
 		    pointers = this._pointers;
 
 		var cb = function (e) {
-
-			L.DomEvent.preventDefault(e);
+			if (e.pointerType !== 'mouse' && e.pointerType !== e.MSPOINTER_TYPE_MOUSE) {
+				L.DomEvent.preventDefault(e);
+			}
 
 			var alreadyInArray = false;
 			for (var i = 0; i < pointers.length; i++) {
@@ -8943,20 +8930,25 @@ L.Map.include(!L.DomUtil.TRANSITION ? {} : {
 				delta: delta,
 				backwards: backwards
 			});
+			// horrible hack to work around a Chrome bug https://github.com/Leaflet/Leaflet/issues/3689
+			setTimeout(L.bind(this._onZoomTransitionEnd, this), 250);
 		}, this);
 	},
 
 	_onZoomTransitionEnd: function () {
+		if (!this._animatingZoom) { return; }
 
 		this._animatingZoom = false;
 
 		L.DomUtil.removeClass(this._mapPane, 'leaflet-zoom-anim');
 
-		this._resetView(this._animateToCenter, this._animateToZoom, true, true);
+		L.Util.requestAnimFrame(function () {
+			this._resetView(this._animateToCenter, this._animateToZoom, true, true);
 
-		if (L.Draggable) {
-			L.Draggable._disabled = false;
-		}
+			if (L.Draggable) {
+				L.Draggable._disabled = false;
+			}
+		}, this);
 	}
 });
 
@@ -8991,6 +8983,11 @@ L.TileLayer.include({
 
 		// force reflow
 		L.Util.falseFn(bg.offsetWidth);
+
+		var zoom = this._map.getZoom();
+		if (zoom > this.options.maxZoom || zoom < this.options.minZoom) {
+			this._clearBgBuffer();
+		}
 
 		this._animating = false;
 	},
@@ -9312,7 +9309,18 @@ L.control.fullscreen = function (options) {
 };
 
 
-(function () {
+(function (root, factory) {
+	if (typeof define === 'function' && define.amd) {
+		// AMD. Register as an anonymous module.
+		define(['leaflet'], factory);
+	} else if (typeof modules === 'object' && module.exports) {
+		// define a Common JS module that relies on 'leaflet'
+		module.exports = factory(require('leaflet'));
+	} else {
+		// Assume Leaflet is loaded into global object L already
+		factory(L);
+	}
+}(this, function (L) {
 	'use strict';
 
 	L.TileLayer.Provider = L.TileLayer.extend({
@@ -9358,6 +9366,19 @@ L.control.fullscreen = function (options) {
 			var forceHTTP = window.location.protocol === 'file:' || provider.options.forceHTTP;
 			if (provider.url.indexOf('//') === 0 && forceHTTP) {
 				provider.url = 'http:' + provider.url;
+			}
+
+			// If retina option is set
+			if (provider.options.retina) {
+				// Check retina screen
+				if (options.detectRetina && L.Browser.retina) {
+					// The retina option will be active now
+					// But we need to prevent Leaflet retina mode
+					options.detectRetina = false;
+				} else {
+					// No retina, remove option
+					provider.options.retina = '';
+				}
 			}
 
 			// replace attribution placeholders with their values from toplevel provider attribution,
@@ -9528,9 +9549,7 @@ L.control.fullscreen = function (options) {
 			}
 		},
 		MapBox: {
-			url: function (id) {
-				return '//{s}.tiles.mapbox.com/v3/' + id + '/{z}/{x}/{y}.png';
-			},
+			url: '//api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}',
 			options: {
 				attribution:
 					'Imagery from <a href="http://mapbox.com/about/maps/">MapBox</a> &mdash; ' +
@@ -9539,7 +9558,7 @@ L.control.fullscreen = function (options) {
 			}
 		},
 		Stamen: {
-			url: '//stamen-tiles-{s}.a.ssl.fastly.net/{variant}/{z}/{x}/{y}.png',
+			url: '//stamen-tiles-{s}.a.ssl.fastly.net/{variant}/{z}/{x}/{y}.{ext}',
 			options: {
 				attribution:
 					'Map tiles by <a href="http://stamen.com">Stamen Design</a>, ' +
@@ -9714,8 +9733,8 @@ L.control.fullscreen = function (options) {
 			 */
 			url:
 				'//{s}.{base}.maps.cit.api.here.com/maptile/2.1/' +
-				'maptile/{mapID}/{variant}/{z}/{x}/{y}/256/png8?' +
-				'app_id={app_id}&app_code={app_code}',
+				'{type}/{mapID}/{variant}/{z}/{x}/{y}/{size}/{format}?' +
+				'app_id={app_id}&app_code={app_code}&lg={language}',
 			options: {
 				attribution:
 					'Map &copy; 1987-2014 <a href="http://developer.here.com">HERE</a>',
@@ -9725,7 +9744,11 @@ L.control.fullscreen = function (options) {
 				'app_code': '<insert your app_code here>',
 				base: 'base',
 				variant: 'normal.day',
-				maxZoom: 20
+				maxZoom: 20,
+				type: 'maptile',
+				language: 'eng',
+				format: 'png8',
+				size: '256'
 			},
 			variants: {
 				normalDay: 'normal.day',
@@ -9740,6 +9763,23 @@ L.control.fullscreen = function (options) {
 				normalNightGrey: 'normal.night.grey',
 				normalNightGreyMobile: 'normal.night.grey.mobile',
 
+				basicMap: {
+					options: {
+						type: 'basetile'
+					}
+				},
+				mapLabels: {
+					options: {
+						type: 'labeltile',
+						format: 'png'
+					}
+				},
+				trafficFlow: {
+					options: {
+						base: 'traffic',
+						type: 'flowtile'
+					}
+				},
 				carnavDayGrey: 'carnav.day.grey',
 				hybridDay: {
 					options: {
@@ -9796,11 +9836,12 @@ L.control.fullscreen = function (options) {
 			}
 		},
 		FreeMapSK: {
-			url: 'http://{s}.freemap.sk/T/{z}/{x}/{y}.jpeg',
+			url: 'http://t{s}.freemap.sk/T/{z}/{x}/{y}.jpeg',
 			options: {
 				minZoom: 8,
 				maxZoom: 16,
-				subdomains: ['t1', 't2', 't3', 't4'],
+				subdomains: '1234',
+				bounds: [[47.204642, 15.996093], [49.830896, 22.576904]],
 				attribution:
 					'{attribution.OpenStreetMap}, vizualization CC-By-SA 2.0 <a href="http://freemap.sk">Freemap.sk</a>'
 			}
@@ -9823,8 +9864,10 @@ L.control.fullscreen = function (options) {
 			variants: {
 				Positron: 'light_all',
 				PositronNoLabels: 'light_nolabels',
+				PositronOnlyLabels: 'light_only_labels',
 				DarkMatter: 'dark_all',
-				DarkMatterNoLabels: 'dark_nolabels'
+				DarkMatterNoLabels: 'dark_nolabels',
+				DarkMatterOnlyLabels: 'dark_only_labels'
 			}
 		},
 		HikeBike: {
@@ -9927,33 +9970,58 @@ L.control.fullscreen = function (options) {
 					}
 				}
 			}
+		},
+		NLS: {
+			// NLS maps are copyright National library of Scotland.
+			// http://maps.nls.uk/projects/api/index.html
+			// Please contact NLS for anything other than non-commercial low volume usage
+			//
+			// Map sources: Ordnance Survey 1:1m to 1:63K, 1920s-1940s
+			//   z0-9  - 1:1m
+			//  z10-11 - quarter inch (1:253440)
+			//  z12-18 - one inch (1:63360)
+			url: '//nls-{s}.tileserver.com/nls/{z}/{x}/{y}.jpg',
+			options: {
+				attribution: '<a href="http://geo.nls.uk/maps/">National Library of Scotland Historic Maps</a>',
+				bounds: [[49.6, -12], [61.7, 3]],
+				minZoom: 1,
+				maxZoom: 18,
+				subdomains: '0123',
+			}
 		}
 	};
 
 	L.tileLayer.provider = function (provider, options) {
 		return new L.TileLayer.Provider(provider, options);
 	};
-}());
+
+	return L;
+}));
 
 
 /*
  * L.Control.GeoSearch - search for an address and zoom to its location
- * https://github.com/smeijer/leaflet.control.geosearch
+ * https://github.com/smeijer/L.GeoSearch
  */
 
 L.GeoSearch = {};
 L.GeoSearch.Provider = {};
 
-L.GeoSearch.Result = function (x, y, label) {
+L.GeoSearch.Result = function (x, y, label, bounds, details) {
     this.X = x;
     this.Y = y;
     this.Label = label;
+    this.bounds = bounds;
+
+    if (details)
+        this.details = details;
 };
 
 L.Control.GeoSearch = L.Control.extend({
     options: {
         position: 'topcenter',
         showMarker: true,
+        retainZoomLevel: false,
         draggable: false
     },
 
@@ -10022,13 +10090,14 @@ L.Control.GeoSearch = L.Control.extend({
     },
 
     geosearch: function (qry) {
+        var that = this;
         try {
             var provider = this._config.provider;
 
             if(typeof provider.GetLocations == 'function') {
                 var results = provider.GetLocations(qry, function(results) {
-                    this._processResults(results);
-                }.bind(this));
+                    that._processResults(results);
+                });
             }
             else {
                 var url = provider.GetServiceUrl(qry);
@@ -10052,7 +10121,7 @@ L.Control.GeoSearch = L.Control.extend({
         };
 
         function getJsonP (url) {
-            url = url + '&callback=parseLocation'
+            url = url + '&callback=parseLocation';
             var script = document.createElement('script');
             script.id = 'getJsonP';
             script.src = url;
@@ -10116,21 +10185,35 @@ L.Control.GeoSearch = L.Control.extend({
 
     _showLocation: function (location) {
         if (this.options.showMarker == true) {
-            if (typeof this._positionMarker === 'undefined')
+            if (typeof this._positionMarker === 'undefined') {
                 this._positionMarker = L.marker(
                     [location.Y, location.X],
-                    {draggable: this.options.draggable}).addTo(this._map);
-            else
+                    {draggable: this.options.draggable}
+                ).addTo(this._map);
+            }
+            else {
                 this._positionMarker.setLatLng([location.Y, location.X]);
+            }
         }
-        this._map.setView([location.Y, location.X], this._config.zoomLevel, false);
-        this._map.fireEvent('geosearch_showlocation', {Location: location});
+        if (!this.options.retainZoomLevel && location.bounds && location.bounds.isValid()) {
+            this._map.fitBounds(location.bounds);
+        }
+        else {
+            this._map.setView([location.Y, location.X], this._getZoomLevel(), false);
+        }
+
+        this._map.fireEvent('geosearch_showlocation', {
+          Location: location,
+          Marker : this._positionMarker
+        });
     },
 
     _printError: function(message) {
         var elem = this._resultslist;
         elem.innerHTML = '<li>' + message + '</li>';
         elem.style.display = 'block';
+
+        this._map.fireEvent('geosearch_error', {message: message});
 
         setTimeout(function () {
             elem.style.display = 'none';
@@ -10139,25 +10222,33 @@ L.Control.GeoSearch = L.Control.extend({
 
     _onKeyUp: function (e) {
         var esc = 27,
-            enter = 13,
-            queryBox = document.getElementById('leaflet-control-geosearch-qry');
+            enter = 13;
 
         if (e.keyCode === esc) { // escape key detection is unreliable
-            queryBox.value = '';
+            this._searchbox.value = '';
             this._map._container.focus();
         } else if (e.keyCode === enter) {
             e.preventDefault();
             e.stopPropagation();
-            this.geosearch(queryBox.value);
+
+            this.geosearch(this._searchbox.value);
         }
+    },
+
+    _getZoomLevel: function() {
+        if (! this.options.retainZoomLevel) {
+            return this._config.zoomLevel;
+        }
+        return this._map.zoom;
     }
+
 });
 
 
 /**
  * L.Control.GeoSearch - search for an address and zoom to it's location
  * L.GeoSearch.Provider.Esri uses arcgis geocoding service
- * https://github.com/smeijer/leaflet.control.geosearch
+ * https://github.com/smeijer/L.GeoSearch
  */
 
 L.GeoSearch.Provider.Esri = L.Class.extend({
