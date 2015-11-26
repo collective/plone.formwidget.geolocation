@@ -9,15 +9,6 @@ var oldL = window.L,
 
 L.version = '0.7.7';
 
-// define Leaflet for Node module pattern loaders, including Browserify
-if (typeof module === 'object' && typeof module.exports === 'object') {
-	module.exports = L;
-
-// define Leaflet as an AMD module
-} else if (typeof define === 'function' && define.amd) {
-	define(L);
-}
-
 // define Leaflet as a global L variable, saving the original L to restore later if needed
 
 L.noConflict = function () {
@@ -9310,16 +9301,8 @@ L.control.fullscreen = function (options) {
 
 
 (function (root, factory) {
-	if (typeof define === 'function' && define.amd) {
-		// AMD. Register as an anonymous module.
-		define(['leaflet'], factory);
-	} else if (typeof modules === 'object' && module.exports) {
-		// define a Common JS module that relies on 'leaflet'
-		module.exports = factory(require('leaflet'));
-	} else {
-		// Assume Leaflet is loaded into global object L already
-		factory(L);
-	}
+	// Assume Leaflet is loaded into global object L already
+	factory(L);
 }(this, function (L) {
 	'use strict';
 
