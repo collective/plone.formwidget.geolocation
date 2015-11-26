@@ -9,6 +9,9 @@ Changelog
   L.Icon.Default.imagePath, set it manually.'
   [thet]
 
+- Update Leaflet dependencies.
+  [thet]
+
 
 1.3 (2015-07-15)
 ----------------
