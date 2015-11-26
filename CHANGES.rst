@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.4 (unreleased)
+1.4 (2015-11-26)
 ----------------
 
 - Leaflet: After searching, bind new marker to update lat/lng input field and
