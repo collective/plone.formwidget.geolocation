@@ -4,7 +4,10 @@ Changelog
 1.4 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Leaflet: After searching, bind new marker to update lat/lng input field and
+  remove MarkerClusterGroup. Fix annoying 'Uncaught Error: Couldn't autodetect
+  L.Icon.Default.imagePath, set it manually.'
+  [thet]
 
 
 1.3 (2015-07-15)
