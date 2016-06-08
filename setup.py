@@ -1,7 +1,8 @@
+# -*- coding: utf-8 -*-
 from setuptools import find_packages
 from setuptools import setup
 
-version = '1.5.dev0'
+version = '2.0.dev0'
 
 setup(
     name='plone.formwidget.geolocation',

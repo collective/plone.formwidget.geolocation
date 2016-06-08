@@ -1,10 +1,11 @@
 Changelog
 =========
 
-1.5 (unreleased)
+2.0 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Support for Plone 5 only.
+  [thet]
 
 
 1.4 (2015-11-26)

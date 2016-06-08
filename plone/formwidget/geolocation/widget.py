@@ -1,16 +1,21 @@
-from Products.CMFPlone.utils import safe_unicode
+# -*- coding: utf-8 -*-
 from plone.formwidget.geolocation.interfaces import IGeolocationField
 from plone.formwidget.geolocation.interfaces import IGeolocationWidget
+from Products.CMFPlone.utils import safe_unicode
 from z3c.form.browser.text import TextWidget
-from z3c.form.interfaces import IFieldWidget, IFormLayer
+from z3c.form.interfaces import IFieldWidget
+from z3c.form.interfaces import IFormLayer
 from z3c.form.widget import FieldWidget
-from zope.component import adapter, queryMultiAdapter
-from zope.interface import implementer, implementsOnly
+from zope.component import adapter
+from zope.component import queryMultiAdapter
+from zope.interface import implementer
+from zope.interface import implementer_only
+
 import json
 
 
+@implementer_only(IGeolocationWidget)
 class GeolocationWidget(TextWidget):
-    implementsOnly(IGeolocationWidget)
 
     klass = u'geolocation-widget'
     value = None

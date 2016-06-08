@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from z3c.form.interfaces import IWidget
 from zope import schema
 from zope.i18nmessageid import MessageFactory
