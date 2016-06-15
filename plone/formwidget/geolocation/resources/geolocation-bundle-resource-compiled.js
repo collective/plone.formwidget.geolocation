@@ -9,6 +9,15 @@ var oldL = window.L,
 
 L.version = '0.7.7';
 
+// define Leaflet for Node module pattern loaders, including Browserify
+if (typeof module === 'object' && typeof module.exports === 'object') {
+	module.exports = L;
+
+// define Leaflet as an AMD module
+} else if (typeof define === 'function' && define.amd) {
+	define('leaflet',L);
+}
+
 // define Leaflet as a global L variable, saving the original L to restore later if needed
 
 L.noConflict = function () {
@@ -9157,7 +9166,433 @@ L.Map.include({
 
 
 }(window, document));
+/**
+ * Patterns parser - Argument parser
+ *
+ * Copyright 2012-2013 Florian Friesdorf
+ * Copyright 2012-2013 Simplon B.V. - Wichert Akkerman
+ */
+define('pat-parser',[
+    "jquery",
+    "underscore",
+    "pat-utils",
+    "pat-logger"
+], function($, _, utils, logger) {
+    "use strict";
 
+    function ArgumentParser(name, opts) {
+        opts = opts || {};
+        this.order = [];
+        this.parameters = {};
+        this.attribute = "data-pat-" + name;
+        this.enum_values = {};
+        this.enum_conflicts = [];
+        this.groups = {};
+        this.possible_groups = {};
+        this.log = logger.getLogger(name + ".parser");
+    }
+
+    ArgumentParser.prototype = {
+        group_pattern: /([a-z][a-z0-9]*)-([A-Z][a-z0-0\-]*)/i,
+        json_param_pattern: /^\s*{/i,
+        named_param_pattern: /^\s*([a-z][a-z0-9\-]*)\s*:(.*)/i,
+        token_pattern: /((["']).*?(?!\\)\2)|\s*(\S+)\s*/g,
+
+        _camelCase: function(str) {
+            return str.replace(/\-([a-z])/g, function(_, p1){
+                return p1.toUpperCase();
+            });
+        },
+
+        addAlias: function argParserAddAlias(alias, original) {
+            /* Add an alias for a previously added parser argument.
+             *
+             * Useful when you want to support both US and UK english argument
+             * names.
+             */
+            if (this.parameters[original]) {
+                this.parameters[original].alias = alias;
+            } else {
+                throw("Attempted to add an alias \""+alias+"\" for a non-existing parser argument \""+original+"\".");
+            }
+        },
+
+        addGroupToSpec: function argParserAddGroupToSpec(spec) {
+            /* Determine wether an argument being parsed can be grouped and
+             * update its specifications object accordingly.
+             *
+             * Internal method used by addArgument and addJSONArgument
+             */
+            var m = spec.name.match(this.group_pattern);
+            if (m) {
+                var group = m[1],
+                    field = m[2];
+                if (group in this.possible_groups) {
+                    var first_spec = this.possible_groups[group],
+                        first_name = first_spec.name.match(this.group_pattern)[2];
+                    first_spec.group = group;
+                    first_spec.dest = first_name;
+                    this.groups[group] = new ArgumentParser();
+                    this.groups[group].addArgument(
+                            first_name, first_spec.value, first_spec.choices, first_spec.multiple);
+                    delete this.possible_groups[group];
+                }
+                if (group in this.groups) {
+                    this.groups[group].addArgument(field, spec.value, spec.choices, spec.multiple);
+                    spec.group = group;
+                    spec.dest = field;
+                } else {
+                    this.possible_groups[group] = spec;
+                    spec.dest = this._camelCase(spec.name);
+                }
+            }
+            return spec;
+        },
+
+        addJSONArgument: function argParserAddJSONArgument(name, default_value) {
+            /* Add an argument where the value is provided in JSON format.
+             *
+             * This is a different usecase than specifying all arguments to
+             * the data-pat-... attributes in JSON format, and instead is part
+             * of the normal notation except that a value is in JSON instead of
+             * for example a string.
+             */
+            this.order.push(name);
+            this.parameters[name] = this.addGroupToSpec({
+                name: name,
+                value: default_value,
+                dest: name,
+                group: null,
+                type: "json"
+            });
+        },
+
+        addArgument: function ArgParserAddArgument(name, default_value, choices, multiple) {
+            var spec = {
+                name: name,
+                value: (multiple && !Array.isArray(default_value)) ? [default_value] : default_value,
+                multiple: multiple,
+                dest: name,
+                group: null
+            };
+            if (choices && Array.isArray(choices) && choices.length) {
+                spec.choices = choices;
+                spec.type = this._typeof(choices[0]);
+                for (var i=0; i<choices.length; i++) {
+                    if (this.enum_conflicts.indexOf(choices[i])!==-1) {
+                        continue;
+                    } else if (choices[i] in this.enum_values) {
+                        this.enum_conflicts.push(choices[i]);
+                        delete this.enum_values[choices[i]];
+                    } else {
+                        this.enum_values[choices[i]]=name;
+                    }
+                }
+            } else if (typeof spec.value==="string" && spec.value.slice(0, 1)==="$") {
+                spec.type = this.parameters[spec.value.slice(1)].type;
+            } else {
+                // Note that this will get reset by _defaults if default_value is a function.
+                spec.type = this._typeof(multiple ? spec.value[0] : spec.value);
+            }
+            this.order.push(name);
+            this.parameters[name] = this.addGroupToSpec(spec);
+        },
+
+        _typeof: function argParserTypeof(obj) {
+            var type = typeof obj;
+            if (obj===null)
+                return "null";
+            return type;
+        },
+
+        _coerce: function argParserCoerce(name, value) {
+            var spec = this.parameters[name];
+            if (typeof value !== spec.type)
+                try {
+                    switch (spec.type) {
+                        case "json":
+                            value = JSON.parse(value);
+                            break;
+                        case "boolean":
+                            if (typeof value === "string") {
+                                value = value.toLowerCase();
+                                var num = parseInt(value, 10);
+                                if (!isNaN(num))
+                                    value = !!num;
+                                else
+                                    value=(value==="true" || value==="y" || value==="yes" || value==="y");
+                            } else if (typeof value === "number")
+                                value = !!value;
+                            else
+                                throw ("Cannot convert value for " + name + " to boolean");
+                            break;
+                        case "number":
+                            if (typeof value === "string") {
+                                value = parseInt(value, 10);
+                                if (isNaN(value))
+                                    throw ("Cannot convert value for " + name + " to number");
+                            } else if (typeof value === "boolean")
+                                value = value + 0;
+                            else
+                                throw ("Cannot convert value for " + name + " to number");
+                            break;
+                        case "string":
+                            value=value.toString();
+                            break;
+                        case "null":  // Missing default values
+                        case "undefined":
+                            break;
+                        default:
+                            throw ("Do not know how to convert value for " + name + " to " + spec.type);
+                    }
+                } catch (e) {
+                    this.log.warn(e);
+                    return null;
+                }
+
+            if (spec.choices && spec.choices.indexOf(value)===-1) {
+                this.log.warn("Illegal value for " + name + ": " + value);
+                return null;
+            }
+            return value;
+        },
+
+        _set: function argParserSet(opts, name, value) {
+            if (!(name in this.parameters)) {
+                this.log.debug("Ignoring value for unknown argument " + name);
+                return;
+            }
+            var spec = this.parameters[name],
+                parts, i, v;
+            if (spec.multiple) {
+                if (typeof value === "string") {
+                    parts = value.split(/,+/);
+                } else {
+                    parts = value;
+                }
+                value = [];
+                for (i=0; i<parts.length; i++) {
+                    v = this._coerce(name, parts[i].trim());
+                    if (v!==null)
+                        value.push(v);
+                }
+            } else {
+                value = this._coerce(name, value);
+                if (value===null)
+                    return;
+            }
+            opts[name] = value;
+        },
+
+        _split: function argParserSplit(text) {
+            var tokens = [];
+            text.replace(this.token_pattern, function(match, quoted, _, simple) {
+                if (quoted)
+                    tokens.push(quoted);
+                else if (simple)
+                    tokens.push(simple);
+            });
+            return tokens;
+        },
+
+        _parseExtendedNotation: function argParserParseExtendedNotation(argstring) {
+            var opts = {};
+            var parts = argstring.replace(/;;/g, "\0x1f").replace(/&amp;/g, "&amp\0x1f").split(/;/)
+                        .map(function(el) {
+                            return el.replace(new RegExp("\0x1f", 'g'), ";");
+                        });
+            _.each(parts, function (part, i) {
+                if (!part) { return; }
+                var matches = part.match(this.named_param_pattern);
+                if (!matches) {
+                    this.log.warn("Invalid parameter: " + part);
+                    return;
+                }
+                var name = matches[1],
+                    value = matches[2].trim(),
+                    arg = _.chain(this.parameters).where({'alias': name}).value(),
+                    is_alias = arg.length === 1;
+
+                if (is_alias) {
+                    this._set(opts, arg[0].name, value);
+                } else if (name in this.parameters) {
+                    this._set(opts, name, value);
+                } else if (name in this.groups) {
+                    var subopt = this.groups[name]._parseShorthandNotation(value);
+                    for (var field in subopt) {
+                        this._set(opts, name+"-"+field, subopt[field]);
+                    }
+                } else {
+                    this.log.warn("Unknown named parameter " + matches[1]);
+                    return;
+                }
+            }.bind(this));
+            return opts;
+        },
+
+        _parseShorthandNotation: function argParserParseShorthandNotation(parameter) {
+            var parts = this._split(parameter),
+                opts = {},
+                positional = true,
+                i=0, part, flag, sense;
+
+            while (parts.length) {
+                part=parts.shift().trim();
+                if (part.slice(0, 3)==="no-") {
+                    sense = false;
+                    flag=part.slice(3);
+                } else {
+                    sense = true;
+                    flag = part;
+                }
+                if (flag in this.parameters && this.parameters[flag].type==="boolean") {
+                    positional = false;
+                    this._set(opts, flag, sense);
+                } else if (flag in this.enum_values) {
+                    positional = false;
+                    this._set(opts, this.enum_values[flag], flag);
+                } else if (positional)
+                    this._set(opts, this.order[i], part);
+                else {
+                    parts.unshift(part);
+                    break;
+                }
+                i++;
+                if (i >= this.order.length) {
+                    break;
+                }
+            }
+            if (parts.length)
+                this.log.warn("Ignore extra arguments: " + parts.join(" "));
+            return opts;
+        },
+
+        _parse: function argParser_parse(parameter) {
+            var opts, extended, sep;
+            if (!parameter) { return {}; }
+            if (parameter.match(this.json_param_pattern)) {
+                try {
+                    return JSON.parse(parameter);
+                } catch (e) {
+                    this.log.warn("Invalid JSON argument found: "+parameter);
+                }
+            }
+            if (parameter.match(this.named_param_pattern)) {
+                return this._parseExtendedNotation(parameter);
+            }
+            sep = parameter.indexOf(";");
+            if (sep === -1) {
+                return this._parseShorthandNotation(parameter);
+            }
+            opts = this._parseShorthandNotation(parameter.slice(0, sep));
+            extended = this._parseExtendedNotation(parameter.slice(sep+1));
+            for (var name in extended)
+                opts[name] = extended[name];
+            return opts;
+        },
+
+        _defaults: function argParserDefaults($el) {
+            var result = {};
+            for (var name in this.parameters)
+                if (typeof this.parameters[name].value === "function")
+                    try {
+                        result[name] = this.parameters[name].value($el, name);
+                        this.parameters[name].type=typeof result[name];
+                    } catch(e) {
+                        this.log.error("Default function for " + name + " failed.");
+                    }
+                else
+                    result[name] = this.parameters[name].value;
+            return result;
+        },
+
+        _cleanupOptions: function argParserCleanupOptions(options) {
+            var keys = Object.keys(options),
+                i, spec, name, target;
+
+            // Resolve references
+            for (i=0; i<keys.length; i++) {
+                name = keys[i];
+                spec = this.parameters[name];
+                if (spec === undefined)
+                    continue;
+
+                if (options[name] === spec.value &&
+                        typeof spec.value==="string" && spec.value.slice(0, 1)==="$")
+                    options[name] = options[spec.value.slice(1)];
+            }
+            // Move options into groups and do renames
+            keys = Object.keys(options);
+            for (i=0; i<keys.length; i++) {
+                name = keys[i];
+                spec = this.parameters[name];
+                if (spec === undefined)
+                    continue;
+
+                if (spec.group)  {
+                    if (typeof options[spec.group]!=="object")
+                        options[spec.group] = {};
+                    target = options[spec.group];
+                } else {
+                    target = options;
+                }
+
+                if (spec.dest !== name) {
+                    target[spec.dest] = options[name];
+                    delete options[name];
+                }
+            }
+            return options;
+        },
+
+
+        parse: function argParserParse($el, options, multiple, inherit) {
+            if (typeof options==="boolean" && multiple===undefined) {
+                multiple=options;
+                options={};
+            }
+            inherit = (inherit!==false);
+            var stack = inherit ? [[this._defaults($el)]] : [[{}]];
+            var $possible_config_providers = inherit ? $el.parents().andSelf() : $el,
+                final_length = 1;
+
+            _.each($possible_config_providers, function (provider) {
+                var data = $(provider).attr(this.attribute), frame, _parse;
+                if (data) {
+                    _parse = this._parse.bind(this);
+                    if (data.match(/&&/))
+                        frame = data.split(/\s*&&\s*/).map(_parse);
+                    else
+                        frame = [_parse(data)];
+                    final_length = Math.max(frame.length, final_length);
+                    stack.push(frame);
+                }
+            }.bind(this));
+            if (typeof options==="object") {
+                if (Array.isArray(options)) {
+                    stack.push(options);
+                    final_length = Math.max(options.length, final_length);
+                } else
+                    stack.push([options]);
+            }
+            if (!multiple) { final_length = 1; }
+            var results = _.map(
+                _.compose(utils.removeDuplicateObjects, _.partial(utils.mergeStack, _, final_length))(stack),
+                this._cleanupOptions.bind(this)
+            );
+            return multiple ? results : results[0];
+        }
+    };
+    // BBB
+    ArgumentParser.prototype.add_argument = ArgumentParser.prototype.addArgument;
+    return ArgumentParser;
+});
+// jshint indent: 4, browser: true, jquery: true, quotmark: double
+// vim: sw=4 expandtab
+;
+(function(root) {
+define("leaflet-fullscreen", ["leaflet"], function() {
+  return (function() {
 L.Control.Fullscreen = L.Control.extend({
     options: {
         position: 'topleft',
@@ -9300,9 +9735,21 @@ L.control.fullscreen = function (options) {
 };
 
 
+  }).apply(root, arguments);
+});
+}(this));
+
 (function (root, factory) {
-	// Assume Leaflet is loaded into global object L already
-	factory(L);
+	if (typeof define === 'function' && define.amd) {
+		// AMD. Register as an anonymous module.
+		define('leaflet-providers',['leaflet'], factory);
+	} else if (typeof modules === 'object' && module.exports) {
+		// define a Common JS module that relies on 'leaflet'
+		module.exports = factory(require('leaflet'));
+	} else {
+		// Assume Leaflet is loaded into global object L already
+		factory(L);
+	}
 }(this, function (L) {
 	'use strict';
 
@@ -9464,7 +9911,7 @@ L.control.fullscreen = function (options) {
 			}
 		},
 		OpenMapSurfer: {
-			url: 'http://openmapsurfer.uni-hd.de/tiles/{variant}/x={x}&y={y}&z={z}',
+			url: 'http://korona.geog.uni-heidelberg.de/tiles/{variant}/x={x}&y={y}&z={z}',
 			options: {
 				maxZoom: 20,
 				variant: 'roads',
@@ -9798,26 +10245,6 @@ L.control.fullscreen = function (options) {
 				}
 			}
 		},
-		Acetate: {
-			url: 'http://a{s}.acetate.geoiq.com/tiles/{variant}/{z}/{x}/{y}.png',
-			options: {
-				attribution:
-					'&copy;2012 Esri & Stamen, Data from OSM and Natural Earth',
-				subdomains: '0123',
-				minZoom: 2,
-				maxZoom: 18,
-				variant: 'acetate-base'
-			},
-			variants: {
-				basemap: 'acetate-base',
-				terrain: 'terrain',
-				all: 'acetate-hillshading',
-				foreground: 'acetate-fg',
-				roads: 'acetate-roads',
-				labels: 'acetate-labels',
-				hillshading: 'hillshading'
-			}
-		},
 		FreeMapSK: {
 			url: 'http://t{s}.freemap.sk/T/{z}/{x}/{y}.jpeg',
 			options: {
@@ -9981,7 +10408,9 @@ L.control.fullscreen = function (options) {
 	return L;
 }));
 
-
+(function(root) {
+define("leaflet-geosearch", ["leaflet"], function() {
+  return (function() {
 /*
  * L.Control.GeoSearch - search for an address and zoom to its location
  * https://github.com/smeijer/L.GeoSearch
@@ -10002,15 +10431,17 @@ L.GeoSearch.Result = function (x, y, label, bounds, details) {
 
 L.Control.GeoSearch = L.Control.extend({
     options: {
-        position: 'topcenter',
+        position: 'topleft',
         showMarker: true,
+        showPopup: false,
+        customIcon: false,
         retainZoomLevel: false,
         draggable: false
     },
 
     _config: {
         country: '',
-        searchLabel: 'search for address ...',
+        searchLabel: 'Enter address',
         notFoundMessage: 'Sorry, that address could not be found.',
         messageHideDelay: 3000,
         zoomLevel: 18
@@ -10021,51 +10452,53 @@ L.Control.GeoSearch = L.Control.extend({
         L.Util.extend(this._config, options);
     },
 
+    resetLink: function(extraClass) {
+        var link = this._container.querySelector('a');
+        link.className = 'leaflet-bar-part leaflet-bar-part-single' + ' ' + extraClass;
+    },
+
     onAdd: function (map) {
-        var $controlContainer = map._controlContainer,
-            nodes = $controlContainer.childNodes,
-            topCenter = false;
+        this._container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-geosearch');
 
-        for (var i = 0, len = nodes.length; i < len; i++) {
-            var klass = nodes[i].className;
-            if (/leaflet-top/.test(klass) && /leaflet-center/.test(klass)) {
-                topCenter = true;
-                break;
-            }
-        }
+        // create the link - this will contain one of the icons
+        var link = L.DomUtil.create('a', '', this._container);
+        link.href = '#';
+        link.title = this._config.searchLabel;
 
-        if (!topCenter) {
-            var tc = document.createElement('div');
-            tc.className += 'leaflet-top leaflet-center';
-            $controlContainer.appendChild(tc);
-            map._controlCorners.topcenter = tc;
-        }
+        // set the link's icon to magnifying glass
+        this.resetLink('glass');
 
-        this._map = map;
-        this._container = L.DomUtil.create('div', 'leaflet-control-geosearch');
+        // create the form that will contain the input
+        var form = L.DomUtil.create('form', 'displayNone', this._container);
 
-        var searchbox = document.createElement('input');
-        searchbox.id = 'leaflet-control-geosearch-qry';
+        // create the input, and set its placeholder text
+        var searchbox = L.DomUtil.create('input', null, form);
         searchbox.type = 'text';
         searchbox.placeholder = this._config.searchLabel;
         this._searchbox = searchbox;
 
-        var msgbox = document.createElement('div');
-        msgbox.id = 'leaflet-control-geosearch-msg';
-        msgbox.className = 'leaflet-control-geosearch-msg';
+        var msgbox = L.DomUtil.create('div', 'leaflet-bar message displayNone', this._container);
         this._msgbox = msgbox;
 
-        var resultslist = document.createElement('ul');
-        resultslist.id = 'leaflet-control-geosearch-results';
-        this._resultslist = resultslist;
+        L.DomEvent
+            .on(link, 'click', L.DomEvent.stopPropagation)
+            .on(link, 'click', L.DomEvent.preventDefault)
+            .on(link, 'click', function() {
 
-        this._msgbox.appendChild(this._resultslist);
-        this._container.appendChild(this._searchbox);
-        this._container.appendChild(this._msgbox);
+                if (L.DomUtil.hasClass(form, 'displayNone')) {
+                    L.DomUtil.removeClass(form, 'displayNone'); // unhide form
+                    searchbox.focus();
+                } else {
+                    L.DomUtil.addClass(form, 'displayNone'); // hide form
+                }
+
+            })
+            .on(link, 'dblclick', L.DomEvent.stopPropagation);
 
         L.DomEvent
-          .addListener(this._container, 'click', L.DomEvent.stop)
-          .addListener(this._searchbox, 'keypress', this._onKeyUp, this);
+            .addListener(this._searchbox, 'keypress', this._onKeyPress, this)
+            .addListener(this._searchbox, 'keyup', this._onKeyUp, this)
+            .addListener(this._searchbox, 'input', this._onInput, this);
 
         L.DomEvent.disableClickPropagation(this._container);
 
@@ -10078,13 +10511,13 @@ L.Control.GeoSearch = L.Control.extend({
             var provider = this._config.provider;
 
             if(typeof provider.GetLocations == 'function') {
-                var results = provider.GetLocations(qry, function(results) {
-                    that._processResults(results);
+                provider.GetLocations(qry, function(results) {
+                    that._processResults(results, qry);
                 });
             }
             else {
                 var url = provider.GetServiceUrl(qry);
-                this.sendRequest(provider, url);
+                this.sendRequest(provider, url, qry);
             }
         }
         catch (error) {
@@ -10092,12 +10525,30 @@ L.Control.GeoSearch = L.Control.extend({
         }
     },
 
-    sendRequest: function (provider, url) {
+    cancelSearch: function() {
+        var form = this._container.querySelector('form');
+        L.DomUtil.addClass(form, 'displayNone');
+
+        this._searchbox.value = '';
+        this.resetLink('glass');
+
+        L.DomUtil.addClass(this._msgbox, 'displayNone');
+
+        this._map._container.focus();
+    },
+
+    startSearch: function() {
+        // show spinner icon
+        this.resetLink('spinner');
+        this.geosearch(this._searchbox.value);
+    },
+
+    sendRequest: function (provider, url, qry) {
         var that = this;
 
         window.parseLocation = function (response) {
             var results = provider.ParseJSON(response);
-            that._processResults(results);
+            that._processResults(results, qry);
 
             document.body.removeChild(document.getElementById('getJsonP'));
             delete window.parseLocation;
@@ -10124,7 +10575,7 @@ L.Control.GeoSearch = L.Control.extend({
                             var response = JSON.parse(xhr.responseText),
                                 results = provider.ParseJSON(response);
 
-                            that._processResults(results);
+                            that._processResults(results, qry);
                         } else if (xhr.status == 0 || xhr.status == 400) {
                             getJsonP(url);
                         } else {
@@ -10146,7 +10597,7 @@ L.Control.GeoSearch = L.Control.extend({
                     var response = JSON.parse(xdr.responseText),
                         results = provider.ParseJSON(response);
 
-                    that._processResults(results);
+                    that._processResults(results, qry);
                 };
 
                 xdr.open('GET', url);
@@ -10157,25 +10608,35 @@ L.Control.GeoSearch = L.Control.extend({
         }
     },
 
-    _processResults: function(results) {
+    _processResults: function(results, qry) {
         if (results.length > 0) {
             this._map.fireEvent('geosearch_foundlocations', {Locations: results});
-            this._showLocation(results[0]);
+            this._showLocation(results[0], qry);
+            this.cancelSearch();
         } else {
             this._printError(this._config.notFoundMessage);
         }
     },
 
-    _showLocation: function (location) {
+    _showLocation: function (location, qry) {
         if (this.options.showMarker == true) {
             if (typeof this._positionMarker === 'undefined') {
                 this._positionMarker = L.marker(
                     [location.Y, location.X],
                     {draggable: this.options.draggable}
                 ).addTo(this._map);
+                if( this.options.customIcon ) {
+                    this._positionMarker.setIcon(this.options.customIcon);
+                }
+                if( this.options.showPopup ) {
+                   this._positionMarker.bindPopup(qry).openPopup();
+                }
             }
             else {
                 this._positionMarker.setLatLng([location.Y, location.X]);
+                if( this.options.showPopup ) {
+                   this._positionMarker.bindPopup(qry).openPopup();
+                }
             }
         }
         if (!this.options.retainZoomLevel && location.bounds && location.bounds.isValid()) {
@@ -10191,30 +10652,24 @@ L.Control.GeoSearch = L.Control.extend({
         });
     },
 
+    _isShowingError: false,
+
     _printError: function(message) {
-        var elem = this._resultslist;
-        elem.innerHTML = '<li>' + message + '</li>';
-        elem.style.display = 'block';
+        this._msgbox.innerHTML = message;
+        L.DomUtil.removeClass(this._msgbox, 'displayNone');
 
         this._map.fireEvent('geosearch_error', {message: message});
 
-        setTimeout(function () {
-            elem.style.display = 'none';
-        }, 3000);
+        // show alert icon
+        this.resetLink('alert');
+        this._isShowingError = true;
     },
 
     _onKeyUp: function (e) {
-        var esc = 27,
-            enter = 13;
+        var esc = 27;
 
         if (e.keyCode === esc) { // escape key detection is unreliable
-            this._searchbox.value = '';
-            this._map._container.focus();
-        } else if (e.keyCode === enter) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            this.geosearch(this._searchbox.value);
+            this.cancelSearch();
         }
     },
 
@@ -10222,12 +10677,87 @@ L.Control.GeoSearch = L.Control.extend({
         if (! this.options.retainZoomLevel) {
             return this._config.zoomLevel;
         }
-        return this._map.zoom;
-    }
+        return this._map._zoom;
+    },
 
+    _onInput: function() {
+        if (this._isShowingError) {
+            this.resetLink('glass');
+            L.DomUtil.addClass(this._msgbox, 'displayNone');
+
+            this._isShowingError = false;
+        }
+    },
+
+    _onKeyPress: function (e) {
+        var enterKey = 13;
+
+        if (e.keyCode === enterKey) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            this.startSearch();
+        }
+    }
 });
 
 
+  }).apply(root, arguments);
+});
+}(this));
+
+(function(root) {
+define("leaflet-geosearch-bing", ["leaflet-geosearch"], function() {
+  return (function() {
+/**
+ * L.Control.GeoSearch - search for an address and zoom to it's location
+ * L.GeoSearch.Provider.Bing uses bing geocoding service
+ * https://github.com/smeijer/L.GeoSearch
+ */
+
+L.GeoSearch.Provider.Bing = L.Class.extend({
+    options: {
+
+    },
+
+    initialize: function(options) {
+        options = L.Util.setOptions(this, options);
+    },
+
+    GetServiceUrl: function (qry) {
+        var parameters = L.Util.extend({
+            query: qry,
+            jsonp: 'parseLocation'
+        }, this.options);
+
+        return 'http://dev.virtualearth.net/REST/v1/Locations'
+            + L.Util.getParamString(parameters);
+    },
+
+    ParseJSON: function (data) {
+        if (data.resourceSets.length == 0 || data.resourceSets[0].resources.length == 0)
+            return [];
+
+        var results = [];
+        for (var i = 0; i < data.resourceSets[0].resources.length; i++)
+            results.push(new L.GeoSearch.Result(
+                data.resourceSets[0].resources[i].point.coordinates[1],
+                data.resourceSets[0].resources[i].point.coordinates[0],
+                data.resourceSets[0].resources[i].address.formattedAddress
+            ));
+
+        return results;
+    }
+});
+
+
+  }).apply(root, arguments);
+});
+}(this));
+
+(function(root) {
+define("leaflet-geosearch-esri", ["leaflet-geosearch"], function() {
+  return (function() {
 /**
  * L.Control.GeoSearch - search for an address and zoom to it's location
  * L.GeoSearch.Provider.Esri uses arcgis geocoding service
@@ -10242,14 +10772,14 @@ L.GeoSearch.Provider.Esri = L.Class.extend({
     initialize: function(options) {
         options = L.Util.setOptions(this, options);
     },
-    
+
     GetServiceUrl: function (qry) {
         var parameters = L.Util.extend({
             text: qry,
             f: 'pjson'
         }, this.options);
 
-        return location.protocol 
+        return (location.protocol === 'https:' ? 'https:' : 'http:')
             + '//geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/find'
             + L.Util.getParamString(parameters);
     },
@@ -10257,20 +10787,201 @@ L.GeoSearch.Provider.Esri = L.Class.extend({
     ParseJSON: function (data) {
         if (data.locations.length == 0)
             return [];
-        
+
         var results = [];
         for (var i = 0; i < data.locations.length; i++)
             results.push(new L.GeoSearch.Result(
-                data.locations[i].feature.geometry.x, 
-                data.locations[i].feature.geometry.y, 
+                data.locations[i].feature.geometry.x,
+                data.locations[i].feature.geometry.y,
                 data.locations[i].name
             ));
-        
+
         return results;
     }
 });
 
 
+  }).apply(root, arguments);
+});
+}(this));
+
+(function(root) {
+define("leaflet-geosearch-google", ["leaflet-geosearch"], function() {
+  return (function() {
+/**
+ * L.Control.GeoSearch - search for an address and zoom to it's location
+ * L.GeoSearch.Provider.Google uses google geocoding service
+ * https://github.com/smeijer/L.GeoSearch
+ */
+
+onLoadGoogleApiCallback = function() {
+    L.GeoSearch.Provider.Google.Geocoder = new google.maps.Geocoder();
+    var scriptNode = document.getElementById('load_google_api');
+    if (!!scriptNode) {
+        document.body.removeChild(scriptNode);
+    }
+};
+
+L.GeoSearch.Provider.Google = L.Class.extend({
+    _isReady: false,
+    _onReadyQueue: [],
+
+    options: {
+
+    },
+
+    initialize: function(options) {
+        options = L.Util.setOptions(this, options);
+        if (!window.google || !window.google.maps) {
+            this.loadMapsApi();
+        } else {
+            // if google is already loaded, make sure we initialize the Geocoder
+            onLoadGoogleApiCallback();
+        }
+
+    },
+
+    loadMapsApi: function () {
+        var self = this;
+        var url = "https://maps.googleapis.com/maps/api/js?v=3&callback=onLoadGoogleApiCallback&sensor=false";
+        var script = document.createElement('script');
+        script.id = 'load_google_api';
+        script.type = "text/javascript";
+        script.src = url;
+        document.body.appendChild(script);
+
+        var handle = setInterval(function() {
+            if (typeof google !== 'undefined' && L.GeoSearch.Provider.Google.Geocoder instanceof google.maps.Geocoder) {
+                clearInterval(handle);
+                self._onReady();
+            }
+        }, 25);
+    },
+
+    _onReady: function() {
+        this._isReady = true;
+
+        var data;
+        while (data = this._onReadyQueue.shift()) {
+            this.GetLocations(data.qry, data.callback);
+        }
+    },
+
+    GetLocations: function(qry, callback) {
+        if (!this._isReady) {
+            // store calls to this method, so the can be re-invoked once
+            // the google api is loaded
+            this._onReadyQueue.push({ qry: qry, callback: callback });
+            return;
+        }
+
+        var geocoder = L.GeoSearch.Provider.Google.Geocoder;
+
+        var parameters = L.Util.extend({
+            address: qry
+        }, this.options);
+
+        var results = geocoder.geocode(parameters, function(data){
+            data = {results: data};
+
+            var results = [],
+                northEastLatLng,
+                southWestLatLng,
+                bounds;
+            for (var i = 0; i < data.results.length; i++) {
+
+                if( data.results[i].geometry.bounds ) {
+                    var northEastGoogle = data.results[i].geometry.bounds.getNorthEast(),
+                        southWestGoogle = data.results[i].geometry.bounds.getSouthWest();
+
+                    northEastLatLng = new L.LatLng( northEastGoogle.lat(), northEastGoogle.lng() );
+                    southWestLatLng = new L.LatLng( southWestGoogle.lat(), southWestGoogle.lng() );
+                    bounds = new L.LatLngBounds([ northEastLatLng, southWestLatLng ]);
+                }
+                else {
+                    bounds = undefined;
+                }
+                results.push(new L.GeoSearch.Result(
+                    data.results[i].geometry.location.lng(),
+                    data.results[i].geometry.location.lat(),
+                    data.results[i].formatted_address,
+                    bounds
+                ));
+            }
+
+            if(typeof callback == 'function')
+                callback(results);
+        });
+    },
+});
+
+
+  }).apply(root, arguments);
+});
+}(this));
+
+(function(root) {
+define("leaflet-geosearch-openstreetmap", ["leaflet-geosearch"], function() {
+  return (function() {
+/**
+ * L.Control.GeoSearch - search for an address and zoom to it's location
+ * L.GeoSearch.Provider.OpenStreetMap uses openstreetmap geocoding service
+ * https://github.com/smeijer/L.GeoSearch
+ */
+
+L.GeoSearch.Provider.OpenStreetMap = L.Class.extend({
+    options: {},
+
+    initialize: function(options) {
+        options = L.Util.setOptions(this, options);
+    },
+
+    GetServiceUrl: function (qry) {
+        var parameters = L.Util.extend({
+            q: qry,
+            format: 'json'
+        }, this.options);
+
+        return (location.protocol === 'https:' ? 'https:' : 'http:')
+            + '//nominatim.openstreetmap.org/search'
+            + L.Util.getParamString(parameters);
+    },
+
+    ParseJSON: function (data) {
+        var results = [];
+
+        for (var i = 0; i < data.length; i++) {
+            var boundingBox = data[i].boundingbox,
+                northEastLatLng = new L.LatLng( boundingBox[1], boundingBox[3] ),
+                southWestLatLng = new L.LatLng( boundingBox[0], boundingBox[2] );
+
+            if (data[i].address)
+                data[i].address.type = data[i].type;
+
+            results.push(new L.GeoSearch.Result(
+                data[i].lon,
+                data[i].lat,
+                data[i].display_name,
+                new L.LatLngBounds([
+                    northEastLatLng,
+                    southWestLatLng
+                ]),
+                data[i].address
+            ));
+        }
+
+        return results;
+    }
+});
+
+
+  }).apply(root, arguments);
+});
+}(this));
+
+(function(root) {
+define("leaflet-markercluster", ["leaflet"], function() {
+  return (function() {
 /*
  Leaflet.markercluster, Provides Beautiful Animated Marker Clustering functionality for Leaflet, a JS library for interactive maps.
  https://github.com/Leaflet/Leaflet.markercluster
@@ -12383,6 +13094,13 @@ L.MarkerClusterGroup.include({
 
 }(window, document));
 
+  }).apply(root, arguments);
+});
+}(this));
+
+(function(root) {
+define("leaflet-awesomemarkers", ["leaflet"], function() {
+  return (function() {
 /*
   Leaflet.AwesomeMarkers, a plugin that adds colorful iconic markers for Leaflet, based on the Font Awesome icons
   (c) 2012-2013, Lennard Voogdt
@@ -12507,4 +13225,1076 @@ L.MarkerClusterGroup.include({
 }(this, document));
 
 
+
+
+
+  }).apply(root, arguments);
+});
+}(this));
+
+/*!
+Copyright (c) 2014 Dominik Moritz
+
+This file is part of the leaflet locate control. It is licensed under the MIT license.
+You can find the project at: https://github.com/domoritz/leaflet-locatecontrol
+*/
+(function (factory, window) {
+     // see https://github.com/Leaflet/Leaflet/blob/master/PLUGIN-GUIDE.md#module-loaders
+     // for details on how to structure a leaflet plugin.
+
+    // define an AMD module that relies on 'leaflet'
+    if (typeof define === 'function' && define.amd) {
+        define('leaflet-locatecontrol',['leaflet'], factory);
+
+    // define a Common JS module that relies on 'leaflet'
+    } else if (typeof exports === 'object') {
+        if (typeof window !== 'undefined' && window.L) {
+            module.exports = factory(L);
+        } else {
+            module.exports = factory(require('leaflet'));
+        }
+    }
+
+    // attach your plugin to the global 'L' variable
+    if(typeof window !== 'undefined' && window.L){
+        window.L.Locate = factory(L);
+    }
+
+} (function (L) {
+    L.Control.Locate = L.Control.extend({
+        options: {
+            position: 'topleft',
+            layer: new L.LayerGroup(),  // use your own layer for the location marker
+            drawCircle: true,
+            follow: false,  // follow with zoom and pan the user's location
+            stopFollowingOnDrag: false, // if follow is true, stop following when map is dragged (deprecated)
+            // if true locate control remains active on click even if the user's location is in view.
+            // clicking control will just pan to location
+            remainActive: false,
+            markerClass: L.circleMarker, // L.circleMarker or L.marker
+            // range circle
+            circleStyle: {
+                color: '#136AEC',
+                fillColor: '#136AEC',
+                fillOpacity: 0.15,
+                weight: 2,
+                opacity: 0.5
+            },
+            // inner marker
+            markerStyle: {
+                color: '#136AEC',
+                fillColor: '#2A93EE',
+                fillOpacity: 0.7,
+                weight: 2,
+                opacity: 0.9,
+                radius: 5
+            },
+            // changes to range circle and inner marker while following
+            // it is only necessary to provide the things that should change
+            followCircleStyle: {},
+            followMarkerStyle: {
+                //color: '#FFA500',
+                //fillColor: '#FFB000'
+            },
+            icon: 'fa fa-map-marker',  // fa-location-arrow or fa-map-marker
+            iconLoading: 'fa fa-spinner fa-spin',
+            circlePadding: [0, 0],
+            metric: true,
+            onLocationError: function(err) {
+                // this event is called in case of any location error
+                // that is not a time out error.
+                alert(err.message);
+            },
+            onLocationOutsideMapBounds: function(control) {
+                // this event is repeatedly called when the location changes
+                control.stop();
+                alert(control.options.strings.outsideMapBoundsMsg);
+            },
+            setView: true, // automatically sets the map view to the user's location
+            // keep the current map zoom level when displaying the user's location. (if 'false', use maxZoom)
+            keepCurrentZoomLevel: false,
+            showPopup: true, // display a popup when the user click on the inner marker
+            strings: {
+                title: "Show me where I am",
+                metersUnit: "meters",
+                feetUnit: "feet",
+                popup: "You are within {distance} {unit} from this point",
+                outsideMapBoundsMsg: "You seem located outside the boundaries of the map"
+            },
+            locateOptions: {
+                maxZoom: Infinity,
+                watch: true  // if you overwrite this, visualization cannot be updated
+            }
+        },
+
+        initialize: function (options) {
+            L.Map.addInitHook(function () {
+                if (this.options.locateControl) {
+                    this.addControl(this);
+                }
+            });
+
+            for (var i in options) {
+                if (typeof this.options[i] === 'object') {
+                    L.extend(this.options[i], options[i]);
+                } else {
+                    this.options[i] = options[i];
+                }
+            }
+
+            L.extend(this.options.locateOptions, {
+                setView: false // have to set this to false because we have to
+                               // do setView manually
+            });
+        },
+
+        /**
+         * This method launches the location engine.
+         * It is called before the marker is updated,
+         * event if it does not mean that the event will be ready.
+         *
+         * Override it if you want to add more functionalities.
+         * It should set the this._active to true and do nothing if
+         * this._active is not true.
+         */
+        _activate: function() {
+            if (this.options.setView) {
+                this._locateOnNextLocationFound = true;
+            }
+
+            if(!this._active) {
+                this._map.locate(this.options.locateOptions);
+            }
+            this._active = true;
+
+            if (this.options.follow) {
+                this._startFollowing(this._map);
+            }
+        },
+
+        /**
+         * Called to stop the location engine.
+         *
+         * Override it to shutdown any functionalities you added on start.
+         */
+        _deactivate: function() {
+            this._map.stopLocate();
+
+            this._map.off('dragstart', this._stopFollowing, this);
+            if (this.options.follow && this._following) {
+                this._stopFollowing(this._map);
+            }
+        },
+
+        /**
+         * Draw the resulting marker on the map.
+         *
+         * Uses the event retrieved from onLocationFound from the map.
+         */
+        drawMarker: function(map) {
+            if (this._event.accuracy === undefined) {
+                this._event.accuracy = 0;
+            }
+
+            var radius = this._event.accuracy;
+            if (this._locateOnNextLocationFound) {
+                if (this._isOutsideMapBounds()) {
+                    this.options.onLocationOutsideMapBounds(this);
+                } else {
+                    // If accuracy info isn't desired, keep the current zoom level
+                    if(this.options.keepCurrentZoomLevel || !this.options.drawCircle){
+                        map.panTo([this._event.latitude, this._event.longitude]);
+                    } else {
+                        map.fitBounds(this._event.bounds, {
+                            padding: this.options.circlePadding,
+                            maxZoom: this.options.keepCurrentZoomLevel ?
+                            map.getZoom() : this.options.locateOptions.maxZoom
+                        });
+                    }
+                }
+                this._locateOnNextLocationFound = false;
+            }
+
+            // circle with the radius of the location's accuracy
+            var style, o;
+            if (this.options.drawCircle) {
+                if (this._following) {
+                    style = this.options.followCircleStyle;
+                } else {
+                    style = this.options.circleStyle;
+                }
+
+                if (!this._circle) {
+                    this._circle = L.circle(this._event.latlng, radius, style)
+                    .addTo(this._layer);
+                } else {
+                    this._circle.setLatLng(this._event.latlng).setRadius(radius);
+                    for (o in style) {
+                        this._circle.options[o] = style[o];
+                    }
+                }
+            }
+
+            var distance, unit;
+            if (this.options.metric) {
+                distance = radius.toFixed(0);
+                unit =  this.options.strings.metersUnit;
+            } else {
+                distance = (radius * 3.2808399).toFixed(0);
+                unit = this.options.strings.feetUnit;
+            }
+
+            // small inner marker
+            var mStyle;
+            if (this._following) {
+                mStyle = this.options.followMarkerStyle;
+            } else {
+                mStyle = this.options.markerStyle;
+            }
+
+            if (!this._marker) {
+                this._marker = this.createMarker(this._event.latlng, mStyle)
+                .addTo(this._layer);
+            } else {
+                this.updateMarker(this._event.latlng, mStyle);
+            }
+
+            var t = this.options.strings.popup;
+            if (this.options.showPopup && t) {
+                this._marker.bindPopup(L.Util.template(t, {distance: distance, unit: unit}))
+                ._popup.setLatLng(this._event.latlng);
+            }
+
+            this._toggleContainerStyle();
+        },
+
+        /**
+         * Creates the marker.
+         *
+         * Should return the base marker so it is possible to bind a pop-up if the
+         * option is activated.
+         *
+         * Used by drawMarker, you can ignore it if you have overridden it.
+         */
+        createMarker: function(latlng, mStyle) {
+            return this.options.markerClass(latlng, mStyle);
+        },
+
+        /**
+         * Updates the marker with current coordinates.
+         *
+         * Used by drawMarker, you can ignore it if you have overridden it.
+         */
+        updateMarker: function(latlng, mStyle) {
+            this._marker.setLatLng(latlng);
+            for (var o in mStyle) {
+                this._marker.options[o] = mStyle[o];
+            }
+        },
+
+        /**
+         * Remove the marker from map.
+         */
+        removeMarker: function() {
+            this._layer.clearLayers();
+            this._marker = undefined;
+            this._circle = undefined;
+        },
+
+        onAdd: function (map) {
+            var container = L.DomUtil.create('div',
+                'leaflet-control-locate leaflet-bar leaflet-control');
+
+            this._layer = this.options.layer;
+            this._layer.addTo(map);
+            this._event = undefined;
+
+            // extend the follow marker style and circle from the normal style
+            var tmp = {};
+            L.extend(tmp, this.options.markerStyle, this.options.followMarkerStyle);
+            this.options.followMarkerStyle = tmp;
+            tmp = {};
+            L.extend(tmp, this.options.circleStyle, this.options.followCircleStyle);
+            this.options.followCircleStyle = tmp;
+
+            this._link = L.DomUtil.create('a', 'leaflet-bar-part leaflet-bar-part-single', container);
+            this._link.href = '#';
+            this._link.title = this.options.strings.title;
+            this._icon = L.DomUtil.create('span', this.options.icon, this._link);
+
+            L.DomEvent
+                .on(this._link, 'click', L.DomEvent.stopPropagation)
+                .on(this._link, 'click', L.DomEvent.preventDefault)
+                .on(this._link, 'click', function() {
+                    var shouldStop = (this._event === undefined ||
+                        this._map.getBounds().contains(this._event.latlng) ||
+                        !this.options.setView || this._isOutsideMapBounds());
+                    if (!this.options.remainActive && (this._active && shouldStop)) {
+                        this.stop();
+                    } else {
+                        this.start();
+                    }
+                }, this)
+                .on(this._link, 'dblclick', L.DomEvent.stopPropagation);
+
+            this._resetVariables();
+            this.bindEvents(map);
+
+            return container;
+        },
+
+        /**
+         * Binds the actions to the map events.
+         */
+        bindEvents: function(map) {
+            map.on('locationfound', this._onLocationFound, this);
+            map.on('locationerror', this._onLocationError, this);
+            map.on('unload', this.stop, this);
+        },
+
+        /**
+         * Starts the plugin:
+         * - activates the engine
+         * - draws the marker (if coordinates available)
+         */
+        start: function() {
+            this._activate();
+
+            if (!this._event) {
+                this._setClasses('requesting');
+            } else {
+                this.drawMarker(this._map);
+            }
+        },
+
+        /**
+         * Stops the plugin:
+         * - deactivates the engine
+         * - reinitializes the button
+         * - removes the marker
+         */
+        stop: function() {
+            this._deactivate();
+
+            this._cleanClasses();
+            this._resetVariables();
+
+            this.removeMarker();
+        },
+
+        /**
+         * Calls deactivate and dispatches an error.
+         */
+        _onLocationError: function(err) {
+            // ignore time out error if the location is watched
+            if (err.code == 3 && this.options.locateOptions.watch) {
+                return;
+            }
+
+            this.stop();
+            this.options.onLocationError(err);
+        },
+
+        /**
+         * Stores the received event and updates the marker.
+         */
+        _onLocationFound: function(e) {
+            // no need to do anything if the location has not changed
+            if (this._event &&
+                (this._event.latlng.lat === e.latlng.lat &&
+                 this._event.latlng.lng === e.latlng.lng &&
+                     this._event.accuracy === e.accuracy)) {
+                return;
+            }
+
+            if (!this._active) {
+                return;
+            }
+
+            this._event = e;
+
+            if (this.options.follow && this._following) {
+                this._locateOnNextLocationFound = true;
+            }
+
+            this.drawMarker(this._map);
+        },
+
+        /**
+         * Dispatches the 'startfollowing' event on map.
+         */
+        _startFollowing: function() {
+            this._map.fire('startfollowing', this);
+            this._following = true;
+            if (this.options.stopFollowingOnDrag) {
+                this._map.on('dragstart', this._stopFollowing, this);
+            }
+        },
+
+        /**
+         * Dispatches the 'stopfollowing' event on map.
+         */
+        _stopFollowing: function() {
+            this._map.fire('stopfollowing', this);
+            this._following = false;
+            if (this.options.stopFollowingOnDrag) {
+                this._map.off('dragstart', this._stopFollowing, this);
+            }
+            this._toggleContainerStyle();
+        },
+
+        /**
+         * Check if location is in map bounds
+         */
+        _isOutsideMapBounds: function() {
+            if (this._event === undefined)
+                return false;
+            return this._map.options.maxBounds &&
+                !this._map.options.maxBounds.contains(this._event.latlng);
+        },
+
+        /**
+         * Toggles button class between following and active.
+         */
+        _toggleContainerStyle: function() {
+            if (!this._container) {
+                return;
+            }
+
+            if (this._following) {
+                this._setClasses('following');
+            } else {
+                this._setClasses('active');
+            }
+        },
+
+        /**
+         * Sets the CSS classes for the state.
+         */
+        _setClasses: function(state) {
+            if (state == 'requesting') {
+                L.DomUtil.removeClasses(this._container, "active following");
+                L.DomUtil.addClasses(this._container, "requesting");
+
+                L.DomUtil.removeClasses(this._icon, this.options.icon);
+                L.DomUtil.addClasses(this._icon, this.options.iconLoading);
+            } else if (state == 'active') {
+                L.DomUtil.removeClasses(this._container, "requesting following");
+                L.DomUtil.addClasses(this._container, "active");
+
+                L.DomUtil.removeClasses(this._icon, this.options.iconLoading);
+                L.DomUtil.addClasses(this._icon, this.options.icon);
+            } else if (state == 'following') {
+                L.DomUtil.removeClasses(this._container, "requesting");
+                L.DomUtil.addClasses(this._container, "active following");
+
+                L.DomUtil.removeClasses(this._icon, this.options.iconLoading);
+                L.DomUtil.addClasses(this._icon, this.options.icon);
+            }
+        },
+
+        /**
+         * Removes all classes from button.
+         */
+        _cleanClasses: function() {
+            L.DomUtil.removeClass(this._container, "requesting");
+            L.DomUtil.removeClass(this._container, "active");
+            L.DomUtil.removeClass(this._container, "following");
+
+            L.DomUtil.removeClasses(this._icon, this.options.iconLoading);
+            L.DomUtil.addClasses(this._icon, this.options.icon);
+        },
+
+        /**
+         * Reinitializes attributes.
+         */
+        _resetVariables: function() {
+            this._active = false;
+            this._locateOnNextLocationFound = this.options.setView;
+            this._following = false;
+        }
+    });
+
+    L.control.locate = function (options) {
+        return new L.Control.Locate(options);
+    };
+
+    (function(){
+      // leaflet.js raises bug when trying to addClass / removeClass multiple classes at once
+      // Let's create a wrapper on it which fixes it.
+      var LDomUtilApplyClassesMethod = function(method, element, classNames) {
+        classNames = classNames.split(' ');
+        classNames.forEach(function(className) {
+            L.DomUtil[method].call(this, element, className);
+        });
+      };
+
+      L.DomUtil.addClasses = function(el, names) { LDomUtilApplyClassesMethod('addClass', el, names); };
+      L.DomUtil.removeClasses = function(el, names) { LDomUtilApplyClassesMethod('removeClass', el, names); };
+    })();
+
+    return L.Control.Locate;
+}, window));
+
+(function(factory,window){if(typeof define==="function"&&define.amd){define('leaflet-minimap',["leaflet"],factory)}else if(typeof exports==="object"){module.exports=factory(require("leaflet"))}if(typeof window!=="undefined"&&window.L){window.L.Control.MiniMap=factory(L);window.L.control.minimap=function(layer,options){return new window.L.Control.MiniMap(layer,options)}}})(function(L){var MiniMap=L.Control.extend({options:{position:"bottomright",toggleDisplay:false,zoomLevelOffset:-5,zoomLevelFixed:false,centerFixed:false,zoomAnimation:false,autoToggleDisplay:false,minimized:false,width:150,height:150,collapsedWidth:19,collapsedHeight:19,aimingRectOptions:{color:"#ff7800",weight:1,clickable:false},shadowRectOptions:{color:"#000000",weight:1,clickable:false,opacity:0,fillOpacity:0},strings:{hideText:"Hide MiniMap",showText:"Show MiniMap"},mapOptions:{}},initialize:function(layer,options){L.Util.setOptions(this,options);this.options.aimingRectOptions.clickable=false;this.options.shadowRectOptions.clickable=false;this._layer=layer},onAdd:function(map){this._mainMap=map;this._container=L.DomUtil.create("div","leaflet-control-minimap");this._container.style.width=this.options.width+"px";this._container.style.height=this.options.height+"px";L.DomEvent.disableClickPropagation(this._container);L.DomEvent.on(this._container,"mousewheel",L.DomEvent.stopPropagation);var mapOptions={attributionControl:false,dragging:!this.options.centerFixed,zoomControl:false,zoomAnimation:this.options.zoomAnimation,autoToggleDisplay:this.options.autoToggleDisplay,touchZoom:this.options.centerFixed?"center":!this._isZoomLevelFixed(),scrollWheelZoom:this.options.centerFixed?"center":!this._isZoomLevelFixed(),doubleClickZoom:this.options.centerFixed?"center":!this._isZoomLevelFixed(),boxZoom:!this._isZoomLevelFixed(),crs:map.options.crs};mapOptions=L.Util.extend(this.options.mapOptions,mapOptions);this._miniMap=new L.Map(this._container,mapOptions);this._miniMap.addLayer(this._layer);this._mainMapMoving=false;this._miniMapMoving=false;this._userToggledDisplay=false;this._minimized=false;if(this.options.toggleDisplay){this._addToggleButton()}this._miniMap.whenReady(L.Util.bind(function(){this._aimingRect=L.rectangle(this._mainMap.getBounds(),this.options.aimingRectOptions).addTo(this._miniMap);this._shadowRect=L.rectangle(this._mainMap.getBounds(),this.options.shadowRectOptions).addTo(this._miniMap);this._mainMap.on("moveend",this._onMainMapMoved,this);this._mainMap.on("move",this._onMainMapMoving,this);this._miniMap.on("movestart",this._onMiniMapMoveStarted,this);this._miniMap.on("move",this._onMiniMapMoving,this);this._miniMap.on("moveend",this._onMiniMapMoved,this)},this));return this._container},addTo:function(map){L.Control.prototype.addTo.call(this,map);var center=this.options.centerFixed||this._mainMap.getCenter();this._miniMap.setView(center,this._decideZoom(true));this._setDisplay(this.options.minimized);return this},onRemove:function(map){this._mainMap.off("moveend",this._onMainMapMoved,this);this._mainMap.off("move",this._onMainMapMoving,this);this._miniMap.off("moveend",this._onMiniMapMoved,this);this._miniMap.removeLayer(this._layer)},changeLayer:function(layer){this._miniMap.removeLayer(this._layer);this._layer=layer;this._miniMap.addLayer(this._layer)},_addToggleButton:function(){this._toggleDisplayButton=this.options.toggleDisplay?this._createButton("",this.options.strings.hideText,"leaflet-control-minimap-toggle-display leaflet-control-minimap-toggle-display-"+this.options.position,this._container,this._toggleDisplayButtonClicked,this):undefined;this._toggleDisplayButton.style.width=this.options.collapsedWidth+"px";this._toggleDisplayButton.style.height=this.options.collapsedHeight+"px"},_createButton:function(html,title,className,container,fn,context){var link=L.DomUtil.create("a",className,container);link.innerHTML=html;link.href="#";link.title=title;var stop=L.DomEvent.stopPropagation;L.DomEvent.on(link,"click",stop).on(link,"mousedown",stop).on(link,"dblclick",stop).on(link,"click",L.DomEvent.preventDefault).on(link,"click",fn,context);return link},_toggleDisplayButtonClicked:function(){this._userToggledDisplay=true;if(!this._minimized){this._minimize();this._toggleDisplayButton.title=this.options.strings.showText}else{this._restore();this._toggleDisplayButton.title=this.options.strings.hideText}},_setDisplay:function(minimize){if(minimize!==this._minimized){if(!this._minimized){this._minimize()}else{this._restore()}}},_minimize:function(){if(this.options.toggleDisplay){this._container.style.width=this.options.collapsedWidth+"px";this._container.style.height=this.options.collapsedHeight+"px";this._toggleDisplayButton.className+=" minimized-"+this.options.position}else{this._container.style.display="none"}this._minimized=true},_restore:function(){if(this.options.toggleDisplay){this._container.style.width=this.options.width+"px";this._container.style.height=this.options.height+"px";this._toggleDisplayButton.className=this._toggleDisplayButton.className.replace("minimized-"+this.options.position,"")}else{this._container.style.display="block"}this._minimized=false},_onMainMapMoved:function(e){if(!this._miniMapMoving){var center=this.options.centerFixed||this._mainMap.getCenter();this._mainMapMoving=true;this._miniMap.setView(center,this._decideZoom(true));this._setDisplay(this._decideMinimized())}else{this._miniMapMoving=false}this._aimingRect.setBounds(this._mainMap.getBounds())},_onMainMapMoving:function(e){this._aimingRect.setBounds(this._mainMap.getBounds())},_onMiniMapMoveStarted:function(e){if(!this.options.centerFixed){var lastAimingRect=this._aimingRect.getBounds();var sw=this._miniMap.latLngToContainerPoint(lastAimingRect.getSouthWest());var ne=this._miniMap.latLngToContainerPoint(lastAimingRect.getNorthEast());this._lastAimingRectPosition={sw:sw,ne:ne}}},_onMiniMapMoving:function(e){if(!this.options.centerFixed){if(!this._mainMapMoving&&this._lastAimingRectPosition){this._shadowRect.setBounds(new L.LatLngBounds(this._miniMap.containerPointToLatLng(this._lastAimingRectPosition.sw),this._miniMap.containerPointToLatLng(this._lastAimingRectPosition.ne)));this._shadowRect.setStyle({opacity:1,fillOpacity:.3})}}},_onMiniMapMoved:function(e){if(!this._mainMapMoving){this._miniMapMoving=true;this._mainMap.setView(this._miniMap.getCenter(),this._decideZoom(false));this._shadowRect.setStyle({opacity:0,fillOpacity:0})}else{this._mainMapMoving=false}},_isZoomLevelFixed:function(){var zoomLevelFixed=this.options.zoomLevelFixed;return this._isDefined(zoomLevelFixed)&&this._isInteger(zoomLevelFixed)},_decideZoom:function(fromMaintoMini){if(!this._isZoomLevelFixed()){if(fromMaintoMini){return this._mainMap.getZoom()+this.options.zoomLevelOffset}else{var currentDiff=this._miniMap.getZoom()-this._mainMap.getZoom();var proposedZoom=this._miniMap.getZoom()-this.options.zoomLevelOffset;var toRet;if(currentDiff>this.options.zoomLevelOffset&&this._mainMap.getZoom()<this._miniMap.getMinZoom()-this.options.zoomLevelOffset){if(this._miniMap.getZoom()>this._lastMiniMapZoom){toRet=this._mainMap.getZoom()+1;this._miniMap.setZoom(this._miniMap.getZoom()-1)}else{toRet=this._mainMap.getZoom()}}else{toRet=proposedZoom}this._lastMiniMapZoom=this._miniMap.getZoom();return toRet}}else{if(fromMaintoMini){return this.options.zoomLevelFixed}else{return this._mainMap.getZoom()}}},_decideMinimized:function(){if(this._userToggledDisplay){return this._minimized}if(this.options.autoToggleDisplay){if(this._mainMap.getBounds().contains(this._miniMap.getBounds())){return true}return false}return this._minimized},_isInteger:function(value){return typeof value==="number"},_isDefined:function(value){return typeof value!=="undefined"}});L.Map.mergeOptions({miniMapControl:false});L.Map.addInitHook(function(){if(this.options.miniMapControl){this.miniMapControl=(new MiniMap).addTo(this)}});return MiniMap},window);
+(function(root) {
+define("leaflet-sleep", ["leaflet"], function() {
+  return (function() {
+L.Map.mergeOptions({
+  sleep: true,
+  sleepTime: 750,
+  wakeTime: 750,
+  sleepNote: true,
+  hoverToWake: true,
+  sleepOpacity:.7
+});
+
+L.Map.Sleep = L.Handler.extend({
+  addHooks: function () {
+    this.sleepNote = L.DomUtil.create('p', 'sleep-note', this._map._container);
+    this._sleepMap();
+    this._enterTimeout = null;
+    this._exitTimeout = null;
+
+
+    var mapStyle = this._map.getContainer().style;
+    mapStyle.WebkitTransition += 'opacity .5s';
+    mapStyle.MozTransition += 'opacity .5s';
+
+    var noteString = this._map.options.wakeMessage ||
+                     ('Click ' + (this._map.options.hoverToWake?'or Hover ':'') + 'to Wake');
+    var style = this.sleepNote.style;
+    if( this._map.options.sleepNote ){
+      this.sleepNote.appendChild(document.createTextNode( noteString ));
+      style.pointerEvents = 'none';
+      style.maxWidth = '150px';
+      style.transitionDuration = '.2s';
+      style.zIndex = 5000;
+      style.opacity = '.6';
+      style.margin = 'auto';
+      style.textAlign = 'center';
+      style.borderRadius = '4px';
+      style.top = '50%';
+      style.position = 'relative';
+      style.padding = '5px';
+      style.border = 'solid 2px black';
+      style.background = 'white';
+
+      if(this._map.options.sleepNoteStyle) {
+        var noteStyleOverrides = this._map.options.sleepNoteStyle;
+        Object.keys(noteStyleOverrides).map(function(key) {
+          style[key] = noteStyleOverrides[key];
+        });
+      }
+    }
+  },
+
+  removeHooks: function () {
+    if (!this._map.scrollWheelZoom.enabled()){
+      this._map.scrollWheelZoom.enable();
+    }
+    L.DomUtil.setOpacity( this._map._container, 1);
+    L.DomUtil.setOpacity( this.sleepNote, 0);
+    this._removeSleepingListeners();
+    this._removeAwakeListeners();
+  },
+
+  _wakeMap: function () {
+    this._stopWaiting();
+    this._map.scrollWheelZoom.enable();
+    L.DomUtil.setOpacity( this._map._container, 1);
+    this.sleepNote.style.opacity = 0;
+    this._addAwakeListeners();
+  },
+
+  _sleepMap: function () {
+    this._stopWaiting();
+    this._map.scrollWheelZoom.disable();
+    L.DomUtil.setOpacity( this._map._container, this._map.options.sleepOpacity);
+    this.sleepNote.style.opacity = .4;
+    this._addSleepingListeners();
+  },
+
+  _wakePending: function () {
+    this._map.once('mousedown', this._wakeMap, this);
+    if (this._map.options.hoverToWake){
+      var self = this;
+      this._map.once('mouseout', this._sleepMap, this);
+      self._enterTimeout = setTimeout(function(){
+          self._map.off('mouseout', self._sleepMap, self);
+          self._wakeMap();
+      } , self._map.options.wakeTime);
+    }
+  },
+
+  _sleepPending: function () {
+    var self = this;
+    self._map.once('mouseover', self._wakeMap, self);
+    self._exitTimeout = setTimeout(function(){
+        self._map.off('mouseover', self._wakeMap, self);
+        self._sleepMap();
+    } , self._map.options.sleepTime);
+  },
+
+  _addSleepingListeners: function(){
+    this._map.once('mouseover', this._wakePending, this);
+  },
+
+  _addAwakeListeners: function(){
+    this._map.once('mouseout', this._sleepPending, this);
+  },
+
+  _removeSleepingListeners: function(){
+    this._map.options.hoverToWake &&
+      this._map.off('mouseover', this._wakePending, this);
+    this._map.off('mousedown', this._wakeMap, this);
+  },
+
+  _removeAwakeListeners: function(){
+    this._map.off('mouseout', this._sleepPending, this);
+  },
+
+  _stopWaiting: function () {
+    this._removeSleepingListeners();
+    this._removeAwakeListeners();
+    var self = this;
+    if(this._enterTimeout) clearTimeout(self._enterTimeout);
+    if(this._exitTimeout) clearTimeout(self._exitTimeout);
+    this._enterTimeout = null;
+    this._exitTimeout = null;
+  }
+});
+
+L.Map.addInitHook('addHandler', 'sleep', L.Map.Sleep);
+
+
+  }).apply(root, arguments);
+});
+}(this));
+
+(function(root) {
+define("leaflet-simplemarkers", ["leaflet"], function() {
+  return (function() {
+/* jshint plusplus: false */
+/* globals L */
+L.Control.SimpleMarkers = L.Control.extend({
+    options: {
+        position: 'topleft',
+        add_control: true,
+        delete_control: true,
+        allow_popup: true,
+        marker_icon: undefined,
+        marker_draggable: false,
+        add_marker_callback: undefined
+    },
+    map: undefined,
+    markerList: [],
+
+    onAdd: function (map) {
+        "use strict";
+        this.map = map;
+        var marker_container = L.DomUtil.create('div', 'marker_controls');
+
+        if (this.options.add_control) {
+            var add_marker_div = L.DomUtil.create('div', 'add_marker_control', marker_container);
+            add_marker_div.title = 'Add a marker';
+            L.DomEvent.addListener(add_marker_div, 'click', L.DomEvent.stopPropagation)
+                .addListener(add_marker_div, 'click', L.DomEvent.preventDefault)
+                .addListener(add_marker_div, 'click', this.enterAddMarkerMode.bind(this));
+        }
+        if (this.options.delete_control) {
+            var del_marker_div = L.DomUtil.create('div', 'del_marker_control', marker_container);
+            del_marker_div.title = 'Delete a marker';
+
+
+            L.DomEvent.addListener(del_marker_div, 'click', L.DomEvent.stopPropagation)
+                .addListener(del_marker_div, 'click', L.DomEvent.preventDefault)
+                .addListener(del_marker_div, 'click', this.enterDelMarkerMode.bind(this));
+        }
+
+        return marker_container;
+    },
+
+    enterAddMarkerMode: function () {
+        "use strict";
+        if (this.markerList !== '') {
+            for (var marker = 0; marker < this.markerList.length; marker++) {
+                if (typeof(this.markerList[marker]) !== 'undefined') {
+                    this.markerList[marker].removeEventListener('click', this.onMarkerClickDelete.bind(this));
+                }
+            }
+        }
+        this.map._container.style.cursor = 'crosshair';
+        this.map.addEventListener('click', this.onMapClickAddMarker.bind(this));
+    },
+
+    enterDelMarkerMode: function () {
+        "use strict";
+        for (var marker = 0; marker < this.markerList.length; marker++) {
+            if (typeof(this.markerList[marker]) !== 'undefined') {
+                this.markerList[marker].addEventListener('click', this.onMarkerClickDelete.bind(this));
+                this.map._container.style.cursor = 'crosshair';
+            }
+        }
+    },
+
+    onMapClickAddMarker: function (e) {
+        "use strict";
+        this.map.removeEventListener('click');
+        this.map._container.style.cursor = 'auto';
+
+        var marker_options = {draggable: this.options.marker_draggable};
+        if (this.options.marker_icon) {
+            marker_options.icon = this.options.marker_icon;
+        }
+        var marker = L.marker(e.latlng, marker_options);
+        if (this.options.allow_popup) {
+            var popupContent =  "You clicked on the map at " + e.latlng.toString();
+            var the_popup = L.popup({maxWidth: 160, closeButton: false});
+            the_popup.setContent(popupContent);
+            marker.bindPopup(the_popup).openPopup();
+        }
+        if (this.options.add_marker_callback) {
+            this.options.add_marker_callback(marker);
+        }
+        marker.addTo(this.map);
+        this.markerList.push(marker);
+
+        return false;
+    },
+
+    onMarkerClickDelete: function (e) {
+        "use strict";
+        this.map._container.style.cursor = 'auto';
+        if (this.markerList.indexOf(e.target)) {
+            this.map.removeLayer(e.target);
+            var marker_index = this.markerList.indexOf(e.target);
+            delete this.markerList[marker_index];
+
+            for (var marker = 0; marker < this.markerList.length; marker++) {
+                if (typeof(this.markerList[marker]) !== 'undefined') {
+                    this.markerList[marker].removeEventListener('click', this.onMarkerClickDelete);
+                }
+            }
+            return false;
+        }
+    }
+});
+
+
+  }).apply(root, arguments);
+});
+}(this));
+
+(function(root, factory) {
+    if (typeof define === "function" && define.amd) {
+        define('pat-leaflet',[
+            "jquery",
+            "pat-base",
+            "pat-registry",
+            "pat-parser",
+            "pat-logger",
+            "leaflet",
+            "leaflet-fullscreen",
+            "leaflet-providers",
+            "leaflet-geosearch",
+            "leaflet-geosearch-bing",
+            "leaflet-geosearch-esri",
+            "leaflet-geosearch-google",
+            "leaflet-geosearch-openstreetmap",
+            "leaflet-markercluster",
+            "leaflet-awesomemarkers",
+            "leaflet-locatecontrol",
+            "leaflet-minimap",
+            "leaflet-sleep",
+            "leaflet-simplemarkers"
+        ], function() {
+            return factory.apply(this, arguments);
+        });
+    } else {
+        // If require.js is not available, you'll need to make sure that these
+        // global variables are available.
+        factory($, patterns.Base, patterns, patterns.Parser, patterns.logger,
+            patterns.Leaflet, patterns.leaflet-fullscreen, patterns.leaflet-providers,
+            patterns.leaflet-geosearch, patterns.leaflet-geosearch-bing,
+            patterns.leaflet-geosearch-esri, patterns.leaflet-geosearch-google,
+            patterns.leaflet-geosearch-openstreetmap,
+            patterns.leaflet-markercluster, patterns.leaflet-awesomemarkers,
+            patterns.leaflet-locatecontrol, patterns.leaflet-minimap, patterns.leaflet-sleep,
+            patterns.leaflet-simplemarkers);
+    }
+}(this, function($, Base, registry, Parser, logger, L) {
+    "use strict";
+
+    var log = logger.getLogger("pat-leaflet");
+    log.debug("pattern loaded");
+
+    var parser = new Parser("leaflet");
+
+    parser.addArgument("latitude", "0.0");
+    parser.addArgument("longitude", "0.0");
+    parser.addArgument("zoom", "1");
+
+    // default controls
+    parser.addArgument("fullscreencontrol", true);
+    parser.addArgument("locatecontrol", true);
+    parser.addArgument("zoomcontrol", true);
+
+    // disabled controls
+    parser.addArgument("autolocate", false);
+    parser.addArgument("minimap", false);
+    parser.addArgument("geosearch", false);
+    parser.addArgument("geosearch_provider", "openstreetmap");
+    parser.addArgument("addmarker", false);
+
+    // map layers
+    parser.addArgument("map_layers", [
+        {"title": "Map", "id": "OpenStreetMap.Mapnik"},
+        {"title": "Satellite", "id": "Esri.WorldImagery"},
+        {"title": "Topographic", "id": "OpenTopoMap"},
+        {"title": "Toner", "id": "Stamen.Toner"}
+    ]);
+
+    parser.addArgument("image_path", "src/bower_components/Leaflet.awesome-markers/dist/images");
+
+    parser.addArgument("editable", false);
+    parser.addArgument("input_latitude_selector", undefined);
+    parser.addArgument("input_longitude_selector", undefined);
+
+    return Base.extend({
+        name: "leaflet",
+        trigger: ".pat-leaflet",
+        map: undefined,
+
+        init: function initUndefined () {
+            var options = this.options = parser.parse(this.$el);
+
+            var baseLayers,
+                geojson,
+                marker_cluster,
+                marker_layer,
+                bounds,
+                geosearch;
+
+            // MAP INIT
+            var map = this.map = new L.Map(this.$el[0], {
+                fullscreenControl: options.fullscreencontrol,
+                zoomControl: options.zoomcontrol,
+                // Leaflet.Sleep options
+                sleep: true,
+                sleepNote: false,
+                hoverToWake: false,
+                sleepOpacity: 1
+            });
+
+            L.Icon.Default.imagePath = options.image_path;
+
+            // Locatecontrol
+            if (options.locatecontrol || options.autolocate) {
+                var locatecontrol = L.control.locate({icon: "fa fa-crosshairs"}).addTo(map);
+                if (options.autolocate) {
+                    locatecontrol.start();
+                }
+            }
+
+            // Layers
+            // Must be an array
+            if ($.isArray(options.map_layers)) {
+                baseLayers = {};
+                for (var cnt = 0; cnt < options.map_layers.length; cnt++) {
+                    // build layers object with tileLayer instances
+                    baseLayers[options.map_layers[cnt].title] = L.tileLayer.provider(options.map_layers[cnt].id);
+                    if (cnt===0) {
+                        baseLayers[options.map_layers[cnt].title].addTo(map); // default map
+                    }
+                }
+                if (options.map_layers.length > 1) {
+                    L.control.layers(baseLayers).addTo(map);
+                }
+            }
+
+            // ADD MARKERS
+            geojson = this.$el.data().geojson;
+            if (geojson) {
+                marker_cluster = new L.MarkerClusterGroup();
+                marker_layer = L.geoJson(geojson, {
+                    pointToLayer: function(feature, latlng) {
+                        return L.marker(latlng, {
+                            icon: this.green_marker,
+                            draggable: feature.properties.editable
+                        });
+                    }.bind(this),
+                    onEachFeature: this.bind_popup.bind(this),
+                });
+                marker_cluster.addLayer(marker_layer);
+                map.addLayer(marker_cluster);
+
+                // autozoom
+                bounds = marker_cluster.getBounds();
+                map.fitBounds(bounds);
+            } else {
+                map.setView(
+                    [options.latitude, options.longitude],
+                    options.zoom
+                );
+            }
+
+            if (options.geosearch) {
+                var provider;
+                if (options.geosearch_provider === "esri") {
+                    provider = new L.GeoSearch.Provider.Esri();
+                } else if (options.geosearch_provider === "google") {
+                    provider = new L.GeoSearch.Provider.Google();
+                } else if (options.geosearch_provider === "bing") {
+                    provider = new L.GeoSearch.Provider.Bing();
+                } else {
+                    provider = new L.GeoSearch.Provider.OpenStreetMap();
+                }
+
+                // GEOSEARCH
+                geosearch = new L.Control.GeoSearch({
+                    showMarker: true,
+                    draggable: true,
+                    provider: provider
+                });
+                geosearch.addTo(map);
+
+                map.on("geosearch_showlocation", function(e) {
+                    e.Marker.setIcon(this.red_marker);
+                    this.bind_popup({properties: {editable: true, popup: "New Marker"}}, e.Marker).bind(this);
+                }.bind(this));
+
+            }
+
+            if (options.addmarker) {
+                var add_marker_callback = function (marker) {
+                    this.bind_popup({properties: {editable: true}}, marker);
+                };
+                var addmarker = new L.Control.SimpleMarkers({
+                    delete_control: false,
+                    allow_popup: false,
+                    marker_icon: this.red_marker,
+                    marker_draggable: true,
+                    add_marker_callback: add_marker_callback.bind(this)
+                });
+                map.addControl(addmarker);
+            }
+
+            // Minimap
+            if (options.minimap) {
+                var minimap = new L.Control.MiniMap(L.tileLayer.provider("OpenStreetMap.Mapnik"), {toggleDisplay: true, mapOptions: {sleep: false}}).addTo(map);
+            }
+
+            if (options.editable) {
+                map.on("geosearch_showlocation", function(e) {
+                    if (marker_cluster) {
+                        map.removeLayer(marker_cluster);
+                    }
+                    var coords = e.Location;
+                    this.update_inputs(coords.Y, coords.X);
+                    this.bind_draggable_marker(e.Marker);
+                });
+            }
+
+            log.debug("pattern initialized");
+        },
+
+        bind_popup: function(feature, marker) {
+            var popup = feature.properties.popup;
+            if (feature.properties.editable) {
+                // for editable markers add "delete marker" link to popup
+                popup = popup || "";
+                var $popup = $("<div>" + popup + "</div><br/>");
+                var $link = $("<a href='#' class='deleteMarker'>Delete Marker</a>");
+                $link.on("click", function (e) {
+                    e.preventDefault();
+                    this.map.removeLayer(marker);
+                }.bind(this));
+                marker.bindPopup(
+                    $("<div/>").append($popup).append($link)[0]
+                );
+            } else if (popup) {
+                marker.bindPopup(popup);
+            }
+        },
+
+        red_marker: L.AwesomeMarkers.icon({
+            markerColor: "red",
+            prefix: "fa",
+            icon: "circle"
+        }),
+        green_marker: L.AwesomeMarkers.icon({
+            markerColor: "green",
+            prefix: "fa",
+            icon: "circle"
+        }),
+        blue_marker: L.AwesomeMarkers.icon({
+            markerColor: "blue",
+            prefix: "fa",
+            icon: "circle"
+        }),
+
+        update_inputs: function(lat, lng) {
+            $(this.options.input_latitude_selector).attr("value", lat);
+            $(this.options.input_longitude_selector).attr("value", lng);
+        },
+
+        bind_draggable_marker: function(marker) {
+            marker.on("dragend", function(e) {
+                var coords = e.target.getLatLng();
+                this.update_inputs(coords.lat, coords.lng);
+            });
+        },
+
+        create_markers: function(geopoints, editable) {
+            // return MarkerClusterGroup from geopoints
+            // geopoints = [{lat: NUMBER, lng: NUMBER, popup: STRING}]
+            var markers = new L.MarkerClusterGroup();
+            for (var i = 0, size = geopoints.length; i < size; i++) {
+                var geopoint = geopoints[i],
+                    marker;
+                marker = new L.Marker([geopoint.lat, geopoint.lng], {
+                    icon: this.green_marker,
+                    draggable: editable
+                });
+                if (geopoint.popup) {
+                    marker.bindPopup(geopoint.popup);
+                }
+                if (editable) {
+                    this.bind_draggable_marker(marker);
+                }
+                markers.addLayer(marker);
+            }
+            return markers;
+        }
+
+    });
+}));
+
+if (window.jQuery) {
+  define( 'jquery', [], function () {
+    'use strict';
+    return window.jQuery;
+  } );
+}
+
+require([
+  'jquery',
+  'pat-registry',
+  'pat-leaflet'
+], function($, registry) {
+  'use strict';
+
+  // initialize only if we are in top frame
+  if (window.parent === window) {
+    $(document).ready(function() {
+      if (!registry.initialized) {
+        registry.init();
+      }
+    });
+  }
+
+});
+
+define("/home/thet-data/data/dev/aaf/buildout-aaf/src-addons/plone.formwidget.geolocation/plone/formwidget/geolocation/resources/geolocation-bundle.js", function(){});
 

@@ -4,7 +4,7 @@ Changelog
 2.0 (unreleased)
 ----------------
 
-- Support for Plone 5 only.
+- Support for Plone 5 only, using plone.patternslib and providing an own bundle.
   [thet]
 
 
