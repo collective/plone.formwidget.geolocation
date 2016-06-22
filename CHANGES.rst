@@ -4,6 +4,10 @@ Changelog
 2.0 (unreleased)
 ----------------
 
+- Merge package bundle with default aggregation. Also make it depend on more
+  specific patterns bundle.
+  [davilima6]
+
 - Support for Plone 5 only, using plone.patternslib and providing an own bundle.
   [thet]
 
