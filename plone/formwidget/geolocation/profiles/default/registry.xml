@@ -12,13 +12,14 @@
       interface="Products.CMFPlone.interfaces.IBundleRegistry"
       prefix="plone.bundles/geolocation-bundle"
       purge="False">
+    <value key="merge_with">default</value>
     <value key="resources">
       <element>geolocation-bundle-resource</element>
     </value>
     <value key="jscompilation">++plone++plone.formwidget.geolocation/geolocation-bundle-compiled.js</value>
     <value key="csscompilation">++plone++plone.formwidget.geolocation/geolocation-bundle-compiled.css</value>
     <value key="last_compilation">2016-06-16 00:00:00</value>
-    <value key="depends">plone</value>
+    <value key="depends">patterns</value>
     <value key="stub_js_modules">
       <element>jquery.browser</element>
       <element>jquery</element>
