@@ -2,7 +2,7 @@
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       tal:omit-tag="">
   <div class="geolocation_wrapper" tal:condition="view/value">
-    <div class="pat-leaflet map" tal:attributes="data-geopoints view/json_value" data-pat-leaflet='{
+    <div class="pat-leaflet map" tal:attributes="data-geojson view/data_geojson" data-pat-leaflet='{
       "fullscreencontrol": true,
       "locatecontrol": true,
       "zoomcontrol": true,

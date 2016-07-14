@@ -4,6 +4,9 @@ Changelog
 2.0 (unreleased)
 ----------------
 
+- Make geolocation formwidget work with ``pat-leaflet``.
+  [thet]
+
 - Support for Plone 5 only, using plone.patternslib and providing an own bundle.
   [thet]
 
