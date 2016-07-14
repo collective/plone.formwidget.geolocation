@@ -2,23 +2,22 @@
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       tal:omit-tag="">
   <div class="geolocation_wrapper edit">
-    <div class="pat-leaflet map" tal:attributes="data-geopoints view/json_value" data-pat-leaflet='{
+    <div class="pat-leaflet" tal:attributes="data-geojson view/data_geojson" data-pat-leaflet='{
       "fullscreencontrol": true,
       "locatecontrol": true,
       "zoomcontrol": true,
       "minimap": true,
       "geosearch": true,
-      "geosearch_provider": "google",
-      "addmarker": true
+      "addmarker": false
     }'></div>
     <input type="text" class="latitude"
-        tal:attributes="id string:${view/id}_latitude;
+        tal:attributes="id view/id_input_lat;
                         name string:${view/name}:tuple;
                         class string:${view/klass} latitude;
                         style view/style;
                         value python:view.value[0]" />
     <input type="text" class="longitude"
-        tal:attributes="id string:${view/id}_longitude;
+        tal:attributes="id view/id_input_lng;
                         name string:${view/name}:tuple;
                         class string:${view/klass} longitude;
                         style view/style;

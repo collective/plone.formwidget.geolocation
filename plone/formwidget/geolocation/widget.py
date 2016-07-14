@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from plone.formwidget.geolocation.interfaces import IGeolocationField
 from plone.formwidget.geolocation.interfaces import IGeolocationWidget
+from plone.uuid.interfaces import IUUID
 from Products.CMFPlone.utils import safe_unicode
 from z3c.form.browser.text import TextWidget
 from z3c.form.interfaces import IFieldWidget
@@ -25,17 +26,54 @@ class GeolocationWidget(TextWidget):
         if self.value is None and self.mode == 'input':
             self.value = self._default_loc()
 
-    def json_value(self):
+    @property
+    def id_input_lat(self):
+        return u'{0}_latitude'.format(self.id)
+
+    @property
+    def id_input_lng(self):
+        return u'{0}_longitude'.format(self.id)
+
+    @property
+    def data_geojson(self):
+        """Return the geo location as GeoJSON string.
+        """
+        coordinates = self.value
+        if not coordinates:
+            return
+
         title = getattr(self.context, 'title', '')
         description = getattr(self.context, 'description', '')
-        return json.dumps([{
-            'lat': self.value[0],
-            'lng': self.value[1],
-            'popup': u'<h3>{0}</h3><p>{1}</p>'.format(
-                safe_unicode(title),
-                safe_unicode(description)
-            )
-        }])
+
+        geo_json = {
+            'type': 'FeatureCollection',
+            'features': [
+                {
+                    'type': 'Feature',
+                    'properties': {
+                        'popup': u'<h3>{0}</h3><p>{1}</p>'.format(
+                            safe_unicode(title),
+                            safe_unicode(description)
+                        )
+                    },
+                    'geometry': {
+                        'type': 'Point',
+                        'coordinates': [
+                            coordinates[1],  # lng
+                            coordinates[0]   # lat
+                        ]
+                    }
+                },
+            ]
+        }
+
+        if self.mode == 'input':
+            properties = geo_json['features'][0]['properties']
+            properties['editable'] = True
+            properties['latinput'] = u'#{0}'.format(self.id_input_lat)
+            properties['lnginput'] = u'#{0}'.format(self.id_input_lng)
+
+        return json.dumps(geo_json)
 
     def _default_loc(self):
         config = queryMultiAdapter((self.context, self.request),
