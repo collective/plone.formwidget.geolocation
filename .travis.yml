@@ -1,0 +1,30 @@
+language: python
+python: 2.7
+sudo: false
+cache:
+  directories:
+  - eggs
+  - parts/node
+env:
+- PLONE_VERSION=4.3
+- PLONE_VERSION=5.0
+matrix:
+  fast_finish: true
+install:
+- sed -ie "s#4.3.cfg#$PLONE_VERSION.cfg#" buildout.cfg
+- python bootstrap.py
+- bin/buildout annotate
+- bin/buildout
+before_script:
+- "export DISPLAY=:99.0"
+- "sh -e /etc/init.d/xvfb start"
+- firefox -v
+script:
+- bin/code-analysis
+- bin/test
+after_success:
+- bin/createcoverage -t "--layer=!Robot"
+- pip install --upgrade coveralls
+- coveralls
+notifications:
+  irc: irc.freenode.org#plone-testing
