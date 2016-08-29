@@ -10,11 +10,12 @@ env:
 - PLONE_VERSION=5.0
 matrix:
   fast_finish: true
-install:
+before_install:
 - sed -ie "s#4.3.cfg#$PLONE_VERSION.cfg#" buildout.cfg
-- python bootstrap.py
-- bin/buildout annotate
-- bin/buildout
+- pip install --upgrade setuptools zc.buildout
+install:
+- buildout annotate
+- buildout
 before_script:
 - "export DISPLAY=:99.0"
 - "sh -e /etc/init.d/xvfb start"
