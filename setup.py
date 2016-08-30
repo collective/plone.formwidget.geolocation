@@ -27,6 +27,7 @@ setup(
     zip_safe=False,
     install_requires=[
         'plone.patternslib',
+        'collective.monkeypatcher',
         'setuptools',
         'z3c.form',
     ],

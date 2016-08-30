@@ -10,6 +10,9 @@ Changelog
 2.0 (2016-10-06)
 ----------------
 
+- Allow geolocation field to be addable in Dexterity Type Editor
+  [davilima6]
+
 - Make geolocation formwidget work with ``pat-leaflet``.
   [thet]
 

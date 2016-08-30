@@ -6,7 +6,7 @@ from zope.interface import Interface
 from zope.schema.interfaces import IObject
 
 
-_ = MessageFactory('plone.formwidget.geolocation')
+_ = GeolocationMessageFactory = MessageFactory('plone.formwidget.geolocation')
 
 
 class IGeolocation(Interface):
