@@ -1,5 +1,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      i18n:domain="plone.formwidget.geolocation"
       tal:omit-tag="">
   <div class="geolocation_wrapper edit">
     <div class="pat-leaflet" tal:attributes="data-geojson view/data_geojson" data-pat-leaflet='{
@@ -10,17 +13,26 @@
       "geosearch": true,
       "addmarker": false
     }'></div>
-    <input type="text" class="latitude"
-        tal:attributes="id view/id_input_lat;
-                        name string:${view/name}:tuple;
-                        class string:${view/klass} latitude;
-                        style view/style;
-                        value python:view.value[0]" />
-    <input type="text" class="longitude"
-        tal:attributes="id view/id_input_lng;
-                        name string:${view/name}:tuple;
-                        class string:${view/klass} longitude;
-                        style view/style;
-                        value python:view.value[1]" />
+
+    <div class="form-group">
+      <label tal:attributes="for view/id_input_lat" i18n:translate="label_latitude">Latitude</label>
+      <input type="text" class="latitude"
+          tal:attributes="id view/id_input_lat;
+                          name string:${view/name}:tuple;
+                          class string:${view/klass} latitude;
+                          style view/style;
+                          value python:view.value[0]" />
+    </div>
+
+    <div class="form-group">
+      <label tal:attributes="for view/id_input_lng" i18n:translate="label_longitude">Longitude</label>
+      <input type="text" class="longitude"
+          tal:attributes="id view/id_input_lng;
+                          name string:${view/name}:tuple;
+                          class string:${view/klass} longitude;
+                          style view/style;
+                          value python:view.value[1]" />
+    </div>
+
   </div>
 </html>
