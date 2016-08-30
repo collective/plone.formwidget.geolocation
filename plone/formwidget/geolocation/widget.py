@@ -70,6 +70,7 @@ class GeolocationWidget(TextWidget):
         if self.mode == 'input':
             properties = geo_json['features'][0]['properties']
             properties['editable'] = True
+            properties['no_delete'] = True
             properties['latinput'] = u'#{0}'.format(self.id_input_lat)
             properties['lnginput'] = u'#{0}'.format(self.id_input_lng)
 
