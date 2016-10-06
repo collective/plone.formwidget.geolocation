@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0 (unreleased)
+2.0 (2016-10-06)
 ----------------
 
 - Make geolocation formwidget work with ``pat-leaflet``.
