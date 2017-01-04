@@ -17,15 +17,29 @@
     map_wrap = $(el).closest('div.geolocation_wrapper');
     editable = map_wrap.hasClass('edit');
 
-    var update_inputs = function(lat, lng) {
+    var get_bounds_object = function(bounds){
+      return {
+        south: bounds.getSouth(),
+        west: bounds.getWest(),
+        north: bounds.getNorth(),
+        east: bounds.getEast()
+      };
+    };
+
+    var update_inputs = function(lat, lng, bounds) {
       map_wrap.find('input.latitude').attr('value', lat);
       map_wrap.find('input.longitude').attr('value', lng);
+      map_wrap.find('input.bounds-south').attr('value', bounds.south);
+      map_wrap.find('input.bounds-west').attr('value', bounds.west);
+      map_wrap.find('input.bounds-north').attr('value', bounds.north);
+      map_wrap.find('input.bounds-east').attr('value', bounds.east);
     };
 
     var bind_draggable_marker = function (marker) {
       marker.on('dragend', function(e) {
         var coords = e.target.getLatLng();
-        update_inputs(coords.lat, coords.lng);
+        var bounds = get_bounds_object(e.target._map.getBounds());
+        update_inputs(coords.lat, coords.lng, bounds);
       });
     };
 
@@ -86,7 +100,8 @@
       map.on('geosearch_showlocation', function(e) {
         map.removeLayer(markers);
         var coords = e.Location;
-        update_inputs(coords.Y, coords.X);
+        var bounds = get_bounds_object(coords.bounds);
+        update_inputs(coords.Y, coords.X, bounds);
         bind_draggable_marker(e.Marker);
       });
 
