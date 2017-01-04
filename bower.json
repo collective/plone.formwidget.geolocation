@@ -6,7 +6,7 @@
     "leaflet.markercluster": "v0.4",
     "Leaflet.fullscreen": "git@github.com:Leaflet/Leaflet.fullscreen#v0.0.4",
     "leaflet-providers": "1.1.6",
-    "L.GeoSearch": "git@github.com:smeijer/L.GeoSearch.git#master",
+    "L.GeoSearch": "git@github.com:smeijer/L.GeoSearch.git#9417b3a3447a9b41ef69870569c7ecf205193fc9",
     "Leaflet.awesome-markers": "v2.0.2"
   }
 }
