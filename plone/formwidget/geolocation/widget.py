@@ -9,6 +9,12 @@ from zope.interface import implementer, implementsOnly
 import json
 
 
+def bounds_from_value(value):
+    if value[2:] != (0, 0, 0, 0):
+        return dict(
+            south=value[2], west=value[3], north=value[4], east=value[5])
+
+
 class GeolocationWidget(TextWidget):
     implementsOnly(IGeolocationWidget)
 
@@ -26,12 +32,7 @@ class GeolocationWidget(TextWidget):
         return json.dumps([{
             'lat': self.value[0],
             'lng': self.value[1],
-            'bounds': {
-                'south': self.value[2],
-                'west': self.value[3],
-                'north': self.value[4],
-                'east': self.value[5]
-            },
+            'bounds': bounds_from_value(self.value),
             'popup': u'<h3>{0}</h3><p>{1}</p>'.format(
                 safe_unicode(title),
                 safe_unicode(description)

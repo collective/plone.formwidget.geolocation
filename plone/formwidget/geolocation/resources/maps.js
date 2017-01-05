@@ -108,7 +108,12 @@
     map.addLayer(markers);
 
     // autozoom
-    set_map_bounds(map, geopoints[0].bounds);
+    if (geopoints[0].bounds) {
+      set_map_bounds(map, geopoints[0].bounds);
+    } else {
+      map.fitBounds(markers.getBounds());
+    }
+
 
     if (editable) {
       map.on('geosearch_showlocation', function(e) {

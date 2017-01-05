@@ -8,7 +8,7 @@ from zope.component import adapts
 
 
 class GeolocationConverter(BaseDataConverter):
-    """Converts from a 2-tuple to a Geolocation
+    """Converts from a 6-tuple to a Geolocation
     """
     adapts(IGeolocationField, IGeolocationWidget)
 
