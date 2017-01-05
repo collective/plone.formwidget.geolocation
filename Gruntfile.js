@@ -7,6 +7,17 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
+    patch: {
+      'l.geosearch.provider.esri.js': {
+        options: {
+          patch: 'patches/l.geosearch.provider.esri.js.patch'
+        },
+        files: {
+          'patches/l.geosearch.provider.esri.js': 'bower_components/L.GeoSearch/src/js/l.geosearch.provider.esri.js'
+        }
+      }
+    },
+
     concat: {
       options: {
         separator: grunt.util.linefeed + grunt.util.linefeed
@@ -17,7 +28,7 @@ module.exports = function(grunt) {
           'bower_components/Leaflet.fullscreen/dist/Leaflet.fullscreen.js',
           'bower_components/leaflet-providers/leaflet-providers.js',
           'bower_components/L.GeoSearch/src/js/l.control.geosearch.js',
-          'bower_components/L.GeoSearch/src/js/l.geosearch.provider.esri.js',
+          'patches/l.geosearch.provider.esri.js',
           'bower_components/leaflet.markercluster/dist/leaflet.markercluster-src.js',
           'bower_components/Leaflet.awesome-markers/dist/leaflet.awesome-markers.js'
         ],
@@ -89,7 +100,15 @@ module.exports = function(grunt) {
         path: dest_path + 'libs.css',
         pattern: 'fullscreen@2x.png',
         replacement: '++resource++plone.formwidget.geolocation/images/fullscreen@2x.png'
-      },
+      }
+    },
+
+    clean: {
+      patches: {
+        src: [
+          'patches/l.geosearch.provider.esri.js'
+        ]
+      }
     }
 
   });
@@ -97,9 +116,11 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-patcher');
   grunt.loadNpmTasks('grunt-sed');
 
   // Default task(s).
-  grunt.registerTask('default', ['concat', 'uglify', 'copy', 'sed']);
+  grunt.registerTask('default', ['patch', 'concat', 'uglify', 'copy', 'sed', 'clean']);
 
 };

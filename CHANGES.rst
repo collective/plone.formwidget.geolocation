@@ -4,7 +4,10 @@ Changelog
 1.5 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Geosearch bounds: Patched ``L.GeoSearch.Provider.Esri`` to also return the
+  location bounds. Added ``bounds`` field to ``IGeolocation``. Bounds are
+  updated on pan, zoom, click and address lookup.
+  [david-batranu]
 
 
 1.4 (2015-11-26)
