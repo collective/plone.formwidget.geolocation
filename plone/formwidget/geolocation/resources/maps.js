@@ -17,7 +17,7 @@
     map_wrap = $(el).closest('div.geolocation_wrapper');
     editable = map_wrap.hasClass('edit');
 
-    var get_bounds_object = function(bounds){
+    var get_bounds_object = function(bounds) {
       return {
         south: bounds.getSouth(),
         west: bounds.getWest(),
@@ -26,13 +26,28 @@
       };
     };
 
+    var set_map_bounds = function(map, bounds_obj) {
+      var bounds = new L.LatLngBounds([
+        new L.LatLng(bounds_obj.south, bounds_obj.west),
+        new L.LatLng(bounds_obj.north, bounds_obj.east),
+      ]);
+      if (bounds && bounds.isValid()) {
+        map.fitBounds(bounds);
+      }
+    };
+
     var update_inputs = function(lat, lng, bounds) {
-      map_wrap.find('input.latitude').attr('value', lat);
-      map_wrap.find('input.longitude').attr('value', lng);
-      map_wrap.find('input.bounds-south').attr('value', bounds.south);
-      map_wrap.find('input.bounds-west').attr('value', bounds.west);
-      map_wrap.find('input.bounds-north').attr('value', bounds.north);
-      map_wrap.find('input.bounds-east').attr('value', bounds.east);
+      if (lat && lng) {
+        map_wrap.find('input.latitude').attr('value', lat);
+        map_wrap.find('input.longitude').attr('value', lng);
+      }
+
+      if (bounds) {
+        map_wrap.find('input.bounds-south').attr('value', bounds.south);
+        map_wrap.find('input.bounds-west').attr('value', bounds.west);
+        map_wrap.find('input.bounds-north').attr('value', bounds.north);
+        map_wrap.find('input.bounds-east').attr('value', bounds.east);
+      }
     };
 
     var bind_draggable_marker = function (marker) {
@@ -93,8 +108,7 @@
     map.addLayer(markers);
 
     // autozoom
-    bounds = markers.getBounds();
-    map.fitBounds(bounds);
+    set_map_bounds(map, geopoints[0].bounds);
 
     if (editable) {
       map.on('geosearch_showlocation', function(e) {
@@ -103,6 +117,11 @@
         var bounds = get_bounds_object(coords.bounds);
         update_inputs(coords.Y, coords.X, bounds);
         bind_draggable_marker(e.Marker);
+      });
+
+      map.on('dragend zoomend', function(e){
+        var bounds = get_bounds_object(e.target.getBounds());
+        update_inputs(0, 0, bounds)
       });
 
       // GEOSEARCH

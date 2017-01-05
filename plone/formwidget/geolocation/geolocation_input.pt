@@ -15,25 +15,25 @@
                         class string:${view/klass} longitude;
                         style view/style;
                         value python:view.value[1]" />
-    <input type="text" class="bounds bounds-south"
+    <input type="hidden" class="bounds bounds-south"
         tal:attributes="id string:${view/id}_bounds_south;
                         name string:${view/name}:tuple;
                         class string:${view/klass} bounds bounds-south;
                         style view/style;
                         value python:view.value[2]" />
-    <input type="text" class="bounds bounds-west"
+    <input type="hidden" class="bounds bounds-west"
         tal:attributes="id string:${view/id}_bounds_west;
                         name string:${view/name}:tuple;
                         class string:${view/klass} bounds bounds-west;
                         style view/style;
                         value python:view.value[3]" />
-    <input type="text" class="bounds bounds-north"
+    <input type="hidden" class="bounds bounds-north"
         tal:attributes="id string:${view/id}_bounds_north;
                         name string:${view/name}:tuple;
                         class string:${view/klass} bounds bounds-north;
                         style view/style;
                         value python:view.value[4]" />
-    <input type="text" class="bounds bounds-east"
+    <input type="hidden" class="bounds bounds-east"
         tal:attributes="id string:${view/id}_bounds_east;
                         name string:${view/name}:tuple;
                         class string:${view/klass} bounds bounds-east;
