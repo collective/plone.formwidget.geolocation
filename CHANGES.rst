@@ -4,8 +4,9 @@ Changelog
 2.1 (unreleased)
 ----------------
 
-- Nothing changed yet.
-
+- Use ``bundle-leaflet`` from the ``plone.patternslib`` package.
+  This should give an out-of-the-box leaflet integration.
+  [thet]
 
 2.0 (2016-10-06)
 ----------------

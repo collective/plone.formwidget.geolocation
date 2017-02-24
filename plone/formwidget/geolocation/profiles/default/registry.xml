@@ -1,39 +1,8 @@
 <?xml version="1.0"?>
 <registry>
-
-  <!--records prefix="plone.resources/geolocation-bundle-resource"
-            interface='Products.CMFPlone.interfaces.IResourceRegistry'>
-      <value key="js">++plone++plone.formwidget.geolocation/geolocation-bundle.js</value>
-      <value key="css">
-        <element>++plone++plone.formwidget.geolocation/geolocation-bundle.less</element>
-      </value>
-  </records>
   <records
-      interface="Products.CMFPlone.interfaces.IBundleRegistry"
-      prefix="plone.bundles/geolocation-bundle"
-      purge="False">
-    <value key="resources">
-      <element>geolocation-bundle-resource</element>
-    </value>
-    <value key="jscompilation">++plone++plone.formwidget.geolocation/geolocation-bundle-compiled.js</value>
-    <value key="csscompilation">++plone++plone.formwidget.geolocation/geolocation-bundle-compiled.css</value>
-    <value key="last_compilation">2016-06-16 00:00:00</value>
-    <value key="depends">plone</value>
-    <value key="stub_js_modules">
-      <element>jquery.browser</element>
-      <element>jquery</element>
-      <element>logging</element>
-      <element>pat-base</element>
-      <element>pat-compat</element>
-      <element>pat-jquery-ext</element>
-      <element>pat-logger</element>
-      <element>pat-mockup-parser</element>
-      <element>pat-registry</element>
-      <element>pat-utils</element>
-      <element>translate</element>
-      <element>underscore</element>
-    </value>
-
-  </records-->
-
+      prefix="plone.bundles/bundle-leaflet"
+      interface="Products.CMFPlone.interfaces.IBundleRegistry">
+    <value key="enabled">True</value>
+  </records>
 </registry>

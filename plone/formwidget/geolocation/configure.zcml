@@ -10,12 +10,6 @@
   <adapter factory=".widget.GeolocationFieldWidget" />
   <adapter factory=".converter.GeolocationConverter" />
 
-  <plone:static
-      directory="resources"
-      name="plone.formwidget.geolocation"
-      type="plone"
-      />
-
   <z3c:widgetTemplate
       mode="display"
       widget=".interfaces.IGeolocationWidget"
