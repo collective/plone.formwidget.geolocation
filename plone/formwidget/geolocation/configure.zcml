@@ -56,7 +56,15 @@
       description="Migrate resources to new resource registry."
       source="1"
       destination="2"
-      handler="plone.formwidget.geolocation.upgrade_1_to_2"
+      handler="plone.formwidget.geolocation.upgrades.upgrade_1_to_2"
+      profile="plone.formwidget.geolocation:default"
+      />
+  <genericsetup:upgradeStep
+      title="Remove unused resources"
+      description="Remove unused bundles and resources, which are now provided by plone.patternslib."
+      source="2"
+      destination="3"
+      handler="plone.formwidget.geolocation.upgrades.upgrade_2_to_3"
       profile="plone.formwidget.geolocation:default"
       />
 

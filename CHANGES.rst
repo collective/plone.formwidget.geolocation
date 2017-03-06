@@ -1,10 +1,11 @@
 Changelog
 =========
 
-2.2 (unreleased)
-----------------
+2.1.1 (unreleased)
+------------------
 
-- Nothing changed yet.
+- Add upgrade step for changes in 2.1 + register missing upgrade steps for Plone 5 migration.
+  [thet]
 
 
 2.1 (2017-02-28)

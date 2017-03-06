@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
+from plone.registry.interfaces import IRegistry
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.interfaces import IResourceRegistry
+from zope.component import getUtility
+
 import logging
 
 
@@ -41,3 +45,28 @@ def upgrade_1_to_2(context):
 
     setup = getToolByName(context, 'portal_setup')
     setup.runImportStepFromProfile(PROFILE_ID, 'plone.app.registry')
+
+
+def upgrade_2_to_3(context):
+    """Remove unused bundles and resources.
+    """
+
+    registry = getUtility(IRegistry)
+    records = registry.collectionOfInterface(
+        IResourceRegistry,
+        prefix='plone.resources',
+        check=False
+    )
+    if 'geolocation-bundle-resource' in records:
+        del records['geolocation-bundle-resource']
+
+    records = registry.collectionOfInterface(
+        IResourceRegistry,
+        prefix='plone.bundles',
+        check=False
+    )
+    if 'geolocation-bundle' in records:
+        del records['geolocation-bundle']
+
+    setup = getToolByName(context, 'portal_setup')
+    setup.runAllImportStepsFromProfile('profile-plone.patternslib:default')
