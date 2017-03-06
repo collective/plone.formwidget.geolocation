@@ -51,4 +51,13 @@
       name="plone.formwidget.geolocation-hiddenprofiles"
       />
 
+  <genericsetup:upgradeStep
+      title="Upgrade to Plone 5"
+      description="Migrate resources to new resource registry."
+      source="1"
+      destination="2"
+      handler="plone.formwidget.geolocation.upgrade_1_to_2"
+      profile="plone.formwidget.geolocation:default"
+      />
+
 </configure>
