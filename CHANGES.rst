@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.1.3 (unreleased)
+2.1.3 (2017-12-06)
 ------------------
 
 - Only include the leaflet bundle where it is needed via ``add_bundle_on_request``.
