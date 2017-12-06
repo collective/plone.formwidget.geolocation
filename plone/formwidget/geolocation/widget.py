@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from plone.formwidget.geolocation.interfaces import IGeolocationField
 from plone.formwidget.geolocation.interfaces import IGeolocationWidget
-from plone.uuid.interfaces import IUUID
+from Products.CMFPlone.resources import add_bundle_on_request
+from Products.CMFPlone.utils import get_top_request
 from Products.CMFPlone.utils import safe_unicode
 from z3c.form.browser.text import TextWidget
 from z3c.form.interfaces import IFieldWidget
@@ -20,6 +21,14 @@ class GeolocationWidget(TextWidget):
 
     klass = u'geolocation-widget'
     value = None
+
+    def __init__(self, request):
+        top_request = get_top_request(request)
+        # Just add the bundle from plone.patternslib.
+        # If it's not available, it wont't hurt.
+        add_bundle_on_request(top_request, 'bundle-leaflet')
+
+        super(GeolocationWidget, self).__init__(request)
 
     def update(self):
         super(GeolocationWidget, self).update()

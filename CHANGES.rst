@@ -4,7 +4,8 @@ Changelog
 2.1.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Only include the leaflet bundle where it is needed via ``add_bundle_on_request``.
+  [thet]
 
 
 2.1.2 (2017-04-04)
