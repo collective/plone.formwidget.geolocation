@@ -14,6 +14,7 @@ from zope.interface import implementer
 from zope.interface import implementer_only
 
 import json
+import six
 
 
 @implementer_only(IGeolocationWidget)
@@ -91,7 +92,7 @@ class GeolocationWidget(TextWidget):
         default = ret = (0.0, 0.0)
         if config and hasattr(config, 'default_location'):
             ret = config.default_location
-            if isinstance(ret, basestring):
+            if isinstance(ret, six.string_types):
                 ret = ret.split(',')
         if len(ret) != 2:
             return default
