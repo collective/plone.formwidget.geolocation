@@ -4,7 +4,8 @@ Changelog
 2.1.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix for Python 3.
+  [pbauer]
 
 
 2.1.3 (2017-12-06)
