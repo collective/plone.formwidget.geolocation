@@ -1,9 +1,11 @@
-from collective.venue import messageFactory as _
+# -*- coding: utf-8 -*-
+from zope.i18nmessageid import MessageFactory
 from zope.interface import provider
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
 
+_ = MessageFactory('plone.formwidget.geolocation')
 default_map_layer = 'OpenStreetMap.Mapnik'
 default_map_layers = [
     'OpenStreetMap.Mapnik',
