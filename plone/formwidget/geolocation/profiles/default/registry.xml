@@ -1,5 +1,7 @@
 <?xml version="1.0"?>
 <registry>
+  <records interface="plone.formwidget.geolocation.interfaces.IGeolocationSettings"
+           prefix="geolocation" />
   <records
       prefix="plone.bundles/bundle-leaflet"
       interface="Products.CMFPlone.interfaces.IBundleRegistry">
