@@ -32,6 +32,18 @@
       name="plone.formwidget.geolocation.GeolocationField"
       />
 
+  <utility
+      component=".vocabularies.MapLayers"
+      name="plone.formwidget.geolocation.vocabularies.map_layers"
+      />
+
+  <browser:page
+      name="geolocation-controlpanel"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      class=".controlpanel.GeolocationControlPanel"
+      permission="plone.app.controlpanel.Site"
+      />
+
   <genericsetup:registerProfile
       name="default"
       title="plone.formwidget.geolocation map install"
@@ -68,6 +80,14 @@
       destination="3"
       handler="plone.formwidget.geolocation.upgrades.upgrade_2_to_3"
       profile="plone.formwidget.geolocation:default"
+      />
+  <genericsetup:upgradeDepends
+      title="Add geolocation settings controlpanel"
+      description=""
+      source="3"
+      destination="4"
+      profile="plone.formwidget.geolocation:default"
+      import_profile="plone.formwidget.geolocation:default"
       />
 
 </configure>

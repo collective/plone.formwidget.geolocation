@@ -5,14 +5,7 @@
       i18n:domain="plone.formwidget.geolocation"
       tal:omit-tag="">
   <div class="geolocation_wrapper edit">
-    <div class="pat-leaflet" tal:attributes="data-geojson view/data_geojson" data-pat-leaflet='{
-      "fullscreencontrol": true,
-      "locatecontrol": true,
-      "zoomcontrol": true,
-      "minimap": true,
-      "geosearch": true,
-      "addmarker": false
-    }'></div>
+    <div class="pat-leaflet" data-geojson="${view/data_geojson}" data-pat-leaflet='${view/map_configuration}'></div>
 
     <div class="form-group">
       <label tal:attributes="for view/id_input_lat" i18n:translate="label_latitude">Latitude</label>

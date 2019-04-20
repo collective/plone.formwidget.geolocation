@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
-from plone.formwidget.geolocation.interfaces import IGeolocationField
-from plone.formwidget.geolocation.interfaces import IGeolocationWidget
 from Products.CMFPlone.resources import add_bundle_on_request
 from Products.CMFPlone.utils import get_top_request
 from Products.CMFPlone.utils import safe_unicode
+from plone.api.portal import get_registry_record as getrec
+from plone.formwidget.geolocation.interfaces import IGeolocationField
+from plone.formwidget.geolocation.interfaces import IGeolocationWidget
 from z3c.form.browser.text import TextWidget
 from z3c.form.interfaces import IFieldWidget
 from z3c.form.interfaces import IFormLayer
@@ -85,6 +86,27 @@ class GeolocationWidget(TextWidget):
             properties['lnginput'] = u'#{0}'.format(self.id_input_lng)
 
         return json.dumps(geo_json)
+
+    @property
+    def map_configuration(self):
+        map_layers = getrec('geolocation.map_layers') or []
+        config = {
+            "fullscreencontrol": getrec('geolocation.fullscreen_control'),
+            "locatecontrol": getrec('geolocation.locate_control'),
+            "zoomcontrol": getrec('geolocation.zoom_control'),
+            "minimap": getrec('geolocation.show_minimap'),
+            "addmarker": getrec('geolocation.show_add_marker'),
+            "geosearch": getrec('geolocation.show_geosearch'),
+            "geosearch_provider": getrec('geolocation.geosearch_provider'),
+            "default_map_layer": getrec('geolocation.default_map_layer'),
+            "map_layers": [{"title": l, "id": l} for l in map_layers],
+        }
+        if self.mode == 'input':
+            # geosearch for input is always active
+            config['geosearch'] = True
+            # zoomcontrol for input is always active
+            config['zoomcontrol'] = True
+        return json.dumps(config)
 
     def _default_loc(self):
         config = queryMultiAdapter((self.context, self.request),
