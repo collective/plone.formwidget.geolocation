@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.2.0 (unreleased)
+2.2.0 (2019-04-24)
 ------------------
 
 - add geolocation settings for leaflet
