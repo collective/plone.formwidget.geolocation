@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
+from zope.globalrequest import getRequest
+from zope.i18n import translate
 from zope.i18nmessageid import MessageFactory
 from zope.interface import provider
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
+
 
 _ = MessageFactory('plone.formwidget.geolocation')
 default_map_layer = 'OpenStreetMap.Mapnik'
@@ -20,6 +23,7 @@ def MapLayers(context):
     For a full list, see:
     http://leaflet-extras.github.io/leaflet-providers/preview/
     """
+    request = getRequest()
     items = [
         (_('OpenStreetMap.Mapnik'),           'OpenStreetMap.Mapnik'),
         (_('OpenStreetMap.BlackAndWhite'),    'OpenStreetMap.BlackAndWhite'),
@@ -48,7 +52,9 @@ def MapLayers(context):
         (_('Esri.WorldGrayCanvas'),           'Esri.WorldGrayCanvas'),
         (_('CartoDB.DarkMatter'),             'CartoDB.DarkMatter'),
         (_('CartoDB.DarkMatterNoLabels'),     'CartoDB.DarkMatterNoLabels'),
-        (_('NASAGIBS.ViirsEarthAtNight2012'), 'NASAGIBS.ViirsEarthAtNight2012'),  # noqa
-    ]
-    items = [SimpleTerm(title=i[0], value=i[1]) for i in items]
+        (_('NASAGIBS.ViirsEarthAtNight2012'), 'NASAGIBS.ViirsEarthAtNight2012'),
+    ]  # noqa
+    items = [
+        SimpleTerm(title=translate(i[0], context=request), value=i[1])
+        for i in items]
     return SimpleVocabulary(items)
