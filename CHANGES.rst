@@ -4,7 +4,8 @@ Changelog
 2.2.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Translate map ids.
+  [thet]
 
 
 2.2.0 (2019-04-24)
