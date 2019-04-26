@@ -1,15 +1,8 @@
 <?xml version="1.0"?>
 <registry>
-
   <records
-      remove="True"
-      prefix="plone.resources/geolocation-bundle-resource"
-      interface='Products.CMFPlone.interfaces.IResourceRegistry'/>
-
-  <records
-      remove="True"
-      prefix="plone.bundles/geolocation-bundle"
-      interface="Products.CMFPlone.interfaces.IBundleRegistry"
-      />
-
+      prefix="plone.bundles/bundle-leaflet"
+      interface="Products.CMFPlone.interfaces.IBundleRegistry">
+    <value key="enabled">False</value>
+  </records>
 </registry>

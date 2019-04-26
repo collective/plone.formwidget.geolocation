@@ -2,19 +2,33 @@
 from setuptools import find_packages
 from setuptools import setup
 
-version = '2.1.dev0'
+import os
+
+version = '2.2.1.dev0'
+
+
+def read(*rnames):
+    with open(os.path.join(os.path.dirname(__file__), *rnames)) as f:
+        return f.read()
+
 
 setup(
     name='plone.formwidget.geolocation',
     version=version,
     description="Geolocation field and widget",
     long_description="{0}\n{1}".format(
-        open("README.rst").read(),
-        open("CHANGES.rst").read()
+        read("README.rst"),
+        read("CHANGES.rst"),
     ),
     classifiers=[
         "Framework :: Plone",
+        "Framework :: Plone :: 5.1",
+        "Framework :: Plone :: 5.2",
         "Programming Language :: Python",
+        "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Topic :: Software Development :: Libraries :: Python Modules",
     ],
     keywords='',
     author='David Glick',

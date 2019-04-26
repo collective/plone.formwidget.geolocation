@@ -1,0 +1,262 @@
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# plone.formwidget.geolocation translation file
+msgid ""
+msgstr ""
+"Project-Id-Version: 2.2.0\n"
+"POT-Creation-Date: 2019-04-25 21:00+0000\n"
+"PO-Revision-Date: 2019-04-19 22:15+0000\n"
+"Last-Translator: Johannes Raggam <thetetet@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: de\n"
+"Language-Name: Deutsch\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: plone.formwidget.geolocation\n"
+
+#. Default: "CatoDB Dark Matter"
+#: ./plone/formwidget/geolocation/vocabularies.py:53
+msgid "CartoDB.DarkMatter"
+msgstr ""
+
+#. Default: "CartoDB Dark Matter No Labels"
+#: ./plone/formwidget/geolocation/vocabularies.py:54
+msgid "CartoDB.DarkMatterNoLabels"
+msgstr ""
+
+#. Default: "Esri DeLorme"
+#: ./plone/formwidget/geolocation/vocabularies.py:44
+msgid "Esri.DeLorme"
+msgstr ""
+
+#. Default: "Esri Nat Geo World Map"
+#: ./plone/formwidget/geolocation/vocabularies.py:51
+msgid "Esri.NatGeoWorldMap"
+msgstr ""
+
+#. Default: "Esri Ocean Basemap"
+#: ./plone/formwidget/geolocation/vocabularies.py:50
+msgid "Esri.OceanBasemap"
+msgstr ""
+
+#. Default: "Esri World Gray Canvas"
+#: ./plone/formwidget/geolocation/vocabularies.py:52
+msgid "Esri.WorldGrayCanvas"
+msgstr ""
+
+#. Default: "Esri World Imagery"
+#: ./plone/formwidget/geolocation/vocabularies.py:46
+msgid "Esri.WorldImagery"
+msgstr ""
+
+#. Default: "Esri World Physical"
+#: ./plone/formwidget/geolocation/vocabularies.py:49
+msgid "Esri.WorldPhysical"
+msgstr ""
+
+#. Default: "Esri World Shaded Relief"
+#: ./plone/formwidget/geolocation/vocabularies.py:48
+msgid "Esri.WorldShadedRelief"
+msgstr ""
+
+#. Default: "Esri World Street Map"
+#: ./plone/formwidget/geolocation/vocabularies.py:43
+msgid "Esri.WorldStreetMap"
+msgstr ""
+
+#. Default: "Esri World Terrain"
+#: ./plone/formwidget/geolocation/vocabularies.py:47
+msgid "Esri.WorldTerrain"
+msgstr ""
+
+#. Default: "Esri World Topo Map"
+#: ./plone/formwidget/geolocation/vocabularies.py:45
+msgid "Esri.WorldTopoMap"
+msgstr ""
+
+#: ./plone/formwidget/geolocation/configure.zcml:56
+msgid "Extension profile for Plone."
+msgstr ""
+
+#: ./plone/formwidget/geolocation/interfaces.py:14
+msgid "Latitude"
+msgstr ""
+
+#: ./plone/formwidget/geolocation/interfaces.py:15
+msgid "Longitude"
+msgstr ""
+
+#. Default: "NASA Earth at Night 2012"
+#: ./plone/formwidget/geolocation/vocabularies.py:55
+msgid "NASAGIBS.ViirsEarthAtNight2012"
+msgstr ""
+
+#. Default: "OpenStreetMap Black & White"
+#: ./plone/formwidget/geolocation/vocabularies.py:29
+msgid "OpenStreetMap.BlackAndWhite"
+msgstr ""
+
+#. Default: "OpenStreetMap DE"
+#: ./plone/formwidget/geolocation/vocabularies.py:30
+msgid "OpenStreetMap.DE"
+msgstr ""
+
+#. Default: "OpenStreetMap France"
+#: ./plone/formwidget/geolocation/vocabularies.py:31
+msgid "OpenStreetMap.France"
+msgstr ""
+
+#. Default: "OpenStreetMap Mapnik"
+#: ./plone/formwidget/geolocation/vocabularies.py:28
+msgid "OpenStreetMap.Mapnik"
+msgstr ""
+
+#. Default: "Stamen Terrain"
+#: ./plone/formwidget/geolocation/vocabularies.py:40
+msgid "Stamen.Terrain"
+msgstr ""
+
+#. Default: "Stamen Terrain Background"
+#: ./plone/formwidget/geolocation/vocabularies.py:41
+msgid "Stamen.TerrainBackground"
+msgstr ""
+
+#. Default: "Stamen Toner"
+#: ./plone/formwidget/geolocation/vocabularies.py:36
+msgid "Stamen.Toner"
+msgstr ""
+
+#. Default: "Stamen Toner Background"
+#: ./plone/formwidget/geolocation/vocabularies.py:37
+msgid "Stamen.TonerBackground"
+msgstr ""
+
+#. Default: "Stamen Toner Lite"
+#: ./plone/formwidget/geolocation/vocabularies.py:38
+msgid "Stamen.TonerLite"
+msgstr ""
+
+#. Default: "Stamen Relief"
+#: ./plone/formwidget/geolocation/vocabularies.py:42
+msgid "Stamen.TopOSMRelief"
+msgstr ""
+
+#. Default: "Stamen Watercolor"
+#: ./plone/formwidget/geolocation/vocabularies.py:39
+msgid "Stamen.Watercolor"
+msgstr ""
+
+#. Default: "Thunderforest Cycle Map"
+#: ./plone/formwidget/geolocation/vocabularies.py:32
+msgid "Thunderforest.OpenCycleMap"
+msgstr ""
+
+#. Default: "Thunderforest Outdoors"
+#: ./plone/formwidget/geolocation/vocabularies.py:35
+msgid "Thunderforest.Outdoors"
+msgstr ""
+
+#. Default: "Thunderforest Transport"
+#: ./plone/formwidget/geolocation/vocabularies.py:33
+msgid "Thunderforest.Transport"
+msgstr ""
+
+#. Default: "Thunderforest Transport Dark"
+#: ./plone/formwidget/geolocation/vocabularies.py:34
+msgid "Thunderforest.TransportDark"
+msgstr ""
+
+#. Default: "Default map layer"
+#: ./plone/formwidget/geolocation/interfaces.py:85
+msgid "default_map_layer"
+msgstr ""
+
+#. Default: "Set the default map layer"
+#: ./plone/formwidget/geolocation/interfaces.py:89
+msgid "help_default_map_layer"
+msgstr ""
+
+#. Default: "If you want to use the Google Maps search API for higher accuracy, you have to provide a Google Maps API key here."
+#: ./plone/formwidget/geolocation/interfaces.py:72
+msgid "help_google_api_key"
+msgstr ""
+
+#. Default: "Show a link to the Google Maps site, which can be used for further actions like routing."
+#: ./plone/formwidget/geolocation/interfaces.py:79
+msgid "help_google_maps_link"
+msgstr ""
+
+#. Default: "Set the available map layers"
+#: ./plone/formwidget/geolocation/interfaces.py:100
+msgid "help_map_layers"
+msgstr ""
+
+#. Default: "Google maps API Key"
+#: ./plone/formwidget/geolocation/interfaces.py:71
+msgid "label_google_api_key"
+msgstr ""
+
+#. Default: "Show Google maps link."
+#: ./plone/formwidget/geolocation/interfaces.py:78
+msgid "label_google_maps_link"
+msgstr ""
+
+#. Default: "Latitude"
+#: ./plone/formwidget/geolocation/geolocation_input.pt:11
+msgid "label_latitude"
+msgstr ""
+
+#. Default: "Longitude"
+#: ./plone/formwidget/geolocation/geolocation_input.pt:21
+msgid "label_longitude"
+msgstr ""
+
+#. Default: "Map Layers"
+#: ./plone/formwidget/geolocation/interfaces.py:99
+msgid "label_map_layers"
+msgstr ""
+
+#. Default: "Show Fullscreen Control"
+#: ./plone/formwidget/geolocation/interfaces.py:29
+msgid "label_maps_fullscreen"
+msgstr ""
+
+#. Default: "Geosearch Provider"
+#: ./plone/formwidget/geolocation/interfaces.py:65
+msgid "label_maps_geosearch_provider"
+msgstr ""
+
+#. Default: "Show Locate Control"
+#: ./plone/formwidget/geolocation/interfaces.py:35
+msgid "label_maps_locate"
+msgstr ""
+
+#. Default: "Show Add Marker"
+#: ./plone/formwidget/geolocation/interfaces.py:59
+msgid "label_maps_show_add_marker"
+msgstr ""
+
+#. Default: "Show Geosearch"
+#: ./plone/formwidget/geolocation/interfaces.py:53
+msgid "label_maps_show_geosearch"
+msgstr ""
+
+#. Default: "Show Minimap"
+#: ./plone/formwidget/geolocation/interfaces.py:47
+msgid "label_maps_show_minimap"
+msgstr ""
+
+#. Default: "Show Zoom Control"
+#: ./plone/formwidget/geolocation/interfaces.py:41
+msgid "label_maps_zoom"
+msgstr ""
+
+#: ./plone/formwidget/geolocation/configure.zcml:56
+msgid "plone.formwidget.geolocation map install"
+msgstr ""
+
+#: ./plone/formwidget/geolocation/configure.zcml:64
+msgid "plone.formwidget.geolocation map uninstall"
+msgstr ""

@@ -1,11 +1,51 @@
 Changelog
 =========
 
-2.1 (unreleased)
+2.2.1 (unreleased)
+------------------
+
+- Translate map ids.
+  [thet]
+
+
+2.2.0 (2019-04-24)
+------------------
+
+- add geolocation settings for leaflet
+  [petschki]
+
+- Fix for Python 3.
+  [pbauer]
+
+
+2.1.3 (2017-12-06)
+------------------
+
+- Only include the leaflet bundle where it is needed via ``add_bundle_on_request``.
+  [thet]
+
+
+2.1.2 (2017-04-04)
+------------------
+
+- Explicitly include necessary zcml dependencies to avoid having to explictly doing that in tests.
+  plone.app.testing disables z3c.autoinclude.
+  [thet]
+
+
+2.1.1 (2017-03-06)
+------------------
+
+- Add upgrade step for changes in 2.1 + register missing upgrade steps for Plone 5 migration.
+  [thet]
+
+
+2.1 (2017-02-28)
 ----------------
 
-- Nothing changed yet.
-
+- Use ``bundle-leaflet`` from the ``plone.patternslib`` package.
+  This should give an out-of-the-box leaflet integration.
+  [thet]
 
 2.0 (2016-10-06)
 ----------------
