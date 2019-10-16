@@ -55,8 +55,8 @@ class GeolocationWidget(TextWidget):
         if not coordinates:
             return
 
-        title = getattr(self.context, "title", "")
-        description = getattr(self.context, "description", "")
+        title = getattr(self.context, "title", "") or ""
+        description = getattr(self.context, "description", "") or ""
 
         geo_json = {
             "type": "FeatureCollection",
