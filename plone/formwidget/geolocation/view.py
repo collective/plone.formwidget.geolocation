@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-# from collective.realestate import _
 from plone import api
 from Products.Five.browser import BrowserView
 

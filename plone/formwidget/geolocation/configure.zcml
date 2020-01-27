@@ -103,4 +103,13 @@
       import_profile="plone.formwidget.geolocation:default"
       />
 
+  <genericsetup:upgradeStep
+      title="Add default lat/lon"
+      description="Add default latitude and longitude on map settings"
+      source="4"
+      destination="5"
+      handler="plone.formwidget.geolocation.upgrades.upgrade_4_to_5"
+      profile="plone.formwidget.geolocation:default"
+      />
+
 </configure>
