@@ -15,6 +15,8 @@
   <adapter factory=".widget.GeolocationFieldWidget" />
   <adapter factory=".converter.GeolocationConverter" />
 
+  <include package="z3c.form" file="meta.zcml" />
+
   <z3c:widgetTemplate
       mode="display"
       widget=".interfaces.IGeolocationWidget"
@@ -40,11 +42,19 @@
       name="plone.formwidget.geolocation.vocabularies.map_layers"
       />
 
+  <include package="Products.CMFPlone.controlpanel" file="permissions.zcml" />
   <browser:page
       name="geolocation-controlpanel"
       for="Products.CMFPlone.interfaces.IPloneSiteRoot"
       class=".controlpanel.GeolocationControlPanel"
       permission="plone.app.controlpanel.Site"
+      />
+
+  <browser:page
+      name="maps_configuration"
+      for="*"
+      class=".view.MapsConfiguration"
+      permission="zope2.View"
       />
 
   <genericsetup:registerProfile
