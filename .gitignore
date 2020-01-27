@@ -11,3 +11,8 @@ develop-eggs/
 dist/
 node_modules/
 parts/
+lib/
+lib64
+pyvenv.cfg
+share/
+var/
