@@ -101,6 +101,10 @@ class GeolocationWidget(TextWidget):
                 {"title": translate(_(l), context=self.request), "id": l}
                 for l in map_layers
             ],
+            "default_location": (
+                getrec("geolocation.default_latitude", default=0.0),
+                getrec("geolocation.default_longitude", default=0.0),
+            ),
         }
         if self.mode == "input":
             # geosearch for input is always active
@@ -110,9 +114,7 @@ class GeolocationWidget(TextWidget):
         return json.dumps(config)
 
     def _default_loc(self):
-        config = queryMultiAdapter(
-            (self.context, self.request), name="maps_configuration", default=None
-        )
+        config = self.map_configuration
         default = ret = (0.0, 0.0)
         if config and hasattr(config, "default_location"):
             ret = config.default_location
