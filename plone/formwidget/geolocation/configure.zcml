@@ -50,13 +50,6 @@
       permission="plone.app.controlpanel.Site"
       />
 
-  <browser:page
-      name="maps_configuration"
-      for="*"
-      class=".view.MapsConfiguration"
-      permission="zope2.View"
-      />
-
   <genericsetup:registerProfile
       name="default"
       title="plone.formwidget.geolocation map install"
