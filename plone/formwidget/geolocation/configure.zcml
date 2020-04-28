@@ -15,6 +15,8 @@
   <adapter factory=".widget.GeolocationFieldWidget" />
   <adapter factory=".converter.GeolocationConverter" />
 
+  <include package="z3c.form" file="meta.zcml" />
+
   <z3c:widgetTemplate
       mode="display"
       widget=".interfaces.IGeolocationWidget"
@@ -40,6 +42,7 @@
       name="plone.formwidget.geolocation.vocabularies.map_layers"
       />
 
+  <include package="Products.CMFPlone.controlpanel" file="permissions.zcml" />
   <browser:page
       name="geolocation-controlpanel"
       for="Products.CMFPlone.interfaces.IPloneSiteRoot"
@@ -91,6 +94,15 @@
       destination="4"
       profile="plone.formwidget.geolocation:default"
       import_profile="plone.formwidget.geolocation:default"
+      />
+
+  <genericsetup:upgradeStep
+      title="Add default lat/lon"
+      description="Add default latitude and longitude on map settings"
+      source="4"
+      destination="5"
+      handler="plone.formwidget.geolocation.upgrades.upgrade_4_to_5"
+      profile="plone.formwidget.geolocation:default"
       />
 
 </configure>

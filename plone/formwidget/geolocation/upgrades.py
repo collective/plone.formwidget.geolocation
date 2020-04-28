@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from plone import api
 from plone.registry.interfaces import IRegistry
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces import IResourceRegistry
@@ -7,8 +8,8 @@ from zope.component import getUtility
 import logging
 
 
-logger = logging.getLogger('plone.formwidget.geolocation upgrade')
-PROFILE_ID = 'profile-plone.formwidget.geolocation:default'
+logger = logging.getLogger("plone.formwidget.geolocation upgrade")
+PROFILE_ID = "profile-plone.formwidget.geolocation:default"
 
 
 def unregister_resource(registry, resource):
@@ -24,27 +25,27 @@ def upgrade_1_to_2(context):
 
     # Unregister JavaScript
     unregister_resource(
-        getToolByName(context, 'portal_javascripts'),
-        '++resource++plone.formwidget.geolocation/libs.js'
+        getToolByName(context, "portal_javascripts"),
+        "++resource++plone.formwidget.geolocation/libs.js",
     )
     unregister_resource(
-        getToolByName(context, 'portal_javascripts'),
-        '++resource++plone.formwidget.geolocation/maps.js'
+        getToolByName(context, "portal_javascripts"),
+        "++resource++plone.formwidget.geolocation/maps.js",
     )
 
     # Unregister CSS
     unregister_resource(
-        getToolByName(context, 'portal_css'),
-        '++resource++plone.formwidget.geolocation/libs.css'
+        getToolByName(context, "portal_css"),
+        "++resource++plone.formwidget.geolocation/libs.css",
     )
     unregister_resource(
-        getToolByName(context, 'portal_css'),
-        '++resource++plone.formwidget.geolocation/maps.css'
-        '++resource++collective.venue/styles.css'
+        getToolByName(context, "portal_css"),
+        "++resource++plone.formwidget.geolocation/maps.css"
+        "++resource++collective.venue/styles.css",
     )
 
-    setup = getToolByName(context, 'portal_setup')
-    setup.runImportStepFromProfile(PROFILE_ID, 'plone.app.registry')
+    setup = getToolByName(context, "portal_setup")
+    setup.runImportStepFromProfile(PROFILE_ID, "plone.app.registry")
 
 
 def upgrade_2_to_3(context):
@@ -53,20 +54,21 @@ def upgrade_2_to_3(context):
 
     registry = getUtility(IRegistry)
     records = registry.collectionOfInterface(
-        IResourceRegistry,
-        prefix='plone.resources',
-        check=False
+        IResourceRegistry, prefix="plone.resources", check=False
     )
-    if 'geolocation-bundle-resource' in records:
-        del records['geolocation-bundle-resource']
+    if "geolocation-bundle-resource" in records:
+        del records["geolocation-bundle-resource"]
 
     records = registry.collectionOfInterface(
-        IResourceRegistry,
-        prefix='plone.bundles',
-        check=False
+        IResourceRegistry, prefix="plone.bundles", check=False
     )
-    if 'geolocation-bundle' in records:
-        del records['geolocation-bundle']
+    if "geolocation-bundle" in records:
+        del records["geolocation-bundle"]
 
-    setup = getToolByName(context, 'portal_setup')
-    setup.runAllImportStepsFromProfile('profile-plone.patternslib:default')
+    setup = getToolByName(context, "portal_setup")
+    setup.runAllImportStepsFromProfile("profile-plone.patternslib:default")
+
+
+def upgrade_4_to_5(context):
+    api.portal.set_registry_record("geolocation.default_latitude", 0.0)
+    api.portal.set_registry_record("geolocation.default_longitude", 0.0)

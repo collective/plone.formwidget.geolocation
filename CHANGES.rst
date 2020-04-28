@@ -4,7 +4,8 @@ Changelog
 2.2.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add maps-configuration view to get default latitude and longitude.
+  [bsuttor]
 
 
 2.2.1 (2019-06-07)

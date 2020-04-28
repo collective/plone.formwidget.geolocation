@@ -105,3 +105,6 @@ class IGeolocationSettings(Interface):
         missing_value=[],
         value_type=schema.Choice(
             vocabulary='plone.formwidget.geolocation.vocabularies.map_layers'))
+
+    default_latitude = schema.Float(title=_(u"Latitude"), required=False)
+    default_longitude = schema.Float(title=_(u"Longitude"), required=False)
