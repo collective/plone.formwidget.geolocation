@@ -4,7 +4,7 @@ Changelog
 2.2.2 (unreleased)
 ------------------
 
-- Add maps-configuration view to get default latitude and longitude.
+- Add default_location informations to maps-configuration view.
   [bsuttor]
 
 
