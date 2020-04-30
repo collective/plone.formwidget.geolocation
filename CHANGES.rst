@@ -4,6 +4,9 @@ Changelog
 2.2.2 (unreleased)
 ------------------
 
+- Fix popup displaying the string "None" when no description was given.
+  [parruc]
+
 - Add default_location informations to maps-configuration view.
   [bsuttor]
 
