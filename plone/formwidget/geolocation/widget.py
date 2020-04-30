@@ -101,10 +101,7 @@ class GeolocationWidget(TextWidget):
                 {"title": translate(_(l), context=self.request), "id": l}
                 for l in map_layers
             ],
-            "default_location": (
-                getrec("geolocation.default_latitude", default=0.0),
-                getrec("geolocation.default_longitude", default=0.0),
-            ),
+            "default_location": self._default_loc(),
         }
         if self.mode == "input":
             # geosearch for input is always active
@@ -114,15 +111,10 @@ class GeolocationWidget(TextWidget):
         return json.dumps(config)
 
     def _default_loc(self):
-        config = self.map_configuration
-        default = ret = (0.0, 0.0)
-        if config and hasattr(config, "default_location"):
-            ret = config.default_location
-            if isinstance(ret, six.string_types):
-                ret = ret.split(",")
-        if len(ret) != 2:
-            return default
-        return (float(ret[0]), float(ret[1]))
+        return (
+            getrec("geolocation.default_latitude", default=0.0),
+            getrec("geolocation.default_longitude", default=0.0),
+        )
 
 
 @implementer(IFieldWidget)
