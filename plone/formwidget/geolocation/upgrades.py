@@ -70,5 +70,8 @@ def upgrade_2_to_3(context):
 
 
 def upgrade_4_to_5(context):
+    context.runImportStepFromProfile(
+        "profile-plone.formwidget.geolocation:default", "plone.app.registry"
+    )
     api.portal.set_registry_record("geolocation.default_latitude", 0.0)
     api.portal.set_registry_record("geolocation.default_longitude", 0.0)
