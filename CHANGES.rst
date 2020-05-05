@@ -4,6 +4,9 @@ Changelog
 2.2.2 (unreleased)
 ------------------
 
+- Allow empty latitude and longitude.
+  [bsuttor]
+
 - Fix popup displaying the string "None" when no description was given.
   [parruc]
 

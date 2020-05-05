@@ -52,7 +52,7 @@ class GeolocationWidget(TextWidget):
         """Return the geo location as GeoJSON string.
         """
         coordinates = self.value
-        if not coordinates:
+        if not all(coordinates):
             return
 
         title = getattr(self.context, "title", "") or ""
@@ -101,7 +101,8 @@ class GeolocationWidget(TextWidget):
                 {"title": translate(_(l), context=self.request), "id": l}
                 for l in map_layers
             ],
-            "default_location": self._default_loc(),
+            "latitude": getrec("geolocation.default_latitude") or None,
+            "longitude": getrec("geolocation.default_longitude") or None,
         }
         if self.mode == "input":
             # geosearch for input is always active
@@ -112,8 +113,8 @@ class GeolocationWidget(TextWidget):
 
     def _default_loc(self):
         return (
-            getrec("geolocation.default_latitude", default=0.0),
-            getrec("geolocation.default_longitude", default=0.0),
+            getrec("geolocation.default_latitude") or None,
+            getrec("geolocation.default_longitude") or None,
         )
 
 
