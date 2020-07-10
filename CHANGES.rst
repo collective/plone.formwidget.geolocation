@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.2.2 (unreleased)
+2.2.2 (2020-07-10)
 ------------------
 
 - Fix popup displaying the string "None" when no description was given.
