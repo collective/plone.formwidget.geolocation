@@ -11,13 +11,11 @@ from z3c.form.interfaces import IFieldWidget
 from z3c.form.interfaces import IFormLayer
 from z3c.form.widget import FieldWidget
 from zope.component import adapter
-from zope.component import queryMultiAdapter
 from zope.i18n import translate
 from zope.interface import implementer
 from zope.interface import implementer_only
 
 import json
-import six
 
 
 @implementer_only(IGeolocationWidget)
@@ -98,8 +96,8 @@ class GeolocationWidget(TextWidget):
             "geosearch_provider": getrec("geolocation.geosearch_provider"),
             "default_map_layer": getrec("geolocation.default_map_layer"),
             "map_layers": [
-                {"title": translate(_(l), context=self.request), "id": l}
-                for l in map_layers
+                {"title": translate(_(layer), context=self.request), "id": layer}
+                for layer in map_layers
             ],
             "latitude": getrec("geolocation.default_latitude") or None,
             "longitude": getrec("geolocation.default_longitude") or None,
