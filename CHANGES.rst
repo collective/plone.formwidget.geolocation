@@ -3,6 +3,8 @@ Changelog
 
 2.2.2 (unreleased)
 ------------------
+- Specify that latitude and longitude fields can be not required.
+  [boulch]
 
 - Allow empty latitude and longitude.
   [bsuttor]
