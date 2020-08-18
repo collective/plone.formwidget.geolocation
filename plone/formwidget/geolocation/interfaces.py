@@ -11,8 +11,8 @@ _ = MessageFactory('plone.formwidget.geolocation')
 
 
 class IGeolocation(Interface):
-    latitude = schema.Float(title=_(u'Latitude'))
-    longitude = schema.Float(title=_(u'Longitude'))
+    latitude = schema.Float(title=_(u'Latitude'), required=False)
+    longitude = schema.Float(title=_(u'Longitude'), required=False)
 
 
 class IGeolocationField(IObject):
