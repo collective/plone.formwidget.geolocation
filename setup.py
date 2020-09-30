@@ -4,7 +4,7 @@ from setuptools import setup
 
 import os
 
-version = '2.2.2.dev0'
+version = '2.2.3.dev0'
 
 
 def read(*rnames):
@@ -29,6 +29,8 @@ setup(
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Topic :: Software Development :: Libraries :: Python Modules",
+        "Development Status :: 5 - Production/Stable",
+        "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
     ],
     keywords='',
     author='David Glick',

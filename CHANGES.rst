@@ -1,7 +1,13 @@
 Changelog
 =========
 
-2.2.2 (unreleased)
+2.2.3 (unreleased)
+------------------
+
+- Nothing changed yet.
+
+
+2.2.2 (2020-07-10)
 ------------------
 - Specify that latitude and longitude fields can be not required.
   [boulch]
