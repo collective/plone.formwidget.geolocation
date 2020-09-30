@@ -9,6 +9,11 @@ Changelog
 
 2.2.2 (2020-07-10)
 ------------------
+- Specify that latitude and longitude fields can be not required.
+  [boulch]
+
+- Allow empty latitude and longitude.
+  [bsuttor]
 
 - Fix popup displaying the string "None" when no description was given.
   [parruc]

@@ -5,7 +5,12 @@ from zope.interface import implementer
 
 @implementer(IGeolocation)
 class Geolocation(object):
-
     def __init__(self, latitude=0, longitude=0):
-        self.latitude = float(latitude)
-        self.longitude = float(longitude)
+        try:
+            self.latitude = float(latitude)
+        except ValueError:
+            self.latitude = None
+        try:
+            self.longitude = float(longitude)
+        except ValueError:
+            self.longitude = None
