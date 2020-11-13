@@ -4,6 +4,9 @@ Changelog
 2.2.3 (unreleased)
 ------------------
 
+- Fix an issue when the geolocation is empty
+  [mpeeters]
+
 - Specify that latitude and longitude fields can be not required.
   [boulch]
 

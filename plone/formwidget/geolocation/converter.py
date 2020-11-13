@@ -13,11 +13,11 @@ class GeolocationConverter(BaseDataConverter):
     """
 
     def toWidgetValue(self, value):
-        if value:
+        if value and value.latitude is not None and value.longitude is not None:
             return (value.latitude, value.longitude)
 
     def toFieldValue(self, value):
-        if value is None or value == ('0', '0'):
+        if value is None or value == ('0', '0') or '' in value:
             return self.field.missing_value
 
         if IGeolocation.providedBy(value):
