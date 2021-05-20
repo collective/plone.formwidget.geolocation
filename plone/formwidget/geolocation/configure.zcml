@@ -14,8 +14,10 @@
 
   <adapter factory=".widget.GeolocationFieldWidget" />
   <adapter factory=".converter.GeolocationConverter" />
-  <adapter factory=".converter.GeolocationSerializer" />
 
+  <adapter
+      zcml:condition="installed plone.restapi"
+      factory=".serializer.GeolocationSerializer" />
 
   <include package="z3c.form" file="meta.zcml" />
 
