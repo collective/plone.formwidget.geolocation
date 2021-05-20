@@ -4,8 +4,8 @@ Changelog
 2.2.3 (unreleased)
 ------------------
 
-- Add plone.restapi serializer.
-  [bsuttor]
+- Add plone.restapi serializer (if plone.restapi is installed).
+  [bsuttor, laulaz]
 
 - Specify that latitude and longitude fields can be not required.
   [boulch]
