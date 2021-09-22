@@ -47,8 +47,7 @@ class GeolocationWidget(TextWidget):
 
     @property
     def data_geojson(self):
-        """Return the geo location as GeoJSON string.
-        """
+        """Return the geo location as GeoJSON string."""
         coordinates = self.value
         if not all(coordinates):
             return

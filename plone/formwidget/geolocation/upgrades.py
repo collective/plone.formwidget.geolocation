@@ -49,8 +49,7 @@ def upgrade_1_to_2(context):
 
 
 def upgrade_2_to_3(context):
-    """Remove unused bundles and resources.
-    """
+    """Remove unused bundles and resources."""
 
     registry = getUtility(IRegistry)
     records = registry.collectionOfInterface(
