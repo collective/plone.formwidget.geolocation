@@ -4,7 +4,9 @@ Changelog
 2.2.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Allow to set default geolocation on new contents (via bool field in config).
+  If not checked, the defaut geolocation is only used to center map.
+  [laulaz]
 
 
 2.2.3 (2021-05-26)

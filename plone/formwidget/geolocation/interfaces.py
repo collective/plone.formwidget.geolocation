@@ -106,5 +106,26 @@ class IGeolocationSettings(Interface):
         ),
     )
 
-    default_latitude = schema.Float(title=_(u"Latitude"), required=False)
-    default_longitude = schema.Float(title=_(u"Longitude"), required=False)
+    default_latitude = schema.Float(
+        title=_(u"Default latitude"),
+        description=_(
+            u"Latitude value that will be used to center map (on contents not yet geolocated)."
+        ),
+        required=False,
+    )
+
+    default_longitude = schema.Float(
+        title=_(u"Default longitude"),
+        description=_(
+            u"Longitude value that will be used to center map (on contents not yet geolocated)."
+        ),
+        required=False,
+    )
+
+    use_default_geolocation_as_value = schema.Bool(
+        title=_(u"Use default geolocation for contents"),
+        description=_(
+            u"Geolocation used to center map (see above) will also be used to define the default geolocation on new contents."
+        ),
+        default=True,
+    )
