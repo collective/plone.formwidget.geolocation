@@ -9,15 +9,14 @@ from zope.component import adapter
 
 @adapter(IGeolocationField, IGeolocationWidget)
 class GeolocationConverter(BaseDataConverter):
-    """Converts from a 2-tuple to a Geolocation
-    """
+    """Converts from a 2-tuple to a Geolocation"""
 
     def toWidgetValue(self, value):
         if value and value.latitude is not None and value.longitude is not None:
             return (value.latitude, value.longitude)
 
     def toFieldValue(self, value):
-        if value is None or value == ('0', '0') or '' in value:
+        if value is None or value == ("0", "0") or '' in value:
             return self.field.missing_value
 
         if IGeolocation.providedBy(value):

@@ -1,11 +1,18 @@
 Changelog
 =========
 
-2.2.3 (unreleased)
+2.2.4 (unreleased)
 ------------------
 
 - Fix an issue when the geolocation is empty
   [mpeeters]
+
+
+2.2.3 (2021-05-26)
+------------------
+
+- Add plone.restapi serializer (if plone.restapi is installed).
+  [bsuttor, laulaz]
 
 - Specify that latitude and longitude fields can be not required.
   [boulch]
