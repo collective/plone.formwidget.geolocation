@@ -62,9 +62,7 @@ class IGeolocationSettings(Interface):
     )
 
     geosearch_provider = schema.TextLine(
-        title=_(
-            u"label_maps_geosearch_provider", default=u"Geosearch Provider"
-        ),  # noqa
+        title=_(u"label_maps_geosearch_provider", default=u"Geosearch Provider"),
         required=False,
         default=u"nominatim",
     )
@@ -74,7 +72,7 @@ class IGeolocationSettings(Interface):
         description=_(
             u"help_google_api_key",
             default=u"If you want to use the Google Maps search API for higher accuracy, you have to provide a Google Maps API key here.",
-        ),  # noqa
+        ),
         required=False,
         default=None,
     )
@@ -84,7 +82,7 @@ class IGeolocationSettings(Interface):
         description=_(
             u"help_google_maps_link",
             default=u"Show a link to the Google Maps site, which can be used for further actions like routing.",
-        ),  # noqa
+        ),
         required=False,
         default=False,
     )
