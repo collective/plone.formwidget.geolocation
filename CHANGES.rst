@@ -4,6 +4,9 @@ Changelog
 2.2.4 (unreleased)
 ------------------
 
+- Add plone.restapi deserializer (if plone.restapi is installed).
+  [laulaz]
+
 - Allow to set default geolocation on new contents (via bool field in config).
   If not checked, the defaut geolocation is only used to center map.
   Also, the geolocation map will not show on an object if no geolocation was defined.
