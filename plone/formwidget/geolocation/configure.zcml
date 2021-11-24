@@ -19,6 +19,10 @@
       zcml:condition="installed plone.restapi"
       factory=".serializer.GeolocationSerializer" />
 
+  <adapter
+      zcml:condition="installed plone.restapi"
+      factory=".serializer.GeolocationDeserializer" />
+
   <include package="z3c.form" file="meta.zcml" />
 
   <z3c:widgetTemplate
