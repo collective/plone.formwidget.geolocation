@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from plone.formwidget.geolocation.converter import GeolocationConverter
 from plone.formwidget.geolocation.geolocation import Geolocation
 
@@ -11,7 +13,7 @@ def create_instance():
     return GeolocationConverter(field, widget)
 
 
-class TestGeolocationDataConverter(unittest.TestCase):
+class TestConverter(unittest.TestCase):
     def test_instance(self):
         instance = create_instance()
         self.assertTrue(isinstance(instance, GeolocationConverter))
@@ -20,8 +22,10 @@ class TestGeolocationDataConverter(unittest.TestCase):
         instance = create_instance()
         value = Geolocation()
         self.assertEqual(instance.toWidgetValue(value), (0, 0))
+
         value = Geolocation(0, 0)
         self.assertEqual(instance.toWidgetValue(value), (0, 0))
+
         value = Geolocation(50.0, 5.0)
         self.assertEqual(instance.toWidgetValue(value), (50.0, 5.0))
 
@@ -29,17 +33,20 @@ class TestGeolocationDataConverter(unittest.TestCase):
         instance = create_instance()
         value = None
         self.assertEqual(instance.toFieldValue(value), instance.field.missing_value)
+
         value = ("0", "0")
         self.assertEqual(instance.toFieldValue(value), instance.field.missing_value)
+
         value = (0, 0)
         geolocation = instance.toFieldValue(value)
         self.assertEqual(geolocation.latitude, 0)
         self.assertEqual(geolocation.longitude, 0)
-        geolocation = Geolocation(50.0, 5.0)
-        latitude = instance.toFieldValue(geolocation).latitude
-        longitude = instance.toFieldValue(geolocation).longitude
-        self.assertEqual(latitude, 50.0)
-        self.assertEqual(longitude, 5.0)
+
+        value = Geolocation(50.0, 5.0)
+        geolocation = instance.toFieldValue(value)
+        self.assertEqual(geolocation.latitude, 50.0)
+        self.assertEqual(geolocation.longitude, 5.0)
+
         value = (50.0, 5.0)
         geolocation = instance.toFieldValue(value)
         self.assertEqual(geolocation.latitude, 50.0)

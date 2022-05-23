@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Setup tests for this package."""
+
 from plone.formwidget.geolocation.testing import GEOLOCATION_INTEGRATION_TESTING
 from Products.CMFPlone.utils import get_installer
 
@@ -18,7 +18,9 @@ class TestSetup(unittest.TestCase):
 
     def test_product_installed(self):
         """Test if plone.formwidget.geolocation is installed."""
-        self.assertTrue(self.installer.isProductInstalled("plone.formwidget.geolocation"))
+        self.assertTrue(
+            self.installer.isProductInstalled("plone.formwidget.geolocation")
+        )
 
 
 class TestUninstall(unittest.TestCase):
@@ -32,4 +34,6 @@ class TestUninstall(unittest.TestCase):
 
     def test_product_uninstalled(self):
         """Test if plone.formwidget.geolocation is cleanly uninstalled."""
-        self.assertFalse(self.installer.isProductInstalled("plone.formwidget.geolocation"))
+        self.assertFalse(
+            self.installer.isProductInstalled("plone.formwidget.geolocation")
+        )
