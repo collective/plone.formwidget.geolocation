@@ -46,6 +46,14 @@ setup(
         'setuptools',
         'z3c.form',
     ],
+    extras_require={
+        "test": [
+            "plone.app.testing",
+            "plone.testing",
+            "mock",
+            "unittest2",
+        ]
+    },
     entry_points="""
       # -*- Entry points: -*-
       [z3c.autoinclude.plugin]
