@@ -2,7 +2,6 @@
 
 from plone.formwidget.geolocation.testing import GEOLOCATION_INTEGRATION_TESTING
 from plone.dexterity.content import DexterityContent
-from plone.dexterity.utils import iterSchemata
 from plone.formwidget.geolocation.field import GeolocationField
 from plone.formwidget.geolocation.geolocation import Geolocation
 from plone.restapi.interfaces import IFieldSerializer
@@ -14,8 +13,6 @@ import unittest2 as unittest
 
 
 class IDummyGeolocation(model.Schema):
-    """"""
-
     geolocation = GeolocationField(title=u"Geolocation")
 
 
