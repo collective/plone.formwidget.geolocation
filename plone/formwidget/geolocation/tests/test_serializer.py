@@ -1,24 +1,13 @@
 # -*- coding: utf-8 -*-
 
 from plone.formwidget.geolocation.testing import GEOLOCATION_INTEGRATION_TESTING
-from plone.dexterity.content import DexterityContent
-from plone.formwidget.geolocation.field import GeolocationField
 from plone.formwidget.geolocation.geolocation import Geolocation
+from plone.formwidget.geolocation.tests.utils import DummyContent
+from plone.formwidget.geolocation.tests.utils import IDummyGeolocation
 from plone.restapi.interfaces import IFieldSerializer
-from plone.supermodel import model
 from zope.component import getMultiAdapter
-from zope.interface import implementer
 
 import unittest2 as unittest
-
-
-class IDummyGeolocation(model.Schema):
-    geolocation = GeolocationField(title=u"Geolocation")
-
-
-@implementer(IDummyGeolocation)
-class DummyContent(DexterityContent):
-    """"""
 
 
 class TestSerializer(unittest.TestCase):

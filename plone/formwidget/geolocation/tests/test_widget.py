@@ -3,12 +3,16 @@
 from plone.api.portal import set_registry_record
 from plone.formwidget.geolocation.interfaces import IGeolocationWidget
 from plone.formwidget.geolocation.testing import GEOLOCATION_INTEGRATION_TESTING
+from plone.formwidget.geolocation.tests.utils import IDummyGeolocation
 from plone.formwidget.geolocation.widget import GeolocationWidget
+from plone.formwidget.geolocation.widget import GeolocationFieldWidget
 from z3c.form.widget import WidgetTemplateFactory
 from zope.pagetemplate.interfaces import IPageTemplate
 
 import json
+import mock
 import os
+import plone.formwidget.geolocation
 import unittest2 as unittest
 import zope.component
 
@@ -78,13 +82,44 @@ class TestWidget(unittest.TestCase):
     def test_render(self):
         widget = GeolocationWidget(self.request)
         widget.id = widget.name = "geolocation"
-        widget.request = {widget.name: (50.0, 5.0)}
+        self.request[widget.name] = (50.0, 5.0)
+        widget.request = self.request
         widget.update()
-        p = os.path.abspath("..")
+
+        path = os.path.join(
+            os.path.dirname(plone.formwidget.geolocation.__file__),
+            "geolocation_input.pt",
+        )
         zope.component.provideAdapter(
-            WidgetTemplateFactory("../geolocation_input.pt", "text/html"),
+            WidgetTemplateFactory(path, "text/html"),
             (None, None, None, None, IGeolocationWidget),
             IPageTemplate,
             name=widget.mode,
         )
-        widget.render()
+        render = widget.render()
+        self.assertIn(
+            'id="geolocation_latitude" name="geolocation:tuple" value="50.0"', render
+        )
+        self.assertIn(
+            'id="geolocation_longitude" name="geolocation:tuple" value="5.0"', render
+        )
+
+        widget.mode = "display"
+        path = os.path.join(
+            os.path.dirname(plone.formwidget.geolocation.__file__),
+            "geolocation_display.pt",
+        )
+        zope.component.provideAdapter(
+            WidgetTemplateFactory(path, "text/html"),
+            (None, None, None, None, IGeolocationWidget),
+            IPageTemplate,
+            name=widget.mode,
+        )
+        render = widget.render()
+        self.assertNotIn("input", render)
+
+    @mock.patch("plone.formwidget.geolocation.widget.GeolocationWidget")
+    def test_field_widget(self, GeolocationWidget):
+        field = IDummyGeolocation.get("geolocation")
+        GeolocationFieldWidget(field, self.request)
+        self.assertTrue(GeolocationWidget.called)
