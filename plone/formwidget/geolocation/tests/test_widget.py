@@ -18,7 +18,6 @@ class TestWidget(unittest.TestCase):
     layer = GEOLOCATION_INTEGRATION_TESTING
 
     def setUp(self):
-        self.portal = self.layer["portal"]
         self.request = self.layer["request"]
 
     def test_bundle_on_request(self):
