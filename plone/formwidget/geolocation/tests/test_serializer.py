@@ -16,7 +16,7 @@ import unittest2 as unittest
 class IDummyGeolocation(model.Schema):
     """"""
 
-    geolocation = GeolocationField(title="Geolocation")
+    geolocation = GeolocationField(title=u"Geolocation")
 
 
 @implementer(IDummyGeolocation)
