@@ -1,0 +1,7 @@
+[report]
+include =
+    plone/*
+
+omit =
+    */test*
+    */upgrades*

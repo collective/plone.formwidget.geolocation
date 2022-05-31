@@ -1,0 +1,6 @@
+<configure xmlns="http://namespaces.zope.org/zope">
+
+  <include file="configure.zcml" />
+  <include package="plone.restapi.serializer" />
+
+</configure>

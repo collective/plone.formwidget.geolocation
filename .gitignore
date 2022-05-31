@@ -9,6 +9,7 @@ bin/
 bower_components/
 develop-eggs/
 dist/
+htmlcov/
 node_modules/
 parts/
 lib/
