@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.2.4 (unreleased)
+2.2.4 (2022-06-02)
 ------------------
 
 - Add French translations
