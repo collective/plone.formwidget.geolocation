@@ -27,7 +27,6 @@ but can also be used directly in your own content type schema::
 Limitations
 -----------
 
-This add-on has been developed on Plone 4.3, but works with Plone 5 and Plone 6 too.
 Current branch is tested on Plone 5.2.x & Plone 6.0.x.
 
 
