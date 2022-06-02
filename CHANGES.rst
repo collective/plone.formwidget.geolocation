@@ -4,6 +4,9 @@ Changelog
 2.2.4 (unreleased)
 ------------------
 
+- Add French translations
+  [laulaz]
+
 - Add plone.restapi deserializer (if plone.restapi is installed).
   [laulaz]
 
