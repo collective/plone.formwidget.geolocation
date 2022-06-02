@@ -49,8 +49,7 @@ def upgrade_1_to_2(context):
 
 
 def upgrade_2_to_3(context):
-    """Remove unused bundles and resources.
-    """
+    """Remove unused bundles and resources."""
 
     registry = getUtility(IRegistry)
     records = registry.collectionOfInterface(
@@ -75,3 +74,9 @@ def upgrade_4_to_5(context):
     )
     api.portal.set_registry_record("geolocation.default_latitude", 0.0)
     api.portal.set_registry_record("geolocation.default_longitude", 0.0)
+
+
+def upgrade_5_to_6(context):
+    context.runImportStepFromProfile(
+        "profile-plone.formwidget.geolocation:default", "plone.app.registry"
+    )

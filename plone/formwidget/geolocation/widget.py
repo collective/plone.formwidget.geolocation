@@ -47,8 +47,7 @@ class GeolocationWidget(TextWidget):
 
     @property
     def data_geojson(self):
-        """Return the geo location as GeoJSON string.
-        """
+        """Return the geo location as GeoJSON string."""
         coordinates = self.value
         if not all(coordinates):
             return
@@ -99,8 +98,8 @@ class GeolocationWidget(TextWidget):
                 {"title": translate(_(layer), context=self.request), "id": layer}
                 for layer in map_layers
             ],
-            "latitude": getrec("geolocation.default_latitude") or None,
-            "longitude": getrec("geolocation.default_longitude") or None,
+            "latitude": getrec("geolocation.default_latitude"),
+            "longitude": getrec("geolocation.default_longitude"),
         }
         if self.mode == "input":
             # geosearch for input is always active
@@ -110,10 +109,13 @@ class GeolocationWidget(TextWidget):
         return json.dumps(config)
 
     def _default_loc(self):
-        return (
-            getrec("geolocation.default_latitude") or None,
-            getrec("geolocation.default_longitude") or None,
-        )
+        if getrec("geolocation.use_default_geolocation_as_value"):
+            return (
+                getrec("geolocation.default_latitude"),
+                getrec("geolocation.default_longitude"),
+            )
+        # no default value for contents not yet geolocated
+        return (None, None)
 
 
 @implementer(IFieldWidget)

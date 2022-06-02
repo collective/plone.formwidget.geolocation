@@ -79,6 +79,10 @@ class TestWidget(unittest.TestCase):
         widget.update()
         self.assertEqual(widget._default_loc(), (70.0, 7.0))
 
+        set_registry_record("geolocation.use_default_geolocation_as_value", False)
+        widget.update()
+        self.assertEqual(widget._default_loc(), (None, None))
+
     def test_render(self):
         widget = GeolocationWidget(self.request)
         widget.id = widget.name = "geolocation"
@@ -117,6 +121,12 @@ class TestWidget(unittest.TestCase):
         )
         render = widget.render()
         self.assertNotIn("input", render)
+        self.assertIn("pat-leaflet map", render)
+
+        widget.request[widget.name] = (None, None)
+        widget.update()
+        render = widget.render()
+        self.assertNotIn("pat-leaflet map", render)
 
     @mock.patch("plone.formwidget.geolocation.widget.GeolocationWidget")
     def test_field_widget(self, GeolocationWidget):

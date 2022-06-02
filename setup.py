@@ -4,7 +4,7 @@ from setuptools import setup
 
 import os
 
-version = '2.2.4.dev0'
+version = "2.2.4.dev0"
 
 
 def read(*rnames):
@@ -13,7 +13,7 @@ def read(*rnames):
 
 
 setup(
-    name='plone.formwidget.geolocation',
+    name="plone.formwidget.geolocation",
     version=version,
     description="Geolocation field and widget",
     long_description="{0}\n{1}".format(
@@ -32,19 +32,19 @@ setup(
         "Development Status :: 5 - Production/Stable",
         "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
     ],
-    keywords='',
-    author='David Glick',
-    author_email='dglick@gmail.com',
-    url='https://github.com/collective/plone.formwidget.geolocation',
-    license='GPL',
+    keywords="",
+    author="David Glick",
+    author_email="dglick@gmail.com",
+    url="https://github.com/collective/plone.formwidget.geolocation",
+    license="GPL",
     packages=find_packages(),
-    namespace_packages=['plone', 'plone.formwidget'],
+    namespace_packages=["plone", "plone.formwidget"],
     include_package_data=True,
     zip_safe=False,
     install_requires=[
-        'plone.patternslib',
-        'setuptools',
-        'z3c.form',
+        "plone.patternslib",
+        "setuptools",
+        "z3c.form",
     ],
     extras_require={
         "test": [

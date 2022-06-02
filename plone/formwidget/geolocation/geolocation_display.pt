@@ -1,7 +1,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       tal:omit-tag="">
-  <div class="geolocation_wrapper" tal:condition="view/value">
+  <div class="geolocation_wrapper" 
+       tal:define="value view/value;
+                   has_location python: value and value[0] and value[1]"
+       tal:condition="has_location">
     <div class="pat-leaflet map" tal:attributes="data-geojson view/data_geojson" data-pat-leaflet='${view/map_configuration}'></div>
   </div>
 </html>
