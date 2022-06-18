@@ -4,7 +4,9 @@ Changelog
 2.2.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Allow to change map marker popup default content (#35).
+  See ``@@geolocation-geojson-popup`` view.
+  [laulaz]
 
 
 2.2.4 (2022-06-02)

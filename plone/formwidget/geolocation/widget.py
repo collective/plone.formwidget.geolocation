@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from Products.CMFPlone.resources import add_bundle_on_request
 from Products.CMFPlone.utils import get_top_request
-from Products.CMFPlone.utils import safe_unicode
 from plone.api.portal import get_registry_record as getrec
 from plone.formwidget.geolocation.interfaces import IGeolocationField
 from plone.formwidget.geolocation.interfaces import IGeolocationWidget
@@ -11,6 +10,7 @@ from z3c.form.interfaces import IFieldWidget
 from z3c.form.interfaces import IFormLayer
 from z3c.form.widget import FieldWidget
 from zope.component import adapter
+from zope.component import queryMultiAdapter
 from zope.i18n import translate
 from zope.interface import implementer
 from zope.interface import implementer_only
@@ -52,18 +52,16 @@ class GeolocationWidget(TextWidget):
         if not all(coordinates):
             return
 
-        title = getattr(self.context, "title", "") or ""
-        description = getattr(self.context, "description", "") or ""
-
+        popup_view = queryMultiAdapter(
+            (self.context, self.request), name="geolocation-geojson-popup"
+        )
         geo_json = {
             "type": "FeatureCollection",
             "features": [
                 {
                     "type": "Feature",
                     "properties": {
-                        "popup": u"<h3>{0}</h3><p>{1}</p>".format(
-                            safe_unicode(title), safe_unicode(description)
-                        )
+                        "popup": popup_view(),
                     },
                     "geometry": {
                         "type": "Point",
