@@ -23,6 +23,10 @@ but can also be used directly in your own content type schema::
         description="Select the location of this content",
     )
 
+The map marker has a popup containing object title / description (by default).
+The template and/or the class used to generate the popup content can be overriden
+to change it (see ``@@geolocation-geojson-popup`` view).
+
 
 Limitations
 -----------

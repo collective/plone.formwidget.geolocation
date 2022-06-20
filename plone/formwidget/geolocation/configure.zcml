@@ -39,6 +39,14 @@
       template="geolocation_input.pt"
       />
 
+  <browser:page
+      name="geolocation-geojson-popup"
+      for="*"
+      class=".popup.PopupView"
+      template="popup.pt"
+      permission="zope.Public"
+      />
+
  <utility
       zcml:condition="installed plone.supermodel"
       component=".supermodel.GeolocationHandler"
