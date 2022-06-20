@@ -23,6 +23,9 @@ class TestConverter(unittest.TestCase):
         value = Geolocation()
         self.assertEqual(instance.toWidgetValue(value), (0, 0))
 
+        value = Geolocation(None, None)
+        self.assertIsNone(instance.toWidgetValue(value))
+
         value = Geolocation(0, 0)
         self.assertEqual(instance.toWidgetValue(value), (0, 0))
 
@@ -32,6 +35,9 @@ class TestConverter(unittest.TestCase):
     def test_toFieldValue(self):
         instance = create_instance()
         value = None
+        self.assertEqual(instance.toFieldValue(value), instance.field.missing_value)
+
+        value = ("", "")
         self.assertEqual(instance.toFieldValue(value), instance.field.missing_value)
 
         value = ("0", "0")

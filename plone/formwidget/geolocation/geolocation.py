@@ -8,9 +8,9 @@ class Geolocation(object):
     def __init__(self, latitude=0, longitude=0):
         try:
             self.latitude = float(latitude)
-        except ValueError:
+        except (ValueError, TypeError):
             self.latitude = None
         try:
             self.longitude = float(longitude)
-        except ValueError:
+        except (ValueError, TypeError):
             self.longitude = None

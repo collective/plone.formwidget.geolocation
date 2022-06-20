@@ -16,10 +16,10 @@ class GeolocationConverter(BaseDataConverter):
             return (value.latitude, value.longitude)
 
     def toFieldValue(self, value):
-        if value is None or value == ("0", "0") or "" in value:
-            return self.field.missing_value
-
         if IGeolocation.providedBy(value):
             return value
+
+        if value is None or value == ("0", "0") or "" in value:
+            return self.field.missing_value
 
         return Geolocation(value[0], value[1])

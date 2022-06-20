@@ -5,7 +5,7 @@ Changelog
 ------------------
 
 - Fix an issue when the geolocation is empty
-  [mpeeters]
+  [mpeeters, laulaz]
 
 - Allow to change map marker popup default content (#35).
   See ``@@geolocation-geojson-popup`` view.
