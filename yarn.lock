@@ -1721,9 +1721,21 @@
     whybundled "^2.0.0"
     yarn "^1.22.19"
 
-"@patternslib/pat-leaflet@git+https://github.com/Patternslib/pat-leaflet.git#master":
-  version "1.3.0"
-  resolved "git+https://github.com/Patternslib/pat-leaflet.git#8ffd3a419af9b1a7310793d989972f83aeae22ff"
+"@patternslib/pat-leaflet@git+https://github.com/petschki/pat-leaflet.git#es6":
+  version "2.0.0"
+  resolved "git+https://github.com/petschki/pat-leaflet.git#dcc7eaa23ce398ec4ae2083e90a3bcd9374e6966"
+  dependencies:
+    "@patternslib/patternslib" "*"
+    jquery "^3.6.1"
+    leaflet "^1.9.0"
+    leaflet-geosearch "^3.6.1"
+    leaflet-minimap "^3.6.1"
+    leaflet-providers "^1.13.0"
+    leaflet-sleep "^0.5.2"
+    leaflet.awesome-markers "^2.0.5"
+    leaflet.fullscreen "^2.4.0"
+    leaflet.locatecontrol "^0.76.1"
+    leaflet.markercluster "^1.5.3"
 
 "@patternslib/patternslib@*":
   version "9.3.1"
@@ -6072,6 +6084,53 @@ latest-version@^7.0.0:
   integrity sha512-KvNT4XqAMzdcL6ka6Tl3i2lYeFDgXNCuIX+xNx6ZMVR1dFq+idXd9FLKNMOIx0t9mJ9/HudyX4oZWXZQ0UJHeg==
   dependencies:
     package-json "^8.1.0"
+
+leaflet-geosearch@^3.6.1:
+  version "3.6.1"
+  resolved "https://registry.yarnpkg.com/leaflet-geosearch/-/leaflet-geosearch-3.6.1.tgz#f2059eb8b4d46b674d05b6b332928f167213d0e8"
+  integrity sha512-Axf8e8kXulC9BCQ9yql6nHyKE7xm/oJDuZsWGDjrprto0rAlCv39tbPs5mn3LrpGOpKcrmJtAt1UkUmkVW47FA==
+  optionalDependencies:
+    leaflet "^1.6.0"
+
+leaflet-minimap@^3.6.1:
+  version "3.6.1"
+  resolved "https://registry.yarnpkg.com/leaflet-minimap/-/leaflet-minimap-3.6.1.tgz#2a43ff3b3d947a45a0acf4bdefc96505b673a6c6"
+  integrity sha512-6px8f6cfv1rKB6ACpL6bbUFGxipZOq4KsntJgBj9nOcW1RYa5+xFp8emOZwks9X+VtVVsQEwWwfgT1kTTL/LzA==
+
+leaflet-providers@^1.13.0:
+  version "1.13.0"
+  resolved "https://registry.yarnpkg.com/leaflet-providers/-/leaflet-providers-1.13.0.tgz#10c843a23d5823a65096d40ad53f27029e13434b"
+  integrity sha512-f/sN5wdgBbVA2jcCYzScIfYNxKdn2wBJP9bu+5cRX9Xj6g8Bt1G9Sr8WgJAt/ckIFIc3LVVxCBNFpSCfTuUElg==
+
+leaflet-sleep@^0.5.2:
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/leaflet-sleep/-/leaflet-sleep-0.5.2.tgz#0e051ee3fca7b075a820b4651a545230434ce162"
+  integrity sha512-Los9EAa3PJi9syu9aX579U5YWv8ESl/OpzUv04wMgHiaUmmTRcUtcxrjCm0WgzvOBAN1cBV7gGw2zMgVzD0ZFg==
+
+leaflet.awesome-markers@^2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/leaflet.awesome-markers/-/leaflet.awesome-markers-2.0.5.tgz#b7b0210d87e2566359bf478c1ab3ab07c7246f30"
+  integrity sha512-Ne/xDjkGyaujwNVVkv2tyXQUV0ZW7gZ0Mo0FuQY4jp2qWrvXi0hwDBvmZyF/8YOvybyMabTMM/mFWCTd1jZIQA==
+
+leaflet.fullscreen@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/leaflet.fullscreen/-/leaflet.fullscreen-2.4.0.tgz#8503c69b6f6afe6f54594c9cdd5e4f131cfa97b4"
+  integrity sha512-41O0ikdUR0bVC0QfoFN3W5S+9yoeHqL74i0QQafa/W79+ij/G7IRZwpfwPuxoNwpydoUJ/9Mq/6Hp7WZOnkWzQ==
+
+leaflet.locatecontrol@^0.76.1:
+  version "0.76.1"
+  resolved "https://registry.yarnpkg.com/leaflet.locatecontrol/-/leaflet.locatecontrol-0.76.1.tgz#03eb8e98e0c54fee457f930a63624479a6177de0"
+  integrity sha512-qA92Mxs2N1jgVx+EdmxtDrdzFD+f2llPJbqaKvmW1epZMSIvD6KNsBjpQYUIxz4XtJkOleqRSwWQcrm5P5NnYw==
+
+leaflet.markercluster@^1.5.3:
+  version "1.5.3"
+  resolved "https://registry.yarnpkg.com/leaflet.markercluster/-/leaflet.markercluster-1.5.3.tgz#9cdb52a4eab92671832e1ef9899669e80efc4056"
+  integrity sha512-vPTw/Bndq7eQHjLBVlWpnGeLa3t+3zGiuM7fJwCkiMFq+nmRuG3RI3f7f4N4TDX7T4NpbAXpR2+NTRSEGfCSeA==
+
+leaflet@^1.6.0, leaflet@^1.9.0:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.9.0.tgz#4f5adf5ad392107935a20a24298e877520691c1e"
+  integrity sha512-lL8433PmoPoTSfPoPMzsQdTKmH36Rn2bQx9/j0bbZ98LimrsMof0P+7AQ0LntwRbjXe601j/IY1P2mwBRnN/1Q==
 
 leven@^3.1.0:
   version "3.1.0"
