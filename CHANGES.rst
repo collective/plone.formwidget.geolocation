@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.2.5 (unreleased)
+2.2.5 (2022-09-22)
 ------------------
 
 - Fix an issue when the geolocation is empty
