@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-from Products.CMFPlone.resources import add_bundle_on_request
-from Products.CMFPlone.utils import get_top_request
 from plone.api.portal import get_registry_record as getrec
 from plone.formwidget.geolocation.interfaces import IGeolocationField
 from plone.formwidget.geolocation.interfaces import IGeolocationWidget
 from plone.formwidget.geolocation.vocabularies import _
+from Products.CMFPlone.resources import add_bundle_on_request
+from Products.CMFPlone.utils import get_top_request
 from z3c.form.browser.text import TextWidget
 from z3c.form.interfaces import IFieldWidget
 from z3c.form.interfaces import IFormLayer
@@ -21,7 +21,7 @@ import json
 @implementer_only(IGeolocationWidget)
 class GeolocationWidget(TextWidget):
 
-    klass = u"geolocation-widget"
+    klass = "geolocation-widget"
     value = None
 
     def update(self):
@@ -31,11 +31,11 @@ class GeolocationWidget(TextWidget):
 
     @property
     def id_input_lat(self):
-        return u"{0}_latitude".format(self.id)
+        return "{0}_latitude".format(self.id)
 
     @property
     def id_input_lng(self):
-        return u"{0}_longitude".format(self.id)
+        return "{0}_longitude".format(self.id)
 
     @property
     def data_geojson(self):
@@ -67,8 +67,8 @@ class GeolocationWidget(TextWidget):
             properties = geo_json["features"][0]["properties"]
             properties["editable"] = True
             properties["no_delete"] = True
-            properties["latinput"] = u"#{0}".format(self.id_input_lat)
-            properties["lnginput"] = u"#{0}".format(self.id_input_lng)
+            properties["latinput"] = "#{0}".format(self.id_input_lat)
+            properties["lnginput"] = "#{0}".format(self.id_input_lng)
 
         return json.dumps(geo_json)
 

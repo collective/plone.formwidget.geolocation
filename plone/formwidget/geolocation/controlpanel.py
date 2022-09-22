@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
+from plone.app.registry.browser import controlpanel
 from plone.formwidget.geolocation import _
 from plone.formwidget.geolocation.interfaces import IGeolocationSettings
-from plone.app.registry.browser import controlpanel
 
 
 class GeolocationControlPanelForm(controlpanel.RegistryEditForm):
@@ -10,7 +10,7 @@ class GeolocationControlPanelForm(controlpanel.RegistryEditForm):
     schema = IGeolocationSettings
     schema_prefix = "geolocation"
 
-    label = _(u"Geolocation Settings")
+    label = _("Geolocation Settings")
     description = _("Settings for Maps and API Keys.")
 
 

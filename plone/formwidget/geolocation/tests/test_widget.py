@@ -5,8 +5,8 @@ from plone.api.portal import set_registry_record
 from plone.formwidget.geolocation.interfaces import IGeolocationWidget
 from plone.formwidget.geolocation.testing import GEOLOCATION_INTEGRATION_TESTING
 from plone.formwidget.geolocation.tests.utils import IDummyGeolocation
-from plone.formwidget.geolocation.widget import GeolocationWidget
 from plone.formwidget.geolocation.widget import GeolocationFieldWidget
+from plone.formwidget.geolocation.widget import GeolocationWidget
 from z3c.form.widget import WidgetTemplateFactory
 from zope.configuration.xmlconfig import XMLConfig
 from zope.configuration.xmlconfig import xmlconfig
@@ -23,7 +23,7 @@ import zope.browserpage
 import zope.component
 
 
-zcml_wrapper = u"""<configure
+zcml_wrapper = """<configure
    xmlns='http://namespaces.zope.org/zope'
    xmlns:browser='http://namespaces.zope.org/browser'
    i18n_domain='zope'>

@@ -7,7 +7,7 @@ from zope.interface import implementer
 
 
 class IDummyGeolocation(model.Schema):
-    geolocation = GeolocationField(title=u"Geolocation")
+    geolocation = GeolocationField(title="Geolocation")
 
 
 @implementer(IDummyGeolocation)
