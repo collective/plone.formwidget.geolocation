@@ -1723,7 +1723,7 @@
 
 "@patternslib/pat-leaflet@git+https://github.com/petschki/pat-leaflet.git#es6":
   version "2.0.0"
-  resolved "git+https://github.com/petschki/pat-leaflet.git#dcc7eaa23ce398ec4ae2083e90a3bcd9374e6966"
+  resolved "git+https://github.com/petschki/pat-leaflet.git#46709be6ef993f8f700c318905e040e93d71ed25"
   dependencies:
     "@patternslib/patternslib" "*"
     jquery "^3.6.1"
@@ -1732,7 +1732,6 @@
     leaflet-minimap "^3.6.1"
     leaflet-providers "^1.13.0"
     leaflet-sleep "^0.5.2"
-    leaflet.awesome-markers "^2.0.5"
     leaflet.fullscreen "^2.4.0"
     leaflet.locatecontrol "^0.76.1"
     leaflet.markercluster "^1.5.3"
@@ -6106,11 +6105,6 @@ leaflet-sleep@^0.5.2:
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/leaflet-sleep/-/leaflet-sleep-0.5.2.tgz#0e051ee3fca7b075a820b4651a545230434ce162"
   integrity sha512-Los9EAa3PJi9syu9aX579U5YWv8ESl/OpzUv04wMgHiaUmmTRcUtcxrjCm0WgzvOBAN1cBV7gGw2zMgVzD0ZFg==
-
-leaflet.awesome-markers@^2.0.5:
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/leaflet.awesome-markers/-/leaflet.awesome-markers-2.0.5.tgz#b7b0210d87e2566359bf478c1ab3ab07c7246f30"
-  integrity sha512-Ne/xDjkGyaujwNVVkv2tyXQUV0ZW7gZ0Mo0FuQY4jp2qWrvXi0hwDBvmZyF/8YOvybyMabTMM/mFWCTd1jZIQA==
 
 leaflet.fullscreen@^2.4.0:
   version "2.4.0"
