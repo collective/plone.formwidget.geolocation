@@ -9,4 +9,5 @@ class HiddenProfiles(object):
         """Hide uninstall profile from site-creation and quickinstaller"""
         return [
             "plone.formwidget.geolocation:uninstall",
+            "plone.formwidget.geolocation:to_2000",
         ]

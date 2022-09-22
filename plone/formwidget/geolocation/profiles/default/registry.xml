@@ -4,13 +4,13 @@
     interface="plone.formwidget.geolocation.interfaces.IGeolocationSettings"
     prefix="geolocation" />
   <records
-    prefix="plone.bundles/plone.formwidget.geolocation"
+    prefix="plone.bundles/plone-formwidget-geolocation"
     interface="Products.CMFPlone.interfaces.IBundleRegistry">
-    <value key="depends">plone</value>
+    <value key="depends"></value>
     <value key="load_async">False</value>
     <value key="load_defer">False</value>
     <value key="enabled">True</value>
-    <value key="jscompilation">/++plone++plone.formwidget.geolocation/bundle-remote.min.js</value>
+    <value key="jscompilation">++plone++plone.formwidget.geolocation/bundle-remote.min.js</value>
     <value key="csscompilation"></value>
   </records>
 </registry>
