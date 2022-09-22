@@ -96,6 +96,11 @@ class GeolocationWidget(TextWidget):
             config["geosearch"] = True
             # zoomcontrol for input is always active
             config["zoomcontrol"] = True
+            # set default lat/lng to 0 if None
+            if config["latitude"] is None:
+                config["latitude"] = "0"
+            if config["longitude"] is None:
+                config["longitude"] = "0"
         return json.dumps(config)
 
     def _default_loc(self):
