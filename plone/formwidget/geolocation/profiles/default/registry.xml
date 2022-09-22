@@ -1,10 +1,16 @@
 <?xml version="1.0"?>
 <registry>
-  <records interface="plone.formwidget.geolocation.interfaces.IGeolocationSettings"
-           prefix="geolocation" />
   <records
-      prefix="plone.bundles/bundle-leaflet"
-      interface="Products.CMFPlone.interfaces.IBundleRegistry">
+    interface="plone.formwidget.geolocation.interfaces.IGeolocationSettings"
+    prefix="geolocation" />
+  <records
+    prefix="plone.bundles/plone.formwidget.geolocation"
+    interface="Products.CMFPlone.interfaces.IBundleRegistry">
+    <value key="depends">plone</value>
+    <value key="load_async">False</value>
+    <value key="load_defer">False</value>
     <value key="enabled">True</value>
+    <value key="jscompilation">/++plone++plone.formwidget.geolocation/bundle-remote.min.js</value>
+    <value key="csscompilation"></value>
   </records>
 </registry>

@@ -1,0 +1,49 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup">
+    <genericsetup:upgradeStep
+        title="Upgrade to Plone 5"
+        description="Migrate resources to new resource registry."
+        profile="plone.formwidget.geolocation:default"
+        source="1"
+        destination="2"
+        handler="plone.formwidget.geolocation.upgrades.upgrade_1_to_2" />
+    <genericsetup:upgradeStep
+        title="Remove unused resources"
+        description="Remove unused bundles and resources, which are now provided by plone.patternslib."
+        profile="plone.formwidget.geolocation:default"
+        source="2"
+        destination="3"
+        handler="plone.formwidget.geolocation.upgrades.upgrade_2_to_3" />
+    <genericsetup:upgradeDepends
+        title="Add geolocation settings controlpanel"
+        description=""
+        profile="plone.formwidget.geolocation:default"
+        source="3"
+        destination="4"
+        import_profile="plone.formwidget.geolocation:default" />
+    <genericsetup:upgradeStep
+        title="Add default lat/lon"
+        description="Add default latitude and longitude on map settings"
+        profile="plone.formwidget.geolocation:default"
+        source="4"
+        destination="5"
+        handler="plone.formwidget.geolocation.upgrades.upgrade_4_to_5" />
+    <genericsetup:upgradeStep
+        title="Add bool for lat/lon default value"
+        description="Add bool to use map center latitude and longitude as default value for contents"
+        profile="plone.formwidget.geolocation:default"
+        source="5"
+        destination="6"
+        handler="plone.formwidget.geolocation.upgrades.upgrade_5_to_6" />
+    <genericsetup:upgradeSteps
+        profile="plone.formwidget.geolocation:default"
+        soure="6"
+        destination="2000">
+        <genericsetup:upgradeDepends
+            title="Upgrade resource registry"
+            import_profile="plone.formwidget.geolocation:to_2000"
+            import_steps="plone.app.registry" />
+    </genericsetup:upgradeSteps>
+
+</configure>

@@ -10,6 +10,12 @@
 
   <i18n:registerTranslations directory="locales" />
 
+  <plone:static
+      directory="static"
+      type="plone"
+      name="plone.formwidget.geolocation"
+      />
+
   <adapter factory=".widget.GeolocationFieldWidget" />
   <adapter factory=".converter.GeolocationConverter" />
 
@@ -85,45 +91,6 @@
       name="plone.formwidget.geolocation-hiddenprofiles"
       />
 
-  <genericsetup:upgradeStep
-      title="Upgrade to Plone 5"
-      description="Migrate resources to new resource registry."
-      source="1"
-      destination="2"
-      handler="plone.formwidget.geolocation.upgrades.upgrade_1_to_2"
-      profile="plone.formwidget.geolocation:default"
-      />
-  <genericsetup:upgradeStep
-      title="Remove unused resources"
-      description="Remove unused bundles and resources, which are now provided by plone.patternslib."
-      source="2"
-      destination="3"
-      handler="plone.formwidget.geolocation.upgrades.upgrade_2_to_3"
-      profile="plone.formwidget.geolocation:default"
-      />
-  <genericsetup:upgradeDepends
-      title="Add geolocation settings controlpanel"
-      description=""
-      source="3"
-      destination="4"
-      profile="plone.formwidget.geolocation:default"
-      import_profile="plone.formwidget.geolocation:default"
-      />
-  <genericsetup:upgradeStep
-      title="Add default lat/lon"
-      description="Add default latitude and longitude on map settings"
-      source="4"
-      destination="5"
-      handler="plone.formwidget.geolocation.upgrades.upgrade_4_to_5"
-      profile="plone.formwidget.geolocation:default"
-      />
-  <genericsetup:upgradeStep
-      title="Add bool for lat/lon default value"
-      description="Add bool to use map center latitude and longitude as default value for contents"
-      source="5"
-      destination="6"
-      handler="plone.formwidget.geolocation.upgrades.upgrade_5_to_6"
-      profile="plone.formwidget.geolocation:default"
-      />
+  <include file="upgrades.zcml" />
 
 </configure>
