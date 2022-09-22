@@ -38,7 +38,7 @@
         handler="plone.formwidget.geolocation.upgrades.upgrade_5_to_6" />
     <genericsetup:upgradeSteps
         profile="plone.formwidget.geolocation:default"
-        soure="6"
+        source="6"
         destination="2000">
         <genericsetup:upgradeDepends
             title="Upgrade resource registry"
