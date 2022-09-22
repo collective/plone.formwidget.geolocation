@@ -10,8 +10,6 @@
 
   <i18n:registerTranslations directory="locales" />
 
-  <include package="plone.patternslib"/>
-
   <adapter factory=".widget.GeolocationFieldWidget" />
   <adapter factory=".converter.GeolocationConverter" />
 

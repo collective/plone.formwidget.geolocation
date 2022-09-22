@@ -8,7 +8,7 @@ Geolocation field and widget
 
 
 This package provides a z3c.form field and a widget implementing LeafletJS
-from plone.patternslib to define Latitude / Longitude informations.
+from `pat-leaflet` to define Latitude / Longitude informations.
 
 This package is used as a dependency in some other Plone add-ons, like
 `collective.geolocationbehavior <https://github.com/collective/collective.geolocationbehavior>`_

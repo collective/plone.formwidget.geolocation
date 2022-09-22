@@ -24,14 +24,6 @@ class GeolocationWidget(TextWidget):
     klass = u"geolocation-widget"
     value = None
 
-    def __init__(self, request):
-        top_request = get_top_request(request)
-        # Just add the bundle from plone.patternslib.
-        # If it's not available, it wont't hurt.
-        add_bundle_on_request(top_request, "bundle-leaflet")
-
-        super(GeolocationWidget, self).__init__(request)
-
     def update(self):
         super(GeolocationWidget, self).update()
         if self.value is None and self.mode == "input":
