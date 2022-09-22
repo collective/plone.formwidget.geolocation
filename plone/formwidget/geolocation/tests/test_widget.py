@@ -18,7 +18,7 @@ import json
 import mock
 import os
 import plone.formwidget.geolocation
-import unittest2 as unittest
+import unittest
 import zope.browserpage
 import zope.component
 

@@ -4,7 +4,7 @@ from plone.formwidget.geolocation.converter import GeolocationConverter
 from plone.formwidget.geolocation.geolocation import Geolocation
 
 import mock
-import unittest2 as unittest
+import unittest
 
 
 def create_instance():

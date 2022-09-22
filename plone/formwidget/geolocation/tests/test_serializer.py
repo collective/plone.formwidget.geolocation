@@ -7,7 +7,7 @@ from plone.formwidget.geolocation.tests.utils import IDummyGeolocation
 from plone.restapi.interfaces import IFieldSerializer
 from zope.component import getMultiAdapter
 
-import unittest2 as unittest
+import unittest
 
 
 class TestSerializer(unittest.TestCase):
