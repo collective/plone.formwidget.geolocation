@@ -51,11 +51,6 @@ class TestWidget(unittest.TestCase):
         self.request = self.layer["request"]
         XMLConfig("meta.zcml", zope.browserpage)()
 
-    def test_bundle_on_request(self):
-        GeolocationWidget(self.request)
-        bundles = getattr(self.request, "enabled_bundles", [])
-        self.assertListEqual(bundles, ["bundle-leaflet"])
-
     def test_value(self):
         widget = GeolocationWidget(self.request)
         widget.id = widget.name = "geolocation"
