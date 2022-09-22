@@ -4,7 +4,8 @@ from setuptools import setup
 
 import os
 
-version = "2.2.6.dev0"
+
+version = "3.0.0.dev0"
 
 
 def read(*rnames):
@@ -43,13 +44,14 @@ setup(
     install_requires=[
         "setuptools",
         "z3c.form",
+        "Products.CMFPlone>=6.0.0b2",
     ],
     extras_require={
         "test": [
             "plone.app.testing",
+            "plone.restapi",
             "plone.testing",
             "mock",
-            "unittest2",
         ]
     },
     entry_points="""
