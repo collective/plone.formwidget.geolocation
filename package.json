@@ -16,7 +16,7 @@
     "yarn": "^1.22.18"
   },
   "dependencies": {
-    "@patternslib/pat-leaflet": "git+https://github.com/petschki/pat-leaflet.git#es6",
+    "@patternslib/pat-leaflet": "git+https://github.com/Patternslib/pat-leaflet.git#thet-es6",
     "@patternslib/patternslib": "*"
   },
   "scripts": {
