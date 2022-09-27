@@ -82,7 +82,7 @@ class TestWidget(unittest.TestCase):
         json_result = json.loads(widget.data_geojson)
         feature = json_result["features"][0]
         coordinates = feature["geometry"]["coordinates"]
-        self.assertEqual(coordinates, ['0', '0'])
+        self.assertEqual(coordinates, ["0", "0"])
 
         # display mode
         widget.mode = "display"

@@ -42,8 +42,7 @@ class GeolocationWidget(TextWidget):
         """Return the geo location as GeoJSON string."""
         coordinates = self.value
         if self.mode != "input" and (
-            not coordinates
-            or not all(coordinates) and self.mode != "input"
+            not coordinates or not all(coordinates) and self.mode != "input"
         ):
             return
 
