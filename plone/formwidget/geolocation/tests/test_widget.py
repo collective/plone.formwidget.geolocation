@@ -77,6 +77,16 @@ class TestWidget(unittest.TestCase):
         widget.context = DummyContent()
         widget.request[widget.name] = None
         widget.update()
+
+        # for input mode we need some initial default data
+        json_result = json.loads(widget.data_geojson)
+        feature = json_result["features"][0]
+        coordinates = feature["geometry"]["coordinates"]
+        self.assertEqual(coordinates, ['0', '0'])
+
+        # display mode
+        widget.mode = "display"
+        widget.update()
         self.assertEqual(widget.data_geojson, None)
 
         widget.request[widget.name] = (50.0, None)
