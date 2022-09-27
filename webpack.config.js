@@ -18,6 +18,11 @@ module.exports = () => {
     });
     config.output.path = path.resolve(__dirname, "plone/formwidget/geolocation/static");
 
+    config.module.rules.push({
+        test: /\.svg$/i,
+        type: 'asset/resource',
+    });
+
     config.plugins.push(
         mf_config({
             name: "plone.formwidget.geolocation",
