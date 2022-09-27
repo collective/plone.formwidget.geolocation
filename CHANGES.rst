@@ -1,10 +1,12 @@
 Changelog
 =========
 
-2.2.6 (unreleased)
+3.0.0 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Update to ES6 refactored `@patternslib/pat-leaflet`.
+- Integrate Plone resources with module federation.
+  [petschki]
 
 
 2.2.5 (2022-09-22)
