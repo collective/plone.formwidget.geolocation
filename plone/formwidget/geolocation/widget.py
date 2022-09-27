@@ -41,7 +41,10 @@ class GeolocationWidget(TextWidget):
     def data_geojson(self):
         """Return the geo location as GeoJSON string."""
         coordinates = self.value
-        if not all(coordinates) and self.mode != "input":
+        if self.mode != "input" and (
+            not coordinates
+            or not all(coordinates) and self.mode != "input"
+        ):
             return
 
         popup_view = queryMultiAdapter(
