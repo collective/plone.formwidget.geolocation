@@ -10,7 +10,7 @@
         handler="plone.formwidget.geolocation.upgrades.upgrade_1_to_2" />
     <genericsetup:upgradeStep
         title="Remove unused resources"
-        description="Remove unused bundles and resources, which are now provided by plone.patternslib."
+        description="Remove unused bundles and resources."
         profile="plone.formwidget.geolocation:default"
         source="2"
         destination="3"
