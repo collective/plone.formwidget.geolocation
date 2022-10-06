@@ -16,7 +16,7 @@
     "yarn": "^1.22.18"
   },
   "dependencies": {
-    "@patternslib/pat-leaflet": "^2.0.0",
+    "@patternslib/pat-leaflet": "git+https://github.com/Patternslib/pat-leaflet.git#petschki-geojson-fix",
     "@patternslib/patternslib": "*"
   },
   "scripts": {
