@@ -1721,10 +1721,9 @@
     whybundled "^2.0.0"
     yarn "^1.22.19"
 
-"@patternslib/pat-leaflet@^2.0.0":
+"@patternslib/pat-leaflet@git+https://github.com/Patternslib/pat-leaflet.git#petschki-geojson-fix":
   version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@patternslib/pat-leaflet/-/pat-leaflet-2.0.0.tgz#9a51194e16916481fbe25f7d53352ecfde63baa1"
-  integrity sha512-Pv59i9T32mnsTKXpwPpobudkKkPA0bOGn3S97KG2OmJcQ3R+mQDw17luQXql82/5lExZRuUUZj4BlICvGlrAgg==
+  resolved "git+https://github.com/Patternslib/pat-leaflet.git#f0eaf4f320e7c810f2efc9373f47d599449356c5"
   dependencies:
     "@patternslib/patternslib" "*"
     fontawesome-free "^1.0.4"
