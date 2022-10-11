@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.0.0 (unreleased)
+3.0.0 (2022-10-11)
 ------------------
 
 - Update to ES6 refactored `@patternslib/pat-leaflet`.
