@@ -28,10 +28,11 @@ The template and/or the class used to generate the popup content can be override
 to change it (see ``@@geolocation-geojson-popup`` view).
 
 
-Limitations
------------
+Versions
+--------
 
-Current branch is tested on Plone 5.2.x & Plone 6.0.x.
+- 3.0.x -> Plone 6.0.x
+- 2.2.x -> Plone 5.2.x
 
 
 Translations
