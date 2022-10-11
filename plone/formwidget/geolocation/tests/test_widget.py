@@ -5,8 +5,8 @@ from plone.api.portal import set_registry_record
 from plone.formwidget.geolocation.interfaces import IGeolocationWidget
 from plone.formwidget.geolocation.testing import GEOLOCATION_INTEGRATION_TESTING
 from plone.formwidget.geolocation.tests.utils import IDummyGeolocation
-from plone.formwidget.geolocation.widget import GeolocationWidget
 from plone.formwidget.geolocation.widget import GeolocationFieldWidget
+from plone.formwidget.geolocation.widget import GeolocationWidget
 from z3c.form.widget import WidgetTemplateFactory
 from zope.configuration.xmlconfig import XMLConfig
 from zope.configuration.xmlconfig import xmlconfig
@@ -18,12 +18,12 @@ import json
 import mock
 import os
 import plone.formwidget.geolocation
-import unittest2 as unittest
+import unittest
 import zope.browserpage
 import zope.component
 
 
-zcml_wrapper = u"""<configure
+zcml_wrapper = """<configure
    xmlns='http://namespaces.zope.org/zope'
    xmlns:browser='http://namespaces.zope.org/browser'
    i18n_domain='zope'>
@@ -51,11 +51,6 @@ class TestWidget(unittest.TestCase):
         self.request = self.layer["request"]
         XMLConfig("meta.zcml", zope.browserpage)()
 
-    def test_bundle_on_request(self):
-        GeolocationWidget(self.request)
-        bundles = getattr(self.request, "enabled_bundles", [])
-        self.assertListEqual(bundles, ["bundle-leaflet"])
-
     def test_value(self):
         widget = GeolocationWidget(self.request)
         widget.id = widget.name = "geolocation"
@@ -81,6 +76,16 @@ class TestWidget(unittest.TestCase):
         widget.id = widget.name = "geolocation"
         widget.context = DummyContent()
         widget.request[widget.name] = None
+        widget.update()
+
+        # for input mode we need some initial default data
+        json_result = json.loads(widget.data_geojson)
+        feature = json_result["features"][0]
+        coordinates = feature["geometry"]["coordinates"]
+        self.assertEqual(coordinates, ["0", "0"])
+
+        # display mode
+        widget.mode = "display"
         widget.update()
         self.assertEqual(widget.data_geojson, None)
 

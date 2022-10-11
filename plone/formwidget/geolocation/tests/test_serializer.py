@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
-from plone.formwidget.geolocation.testing import GEOLOCATION_INTEGRATION_TESTING
 from plone.formwidget.geolocation.geolocation import Geolocation
+from plone.formwidget.geolocation.testing import GEOLOCATION_INTEGRATION_TESTING
 from plone.formwidget.geolocation.tests.utils import DummyContent
 from plone.formwidget.geolocation.tests.utils import IDummyGeolocation
 from plone.restapi.interfaces import IFieldSerializer
 from zope.component import getMultiAdapter
 
-import unittest2 as unittest
+import unittest
 
 
 class TestSerializer(unittest.TestCase):

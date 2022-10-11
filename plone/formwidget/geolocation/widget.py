@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-from Products.CMFPlone.resources import add_bundle_on_request
-from Products.CMFPlone.utils import get_top_request
 from plone.api.portal import get_registry_record as getrec
 from plone.formwidget.geolocation.interfaces import IGeolocationField
 from plone.formwidget.geolocation.interfaces import IGeolocationWidget
 from plone.formwidget.geolocation.vocabularies import _
+from Products.CMFPlone.resources import add_bundle_on_request
+from Products.CMFPlone.utils import get_top_request
 from z3c.form.browser.text import TextWidget
 from z3c.form.interfaces import IFieldWidget
 from z3c.form.interfaces import IFormLayer
@@ -21,16 +21,8 @@ import json
 @implementer_only(IGeolocationWidget)
 class GeolocationWidget(TextWidget):
 
-    klass = u"geolocation-widget"
+    klass = "geolocation-widget"
     value = None
-
-    def __init__(self, request):
-        top_request = get_top_request(request)
-        # Just add the bundle from plone.patternslib.
-        # If it's not available, it wont't hurt.
-        add_bundle_on_request(top_request, "bundle-leaflet")
-
-        super(GeolocationWidget, self).__init__(request)
 
     def update(self):
         super(GeolocationWidget, self).update()
@@ -39,17 +31,17 @@ class GeolocationWidget(TextWidget):
 
     @property
     def id_input_lat(self):
-        return u"{0}_latitude".format(self.id)
+        return "{0}_latitude".format(self.id)
 
     @property
     def id_input_lng(self):
-        return u"{0}_longitude".format(self.id)
+        return "{0}_longitude".format(self.id)
 
     @property
     def data_geojson(self):
         """Return the geo location as GeoJSON string."""
         coordinates = self.value
-        if not all(coordinates):
+        if self.mode != "input" and (not coordinates or not all(coordinates)):
             return
 
         popup_view = queryMultiAdapter(
@@ -75,8 +67,13 @@ class GeolocationWidget(TextWidget):
             properties = geo_json["features"][0]["properties"]
             properties["editable"] = True
             properties["no_delete"] = True
-            properties["latinput"] = u"#{0}".format(self.id_input_lat)
-            properties["lnginput"] = u"#{0}".format(self.id_input_lng)
+            properties["latinput"] = "#{0}".format(self.id_input_lat)
+            properties["lnginput"] = "#{0}".format(self.id_input_lng)
+            # set default lat/lng to 0 if None
+            if geo_json["features"][0]["geometry"]["coordinates"][0] is None:
+                geo_json["features"][0]["geometry"]["coordinates"][0] = "0"
+            if geo_json["features"][0]["geometry"]["coordinates"][1] is None:
+                geo_json["features"][0]["geometry"]["coordinates"][1] = "0"
 
         return json.dumps(geo_json)
 
@@ -104,6 +101,11 @@ class GeolocationWidget(TextWidget):
             config["geosearch"] = True
             # zoomcontrol for input is always active
             config["zoomcontrol"] = True
+            # set default lat/lng to 0 if None
+            if config["latitude"] is None:
+                config["latitude"] = "0"
+            if config["longitude"] is None:
+                config["longitude"] = "0"
         return json.dumps(config)
 
     def _default_loc(self):

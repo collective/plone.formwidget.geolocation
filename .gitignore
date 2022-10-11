@@ -5,8 +5,8 @@
 .coverage
 .installed.cfg
 .mr.developer.cfg
+.installed.txt
 bin/
-bower_components/
 develop-eggs/
 dist/
 htmlcov/
@@ -17,3 +17,11 @@ lib64
 pyvenv.cfg
 share/
 var/
+
+# mxdev
+/instance/
+/.make-sentinels/
+/*-mxdev.txt
+/reports/
+/sources/
+/venv/

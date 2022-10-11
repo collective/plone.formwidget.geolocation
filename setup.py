@@ -4,7 +4,8 @@ from setuptools import setup
 
 import os
 
-version = "2.2.6.dev0"
+
+version = "3.0.0.dev0"
 
 
 def read(*rnames):
@@ -22,15 +23,11 @@ setup(
     ),
     classifiers=[
         "Framework :: Plone",
-        "Framework :: Plone :: 5.1",
-        "Framework :: Plone :: 5.2",
         "Framework :: Plone :: 6.0",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 2.7",
-        "Programming Language :: Python :: 3.6",
-        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Development Status :: 5 - Production/Stable",
         "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
@@ -45,16 +42,16 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=[
-        "plone.patternslib",
         "setuptools",
         "z3c.form",
+        "Products.CMFPlone>=6.0.0b2",
     ],
     extras_require={
         "test": [
             "plone.app.testing",
+            "plone.restapi",
             "plone.testing",
             "mock",
-            "unittest2",
         ]
     },
     entry_points="""

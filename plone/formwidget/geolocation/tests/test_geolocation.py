@@ -2,7 +2,7 @@
 
 from plone.formwidget.geolocation.geolocation import Geolocation
 
-import unittest2 as unittest
+import unittest
 
 
 class TestGeolocation(unittest.TestCase):

@@ -8,124 +8,90 @@
     xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="plone.formwidget.geolocation">
 
-  <i18n:registerTranslations directory="locales" />
+    <i18n:registerTranslations directory="locales" />
 
-  <include package="plone.patternslib"/>
+    <plone:static
+        directory="static"
+        type="plone"
+        name="plone.formwidget.geolocation" />
 
-  <adapter factory=".widget.GeolocationFieldWidget" />
-  <adapter factory=".converter.GeolocationConverter" />
+    <adapter factory=".widget.GeolocationFieldWidget" />
+    <adapter factory=".converter.GeolocationConverter" />
 
-  <adapter
-      zcml:condition="installed plone.restapi"
-      factory=".serializer.GeolocationSerializer" />
+    <adapter
+        zcml:condition="installed plone.restapi"
+        factory=".serializer.GeolocationSerializer" />
 
-  <adapter
-      zcml:condition="installed plone.restapi"
-      factory=".deserializer.GeolocationDeserializer" />
+    <adapter
+        zcml:condition="installed plone.restapi"
+        factory=".deserializer.GeolocationDeserializer" />
 
-  <include package="z3c.form" file="meta.zcml" />
+    <include
+        package="z3c.form"
+        file="meta.zcml" />
 
-  <z3c:widgetTemplate
-      mode="display"
-      widget=".interfaces.IGeolocationWidget"
-      layer="z3c.form.interfaces.IFormLayer"
-      template="geolocation_display.pt"
-      />
+    <z3c:widgetTemplate
+        mode="display"
+        widget=".interfaces.IGeolocationWidget"
+        layer="z3c.form.interfaces.IFormLayer"
+        template="geolocation_display.pt" />
 
-  <z3c:widgetTemplate
-      mode="input"
-      widget=".interfaces.IGeolocationWidget"
-      layer="z3c.form.interfaces.IFormLayer"
-      template="geolocation_input.pt"
-      />
+    <z3c:widgetTemplate
+        mode="input"
+        widget=".interfaces.IGeolocationWidget"
+        layer="z3c.form.interfaces.IFormLayer"
+        template="geolocation_input.pt" />
 
-  <browser:page
-      name="geolocation-geojson-popup"
-      for="*"
-      class=".popup.PopupView"
-      template="popup.pt"
-      permission="zope.Public"
-      />
+    <browser:page
+        name="geolocation-geojson-popup"
+        for="*"
+        class=".popup.PopupView"
+        template="popup.pt"
+        permission="zope.Public" />
 
- <utility
-      zcml:condition="installed plone.supermodel"
-      component=".supermodel.GeolocationHandler"
-      name="plone.formwidget.geolocation.GeolocationField"
-      />
+    <utility
+        zcml:condition="installed plone.supermodel"
+        component=".supermodel.GeolocationHandler"
+        name="plone.formwidget.geolocation.GeolocationField" />
 
-  <utility
-      component=".vocabularies.MapLayers"
-      name="plone.formwidget.geolocation.vocabularies.map_layers"
-      />
+    <utility
+        component=".vocabularies.MapLayers"
+        name="plone.formwidget.geolocation.vocabularies.map_layers" />
 
-  <include package="Products.CMFPlone.controlpanel" file="permissions.zcml" />
-  <browser:page
-      name="geolocation-controlpanel"
-      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-      class=".controlpanel.GeolocationControlPanel"
-      permission="plone.app.controlpanel.Site"
-      />
+    <include
+        package="Products.CMFPlone.controlpanel"
+        file="permissions.zcml" />
+    <browser:page
+        name="geolocation-controlpanel"
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        class=".controlpanel.GeolocationControlPanel"
+        permission="plone.app.controlpanel.Site" />
 
-  <genericsetup:registerProfile
-      name="default"
-      title="plone.formwidget.geolocation map install"
-      directory="profiles/default"
-      description='Extension profile for Plone.'
-      provides="Products.GenericSetup.interfaces.EXTENSION"
-      />
+    <genericsetup:registerProfile
+        name="default"
+        title="plone.formwidget.geolocation map install"
+        directory="profiles/default"
+        description='Extension profile for Plone.'
+        provides="Products.GenericSetup.interfaces.EXTENSION" />
 
-  <genericsetup:registerProfile
-      name="uninstall"
-      title="plone.formwidget.geolocation map uninstall"
-      directory="profiles/uninstall"
-      description='Extension profile for Plone.'
-      provides="Products.GenericSetup.interfaces.EXTENSION"
-      />
+    <genericsetup:registerProfile
+        name="to_2000"
+        title="Upgrade to version 2000"
+        directory="profiles/upgrades/to_2000"
+        description=''
+        provides="Products.GenericSetup.interfaces.EXTENSION" />
 
-  <utility
-      factory=".setuphandlers.HiddenProfiles"
-      name="plone.formwidget.geolocation-hiddenprofiles"
-      />
+    <genericsetup:registerProfile
+        name="uninstall"
+        title="plone.formwidget.geolocation map uninstall"
+        directory="profiles/uninstall"
+        description='Extension profile for Plone.'
+        provides="Products.GenericSetup.interfaces.EXTENSION" />
 
-  <genericsetup:upgradeStep
-      title="Upgrade to Plone 5"
-      description="Migrate resources to new resource registry."
-      source="1"
-      destination="2"
-      handler="plone.formwidget.geolocation.upgrades.upgrade_1_to_2"
-      profile="plone.formwidget.geolocation:default"
-      />
-  <genericsetup:upgradeStep
-      title="Remove unused resources"
-      description="Remove unused bundles and resources, which are now provided by plone.patternslib."
-      source="2"
-      destination="3"
-      handler="plone.formwidget.geolocation.upgrades.upgrade_2_to_3"
-      profile="plone.formwidget.geolocation:default"
-      />
-  <genericsetup:upgradeDepends
-      title="Add geolocation settings controlpanel"
-      description=""
-      source="3"
-      destination="4"
-      profile="plone.formwidget.geolocation:default"
-      import_profile="plone.formwidget.geolocation:default"
-      />
-  <genericsetup:upgradeStep
-      title="Add default lat/lon"
-      description="Add default latitude and longitude on map settings"
-      source="4"
-      destination="5"
-      handler="plone.formwidget.geolocation.upgrades.upgrade_4_to_5"
-      profile="plone.formwidget.geolocation:default"
-      />
-  <genericsetup:upgradeStep
-      title="Add bool for lat/lon default value"
-      description="Add bool to use map center latitude and longitude as default value for contents"
-      source="5"
-      destination="6"
-      handler="plone.formwidget.geolocation.upgrades.upgrade_5_to_6"
-      profile="plone.formwidget.geolocation:default"
-      />
+    <utility
+        factory=".setuphandlers.HiddenProfiles"
+        name="plone.formwidget.geolocation-hiddenprofiles" />
+
+    <include file="upgrades.zcml" />
 
 </configure>
