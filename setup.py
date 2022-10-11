@@ -32,7 +32,7 @@ setup(
         "Development Status :: 5 - Production/Stable",
         "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
     ],
-    keywords="",
+    keywords="z3c form leaflet map field widget",
     author="David Glick",
     author_email="dglick@gmail.com",
     url="https://github.com/collective/plone.formwidget.geolocation",

@@ -1,3 +1,4 @@
+recursive-include resources *.js
 recursive-include plone *
 recursive-include docs *
 include *
