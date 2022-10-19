@@ -93,8 +93,8 @@ class GeolocationWidget(TextWidget):
                 {"title": translate(_(layer), context=self.request), "id": layer}
                 for layer in map_layers
             ],
-            "latitude": getrec("geolocation.default_latitude"),
-            "longitude": getrec("geolocation.default_longitude"),
+            "latitude": self.value[0],
+            "longitude": self.value[1],
         }
         if self.mode == "input":
             # geosearch for input is always active
