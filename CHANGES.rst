@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.0.1 (unreleased)
+3.0.1 (2022-10-19)
 ------------------
 
 - Remove the height style from the geolocation input widget map.
