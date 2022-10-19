@@ -4,7 +4,9 @@ Changelog
 3.0.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Remove the height style from the geolocation input widget map.
+  It is already set by pat-leaflet.
+  [thet]
 
 
 3.0.0 (2022-10-11)
