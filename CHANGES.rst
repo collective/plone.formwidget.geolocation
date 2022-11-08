@@ -4,7 +4,8 @@ Changelog
 3.0.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix widget display mode: initialize map with actually saved lat/lon values.
+  [petschki]
 
 
 3.0.1 (2022-10-19)

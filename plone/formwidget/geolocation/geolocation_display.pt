@@ -3,8 +3,10 @@
       tal:omit-tag="">
   <div class="geolocation_wrapper"
        tal:define="value view/value;
-                   has_location python: value and value[0] and value[1]"
-       tal:condition="has_location">
-    <div class="pat-leaflet map" data-geojson="${view/data_geojson}" data-pat-leaflet='${view/map_configuration}'></div>
+                   has_location python: value and value[0] and value[1]">
+    <div class="alert alert-info" tal:condition="not:has_location" i18n:translate="">
+      No geolocation information found.
+    </div>
+    <div tal:condition="has_location" class="pat-leaflet map" data-geojson="${view/data_geojson}" data-pat-leaflet='${view/map_configuration}'></div>
   </div>
 </html>
