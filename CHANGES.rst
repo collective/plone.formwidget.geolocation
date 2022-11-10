@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.0.2 (unreleased)
+3.0.2 (2022-11-10)
 ------------------
 
 - Fix widget display mode: initialize map with actually saved lat/lon values.
