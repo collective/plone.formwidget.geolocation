@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.0.3 (unreleased)
+3.0.3 (2023-01-13)
 ------------------
 
 - Fix configlet: boolean field cannot be required (otherwise it is impossible
