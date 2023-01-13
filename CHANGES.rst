@@ -4,7 +4,9 @@ Changelog
 3.0.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix configlet: boolean field cannot be required (otherwise it is impossible
+  to set it to False)
+  [laulaz]
 
 
 3.0.2 (2022-11-10)

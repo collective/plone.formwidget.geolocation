@@ -125,5 +125,6 @@ class IGeolocationSettings(Interface):
         description=_(
             "Geolocation used to center map (see above) will also be used to define the default geolocation on new contents."
         ),
+        required=False,
         default=True,
     )
