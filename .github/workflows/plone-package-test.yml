@@ -1,4 +1,4 @@
-name: Test the plone.app.standardtiles code
+name: Tests
 
 on:
   push:

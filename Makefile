@@ -33,7 +33,7 @@ endif
 ##############################################################################
 # SETTINGS AND VARIABLE
 # adjust to your project needs
-PROJECT_NAME=plone.app.standardtiles
+PROJECT_NAME=plone.formwidget.geolocation
 IMAGE_NAME=${PROJECT_NAME}
 CONSTRAINTS_IN=constraints.txt
 CONSTRAINTS_IN=constraints.txt
