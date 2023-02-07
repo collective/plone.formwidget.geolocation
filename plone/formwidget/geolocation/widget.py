@@ -52,6 +52,7 @@ class GeolocationWidget(TextWidget):
                     "type": "Feature",
                     "properties": {
                         "popup": popup_view(),
+                        "main": True,
                     },
                     "geometry": {
                         "type": "Point",
