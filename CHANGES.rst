@@ -4,7 +4,8 @@ Changelog
 3.0.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Upgrade to pat-leaflet 2.1.1.
+  [thet]
 
 
 3.0.3 (2023-01-13)
