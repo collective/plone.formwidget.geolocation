@@ -4,6 +4,9 @@ Changelog
 3.0.4 (unreleased)
 ------------------
 
+- Fix usage of default location from configuration
+  [mpeeters]
+
 - Ensure that the marker is the main marker to fix geosearch
   [mpeeters]
 
