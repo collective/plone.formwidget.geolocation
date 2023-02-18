@@ -96,6 +96,14 @@
       />
 
   <genericsetup:registerProfile
+      name="to_2002"
+      title="Upgrade to version 2002"
+      description=""
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      directory="profiles/upgrades/to_2002"
+      />
+
+  <genericsetup:registerProfile
       name="uninstall"
       title="plone.formwidget.geolocation map uninstall"
       description="Extension profile for Plone."
