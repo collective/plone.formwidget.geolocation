@@ -4,7 +4,8 @@ Changelog
 3.0.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add missing translation in widget display template
+  [laulaz]
 
 
 3.0.3 (2023-01-13)

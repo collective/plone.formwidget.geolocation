@@ -1,5 +1,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      i18n:domain="plone.formwidget.geolocation"
       tal:omit-tag="">
   <div class="geolocation_wrapper"
        tal:define="value view/value;
