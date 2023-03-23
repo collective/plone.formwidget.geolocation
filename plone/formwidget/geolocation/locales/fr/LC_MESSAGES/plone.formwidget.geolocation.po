@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.2.0\n"
-"POT-Creation-Date: 2022-06-02 11:25+0000\n"
+"POT-Creation-Date: 2023-03-23 13:47+0000\n"
 "PO-Revision-Date: 2022-06-02 13:35+0000\n"
 "Last-Translator: Laurent Lasudry <lasudry@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -86,7 +86,7 @@ msgstr ""
 msgid "Esri.WorldTopoMap"
 msgstr ""
 
-#: ../configure.zcml:67
+#: ../configure.zcml:75
 msgid "Extension profile for Plone."
 msgstr ""
 
@@ -121,6 +121,10 @@ msgstr "Longitude qui sera utilisée pour centrer la carte (sur les contenus non
 #. Default: "NASA Earth at Night 2012"
 #: ../vocabularies.py:125
 msgid "NASAGIBS.ViirsEarthAtNight2012"
+msgstr ""
+
+#: ../geolocation_display.pt:10
+msgid "No geolocation information found."
 msgstr ""
 
 #. Default: "OpenStreetMap Black & White"
@@ -200,6 +204,10 @@ msgstr ""
 #. Default: "Thunderforest Transport Dark"
 #: ../vocabularies.py:50
 msgid "Thunderforest.TransportDark"
+msgstr ""
+
+#: ../configure.zcml:82
+msgid "Upgrade to version 2000"
 msgstr ""
 
 #: ../interfaces.py:124
@@ -291,10 +299,10 @@ msgstr "Afficher la carte miniature"
 msgid "label_maps_zoom"
 msgstr "Afficher les boutons de zoom"
 
-#: ../configure.zcml:67
+#: ../configure.zcml:75
 msgid "plone.formwidget.geolocation map install"
 msgstr ""
 
-#: ../configure.zcml:75
+#: ../configure.zcml:89
 msgid "plone.formwidget.geolocation map uninstall"
 msgstr ""
