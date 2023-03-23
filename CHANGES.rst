@@ -4,6 +4,9 @@ Changelog
 3.0.4 (unreleased)
 ------------------
 
+- Add missing French translation
+  [laulaz]
+
 - Add missing translation in widget display template
   [laulaz]
 

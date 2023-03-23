@@ -125,7 +125,7 @@ msgstr ""
 
 #: ../geolocation_display.pt:10
 msgid "No geolocation information found."
-msgstr ""
+msgstr "Pas d'information de géolocalisation trouvée."
 
 #. Default: "OpenStreetMap Black & White"
 #: ../vocabularies.py:33
