@@ -7,6 +7,12 @@ Changelog
 - Upgrade to pat-leaflet 2.1.1.
   [thet]
 
+- Add missing French translation
+  [laulaz]
+
+- Add missing translation in widget display template
+  [laulaz]
+
 
 3.0.3 (2023-01-13)
 ------------------

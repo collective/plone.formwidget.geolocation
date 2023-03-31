@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-06-02 11:25+0000\n"
+"POT-Creation-Date: 2023-03-23 13:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -85,7 +85,7 @@ msgstr ""
 msgid "Esri.WorldTopoMap"
 msgstr ""
 
-#: ../configure.zcml:67
+#: ../configure.zcml:75
 msgid "Extension profile for Plone."
 msgstr ""
 
@@ -120,6 +120,10 @@ msgstr ""
 #. Default: "NASA Earth at Night 2012"
 #: ../vocabularies.py:125
 msgid "NASAGIBS.ViirsEarthAtNight2012"
+msgstr ""
+
+#: ../geolocation_display.pt:10
+msgid "No geolocation information found."
 msgstr ""
 
 #. Default: "OpenStreetMap Black & White"
@@ -199,6 +203,10 @@ msgstr ""
 #. Default: "Thunderforest Transport Dark"
 #: ../vocabularies.py:50
 msgid "Thunderforest.TransportDark"
+msgstr ""
+
+#: ../configure.zcml:82
+msgid "Upgrade to version 2000"
 msgstr ""
 
 #: ../interfaces.py:124
@@ -290,10 +298,10 @@ msgstr ""
 msgid "label_maps_zoom"
 msgstr ""
 
-#: ../configure.zcml:67
+#: ../configure.zcml:75
 msgid "plone.formwidget.geolocation map install"
 msgstr ""
 
-#: ../configure.zcml:75
+#: ../configure.zcml:89
 msgid "plone.formwidget.geolocation map uninstall"
 msgstr ""
