@@ -10,6 +10,12 @@ Changelog
 - Ensure that the marker is the main marker to fix geosearch
   [mpeeters]
 
+- Add missing French translation
+  [laulaz]
+
+- Add missing translation in widget display template
+  [laulaz]
+
 
 3.0.3 (2023-01-13)
 ------------------
