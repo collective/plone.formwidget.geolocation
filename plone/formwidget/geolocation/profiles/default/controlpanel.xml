@@ -8,7 +8,7 @@
              appId="plone.formwidget.geolocation"
              category="Products"
              condition_expr=""
-             icon_expr="string:${portal_url}/logoIcon.png"
+             icon_expr="string:geo-alt"
              title="Geolocation"
              url_expr="string:${portal_url}/@@geolocation-controlpanel"
              visible="True"
