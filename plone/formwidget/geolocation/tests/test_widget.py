@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from io import StringIO
 from plone.api.portal import set_registry_record
 from plone.formwidget.geolocation.interfaces import IGeolocationWidget
@@ -7,6 +5,7 @@ from plone.formwidget.geolocation.testing import GEOLOCATION_INTEGRATION_TESTING
 from plone.formwidget.geolocation.tests.utils import IDummyGeolocation
 from plone.formwidget.geolocation.widget import GeolocationFieldWidget
 from plone.formwidget.geolocation.widget import GeolocationWidget
+from unittest import mock
 from z3c.form.widget import WidgetTemplateFactory
 from zope.configuration.xmlconfig import XMLConfig
 from zope.configuration.xmlconfig import xmlconfig
@@ -15,7 +14,6 @@ from zope.interface import Interface
 from zope.pagetemplate.interfaces import IPageTemplate
 
 import json
-import mock
 import os
 import plone.formwidget.geolocation
 import unittest
@@ -36,7 +34,7 @@ class IDummyContent(Interface):
 
 
 @implementer(IDummyContent)
-class DummyContent(object):
+class DummyContent:
     """ """
 
     title = "Title"
@@ -44,7 +42,6 @@ class DummyContent(object):
 
 
 class TestWidget(unittest.TestCase):
-
     layer = GEOLOCATION_INTEGRATION_TESTING
 
     def setUp(self):

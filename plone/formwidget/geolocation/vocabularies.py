@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from zope.globalrequest import getRequest
 from zope.i18n import translate
 from zope.i18nmessageid import MessageFactory

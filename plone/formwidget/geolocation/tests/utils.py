@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from plone.dexterity.content import DexterityContent
 from plone.formwidget.geolocation import GeolocationField
 from plone.supermodel import model

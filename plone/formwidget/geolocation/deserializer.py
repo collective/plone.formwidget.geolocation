@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from plone.dexterity.interfaces import IDexterityContent
 from plone.formwidget.geolocation.geolocation import Geolocation
 from plone.formwidget.geolocation.interfaces import IGeolocationField
@@ -14,7 +13,7 @@ from zope.interface import Interface
 class GeolocationDeserializer(DefaultFieldDeserializer):
     def __call__(self, value):
         if not isinstance(value, dict):
-            raise ValueError("Invalid geolocation dict: {}".format(value))
+            raise ValueError(f"Invalid geolocation dict: {value}")
 
         if "latitude" not in value or "longitude" not in value:
             raise ValueError("Geolocation dict must have latitude & longitude keys")

@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from plone.formwidget.geolocation.testing import GEOLOCATION_INTEGRATION_TESTING
 from plone.formwidget.geolocation.tests.utils import IDummyGeolocation
 from plone.supermodel.interfaces import IFieldExportImportHandler
@@ -16,7 +14,6 @@ SUPERMODEL_XML = """<field name="dummy" type="plone.formwidget.geolocation.Geolo
 
 
 class TestSupermodel(unittest.TestCase):
-
     layer = GEOLOCATION_INTEGRATION_TESTING
 
     def test_supermodel(self):

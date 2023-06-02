@@ -1,11 +1,9 @@
-# -*- coding: utf-8 -*-
 from plone.app.registry.browser import controlpanel
 from plone.formwidget.geolocation import _
 from plone.formwidget.geolocation.interfaces import IGeolocationSettings
 
 
 class GeolocationControlPanelForm(controlpanel.RegistryEditForm):
-
     id = "GeolocationControlPanel"
     schema = IGeolocationSettings
     schema_prefix = "geolocation"

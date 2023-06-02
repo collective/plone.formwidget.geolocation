@@ -1,15 +1,26 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
       lang="en"
+      tal:omit-tag=""
       i18n:domain="plone.formwidget.geolocation"
-      tal:omit-tag="">
+>
   <div class="geolocation_wrapper"
-       tal:define="value view/value;
-                   has_location python: value and value[0] and value[1]">
-    <div class="alert alert-info" tal:condition="not:has_location" i18n:translate="">
+       tal:define="
+         value view/value;
+         has_location python: value and value[0] and value[1];
+       "
+  >
+    <div class="alert alert-info"
+         tal:condition="not:has_location"
+         i18n:translate=""
+    >
       No geolocation information found.
     </div>
-    <div tal:condition="has_location" class="pat-leaflet map" data-geojson="${view/data_geojson}" data-pat-leaflet='${view/map_configuration}'></div>
+    <div class="pat-leaflet map"
+         data-geojson="${view/data_geojson}"
+         data-pat-leaflet="${view/map_configuration}"
+         tal:condition="has_location"
+    ></div>
   </div>
 </html>
