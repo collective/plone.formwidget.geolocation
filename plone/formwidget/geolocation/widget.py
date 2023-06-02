@@ -40,6 +40,12 @@ class GeolocationWidget(TextWidget):
         if self.mode != "input" and (not coordinates or not all(coordinates)):
             return
 
+        if not coordinates or not all(coordinates):
+            coordinates = (
+                getrec("geolocation.default_latitude", default="0"),
+                getrec("geolocation.default_longitude", default="0"),
+            )
+
         popup_view = queryMultiAdapter(
             (self.context, self.request), name="geolocation-geojson-popup"
         )
@@ -50,6 +56,7 @@ class GeolocationWidget(TextWidget):
                     "type": "Feature",
                     "properties": {
                         "popup": popup_view(),
+                        "main": True,
                     },
                     "geometry": {
                         "type": "Point",
@@ -105,9 +112,11 @@ class GeolocationWidget(TextWidget):
             config["zoomcontrol"] = True
             # set default lat/lng to 0 if None
             if config["latitude"] is None:
-                config["latitude"] = "0"
+                config["latitude"] = getrec("geolocation.default_latitude", default="0")
             if config["longitude"] is None:
-                config["longitude"] = "0"
+                config["longitude"] = getrec(
+                    "geolocation.default_longitude", default="0"
+                )
         return json.dumps(config)
 
     def _default_loc(self):
