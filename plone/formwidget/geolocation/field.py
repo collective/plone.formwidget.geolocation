@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from plone.formwidget.geolocation.geolocation import Geolocation
 from plone.formwidget.geolocation.interfaces import IGeolocation
 from plone.formwidget.geolocation.interfaces import IGeolocationField
@@ -12,4 +11,4 @@ class GeolocationField(schema.Object):
     schema = IGeolocation
 
     def __init__(self, **kw):
-        super(GeolocationField, self).__init__(schema=self.schema, **kw)
+        super().__init__(schema=self.schema, **kw)

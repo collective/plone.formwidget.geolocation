@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from plone.formwidget.geolocation import _
 from plone.formwidget.geolocation.vocabularies import default_map_layer
 from plone.formwidget.geolocation.vocabularies import default_map_layers
@@ -22,7 +21,6 @@ class IGeolocationWidget(IWidget):
 
 
 class IGeolocationSettings(Interface):
-
     fullscreen_control = schema.Bool(
         title=_("label_maps_fullscreen", default="Show Fullscreen Control"),
         required=False,

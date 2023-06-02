@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from plone.dexterity.interfaces import IDexterityContent
 from plone.formwidget.geolocation.interfaces import IGeolocationField
 from plone.restapi.interfaces import IFieldSerializer

@@ -1,21 +1,33 @@
+# Generated from:
+# https://github.com/plone/meta/tree/master/config/default
+# See the inline comments on how to expand/tweak this configuration file
+# python related
 *.egg-info
-*.mo
 *.pyc
-*~
+*.pyo
+
+# tools related
+build/
 .coverage
-.installed.cfg
-.mr.developer.cfg
-.installed.txt
+coverage.xml
+dist/
+docs/_build
+__pycache__/
+.tox
+.vscode/
+
+# venv / buildout related
 bin/
 develop-eggs/
-dist/
-htmlcov/
-node_modules/
-parts/
+eggs/
+.eggs/
+etc/
+.installed.cfg
 lib/
 lib64
+.mr.developer.cfg
+parts/
 pyvenv.cfg
-share/
 var/
 
 # mxdev
@@ -25,3 +37,14 @@ var/
 /reports/
 /sources/
 /venv/
+.installed.txt
+
+node_modules/
+
+##
+# Add extra configuration options in .meta.toml:
+#  [pre_commit]
+#  extra_lines = """
+#  _your own configuration lines_
+#  """
+##

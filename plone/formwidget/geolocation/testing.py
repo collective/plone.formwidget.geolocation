@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
@@ -10,7 +8,6 @@ import plone.formwidget.geolocation
 
 
 class GeolocationLayer(PloneSandboxLayer):
-
     defaultBases = (PLONE_FIXTURE,)
 
     def setUpZope(self, app, configurationContext):

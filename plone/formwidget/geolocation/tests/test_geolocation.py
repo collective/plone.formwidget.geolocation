@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from plone.formwidget.geolocation.geolocation import Geolocation
 
 import unittest

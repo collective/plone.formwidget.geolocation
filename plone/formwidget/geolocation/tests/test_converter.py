@@ -1,9 +1,7 @@
-# -*- coding: utf-8 -*-
-
 from plone.formwidget.geolocation.converter import GeolocationConverter
 from plone.formwidget.geolocation.geolocation import Geolocation
+from unittest import mock
 
-import mock
 import unittest
 
 
