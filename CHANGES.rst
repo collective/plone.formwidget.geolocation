@@ -16,6 +16,9 @@ Changelog
 - Add missing translation in widget display template
   [laulaz]
 
+- Updated resources: `pat-leaflet=2.1.1`, `Patternslib=9.9.4`
+  [petschki]
+
 
 3.0.3 (2023-01-13)
 ------------------
