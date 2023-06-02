@@ -8,16 +8,16 @@
     "url": "https://github.com/collective/plone.formwidget.geolocation"
   },
   "devDependencies": {
-    "@patternslib/dev": "^2.5.0",
-    "webpack": "^5.74.0",
-    "webpack-bundle-analyzer": "^4.5.0",
-    "webpack-cli": "^4.10.0",
-    "whybundled": "^2.0.0",
-    "yarn": "^1.22.18"
+    "@patternslib/dev": "^3.3.5",
+    "babel-loader": "^9.1.2",
+    "clean-css-cli": "^5.6.1",
+    "npm-run-all": "^4.1.5",
+    "sass": "^1.49.11",
+    "sass-loader": "^13.2.0"
   },
   "dependencies": {
-    "@patternslib/pat-leaflet": "git+https://github.com/Patternslib/pat-leaflet.git#cae4b4e8644b66aa98988259eac2b659ae87d93b",
-    "@patternslib/patternslib": "*"
+    "@patternslib/pat-leaflet": "2.1.1",
+    "@patternslib/patternslib": "9.9.4"
   },
   "scripts": {
     "build": "NODE_ENV=production webpack --config webpack.config.js",
