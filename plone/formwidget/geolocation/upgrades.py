@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from plone import api
 from plone.registry.interfaces import IRegistry
 from Products.CMFCore.utils import getToolByName
@@ -15,7 +14,7 @@ PROFILE_ID = "profile-plone.formwidget.geolocation:default"
 def unregister_resource(registry, resource):
     if registry and registry.getResource(resource):
         registry.unregisterResource(resource)
-        logger.info("Removed {0} from {1}".format(resource, registry.id))
+        logger.info(f"Removed {resource} from {registry.id}")
 
 
 def upgrade_1_to_2(context):

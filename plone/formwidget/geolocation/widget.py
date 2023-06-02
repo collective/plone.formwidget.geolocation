@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from plone.api.portal import get_registry_record as getrec
 from plone.formwidget.geolocation.interfaces import IGeolocationField
 from plone.formwidget.geolocation.interfaces import IGeolocationWidget
@@ -18,22 +17,21 @@ import json
 
 @implementer_only(IGeolocationWidget)
 class GeolocationWidget(TextWidget):
-
     klass = "geolocation-widget"
     value = None
 
     def update(self):
-        super(GeolocationWidget, self).update()
+        super().update()
         if self.value is None and self.mode == "input":
             self.value = self._default_loc()
 
     @property
     def id_input_lat(self):
-        return "{0}_latitude".format(self.id)
+        return f"{self.id}_latitude"
 
     @property
     def id_input_lng(self):
-        return "{0}_longitude".format(self.id)
+        return f"{self.id}_longitude"
 
     @property
     def data_geojson(self):
@@ -75,8 +73,8 @@ class GeolocationWidget(TextWidget):
             properties = geo_json["features"][0]["properties"]
             properties["editable"] = True
             properties["no_delete"] = True
-            properties["latinput"] = "#{0}".format(self.id_input_lat)
-            properties["lnginput"] = "#{0}".format(self.id_input_lng)
+            properties["latinput"] = f"#{self.id_input_lat}"
+            properties["lnginput"] = f"#{self.id_input_lng}"
             # set default lat/lng to 0 if None
             if geo_json["features"][0]["geometry"]["coordinates"][0] is None:
                 geo_json["features"][0]["geometry"]["coordinates"][0] = "0"

@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from plone.formwidget.geolocation.geolocation import Geolocation
 from plone.formwidget.geolocation.testing import GEOLOCATION_INTEGRATION_TESTING
 from plone.formwidget.geolocation.tests.utils import DummyContent
@@ -11,7 +9,6 @@ import unittest
 
 
 class TestSerializer(unittest.TestCase):
-
     layer = GEOLOCATION_INTEGRATION_TESTING
 
     def setUp(self):

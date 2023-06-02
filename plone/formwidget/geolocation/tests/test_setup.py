@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from plone.formwidget.geolocation.testing import GEOLOCATION_INTEGRATION_TESTING
 from Products.CMFPlone.utils import get_installer
 
@@ -24,7 +22,6 @@ class TestSetup(unittest.TestCase):
 
 
 class TestUninstall(unittest.TestCase):
-
     layer = GEOLOCATION_INTEGRATION_TESTING
 
     def setUp(self):

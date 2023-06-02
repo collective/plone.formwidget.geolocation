@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from setuptools import find_packages
 from setuptools import setup
 
@@ -17,7 +16,7 @@ setup(
     name="plone.formwidget.geolocation",
     version=version,
     description="Geolocation field and widget",
-    long_description="{0}\n{1}".format(
+    long_description="{}\n{}".format(
         read("README.rst"),
         read("CHANGES.rst"),
     ),
@@ -41,10 +40,11 @@ setup(
     namespace_packages=["plone", "plone.formwidget"],
     include_package_data=True,
     zip_safe=False,
+    python_requires=">=3.8",
     install_requires=[
         "setuptools",
         "z3c.form",
-        "Products.CMFPlone>=6.0.0b2",
+        "Products.CMFPlone >= 6.0.0",
     ],
     extras_require={
         "test": [

@@ -8,7 +8,7 @@ Geolocation field and widget
 
 
 This package provides a z3c.form field and a widget implementing LeafletJS
-from `pat-leaflet` to define Latitude / Longitude informations.
+from `pat-leaflet` to define Latitude / Longitude information.
 
 This package is used as a dependency in some other Plone add-ons, like
 `collective.geolocationbehavior <https://github.com/collective/collective.geolocationbehavior>`_
@@ -24,7 +24,7 @@ but can also be used directly in your own content type schema::
     )
 
 The map marker has a popup containing object title / description (by default).
-The template and/or the class used to generate the popup content can be overriden
+The template and/or the class used to generate the popup content can be overridden
 to change it (see ``@@geolocation-geojson-popup`` view).
 
 

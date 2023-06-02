@@ -1,7 +1,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       xmlns:tal="http://xml.zope.org/namespaces/tal"
-      tal:omit-tag="">
+      tal:omit-tag=""
+>
 
-<span>Foo Bar</span><span tal:replace="view/title" />
+  <span i18n:translate="">Foo Bar</span><span tal:replace="view/title"></span>
 
 </html>

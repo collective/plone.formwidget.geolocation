@@ -69,7 +69,7 @@ Changelog
   [laulaz]
 
 - Allow to set default geolocation on new contents (via bool field in config).
-  If not checked, the defaut geolocation is only used to center map.
+  If not checked, the default geolocation is only used to center map.
   Also, the geolocation map will not show on an object if no geolocation was defined.
   [laulaz]
 
@@ -93,7 +93,7 @@ Changelog
 - Fix popup displaying the string "None" when no description was given.
   [parruc]
 
-- Add default_location informations to maps-configuration view.
+- Add default_location information to maps-configuration view.
   [bsuttor]
 
 
@@ -124,7 +124,7 @@ Changelog
 2.1.2 (2017-04-04)
 ------------------
 
-- Explicitly include necessary zcml dependencies to avoid having to explictly doing that in tests.
+- Explicitly include necessary zcml dependencies to avoid having to explicitly doing that in tests.
   plone.app.testing disables z3c.autoinclude.
   [thet]
 
@@ -172,7 +172,7 @@ Changelog
   [thet]
 
 - Remove the ``div.geolocation`` elements. Instead, render the list of
-  geolocation points as JSON value on a ``data-geopoints`` attrbute on the map
+  geolocation points as JSON value on a ``data-geopoints`` attribute on the map
   element.
   [thet]
 
@@ -180,7 +180,7 @@ Changelog
   message factory.
   [thet]
 
-- Remove the ``map`` id attrbute on the map element and use instead a ``map``
+- Remove the ``map`` id attribute on the map element and use instead a ``map``
   css class.
   [thet]
 
