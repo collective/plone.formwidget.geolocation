@@ -168,7 +168,7 @@ class TestWidget(unittest.TestCase):
         json_result = json.loads(widget.data_geojson)
         feature = json_result["features"][0]
         popup = feature["properties"]["popup"]
-        self.assertEqual(popup.strip(), "<h3>Title</h3\n ><p>Description</p>")
+        self.assertEqual(popup.strip(), "<h3>Title</h3><p>Description</p>")
 
         template_path = os.path.join(os.path.dirname(__file__), "test_popup.pt")
         zcml = (
