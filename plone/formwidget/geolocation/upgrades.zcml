@@ -54,4 +54,13 @@
         />
   </genericsetup:upgradeSteps>
 
+  <genericsetup:upgradeDepends
+      title="Fix controlpanel icon"
+      description=""
+      profile="plone.formwidget.geolocation:default"
+      source="2000"
+      destination="2001"
+      import_steps="controlpanel"
+      />
+
 </configure>

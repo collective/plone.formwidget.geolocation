@@ -4,7 +4,8 @@ Changelog
 3.0.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix controlpanel icon.
+  [petschki]
 
 
 3.0.4 (2023-06-02)
