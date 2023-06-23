@@ -97,22 +97,24 @@ class TestWidget(unittest.TestCase):
         coordinates = feature["geometry"]["coordinates"]
         self.assertEqual(coordinates, [5.0, 50.0])
 
-    def test_default_loc(self):
+    def test_default_location(self):
         widget = GeolocationWidget(self.request)
         widget.id = widget.name = "geolocation"
         widget.request[widget.name] = None
 
         widget.update()
-        self.assertEqual(widget._default_loc(), (None, None))
+        self.assertEqual(widget.value, (None, None))
+        self.assertEqual(widget.coordinates, ("0", "0"))
 
         set_registry_record("geolocation.default_latitude", 70.0)
         set_registry_record("geolocation.default_longitude", 7.0)
         widget.update()
-        self.assertEqual(widget._default_loc(), (70.0, 7.0))
+        self.assertEqual(widget.value, (70.0, 7.0))
+        self.assertEqual(widget.coordinates, (70.0, 7.0))
 
         set_registry_record("geolocation.use_default_geolocation_as_value", False)
         widget.update()
-        self.assertEqual(widget._default_loc(), (None, None))
+        self.assertEqual(widget.value, (None, None))
 
     def test_render(self):
         widget = GeolocationWidget(self.request)
