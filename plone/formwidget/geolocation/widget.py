@@ -22,8 +22,10 @@ class GeolocationWidget(TextWidget):
 
     def update(self):
         super().update()
-        if self.value is None and self.mode == "input":
-            self.value = self._default_loc()
+        self.coordinates = self.value
+        if self.coordinates is None or not all(self.coordinates):
+            # determine default location from settings if the context
+            self.update_default_location()
 
     @property
     def id_input_lat(self):
@@ -36,15 +38,8 @@ class GeolocationWidget(TextWidget):
     @property
     def data_geojson(self):
         """Return the geo location as GeoJSON string."""
-        coordinates = self.value
-        if self.mode != "input" and (not coordinates or not all(coordinates)):
+        if not self.coordinates or not all(self.coordinates):
             return
-
-        if not coordinates or not all(coordinates):
-            coordinates = (
-                getrec("geolocation.default_latitude", default="0"),
-                getrec("geolocation.default_longitude", default="0"),
-            )
 
         popup_view = queryMultiAdapter(
             (self.context, self.request), name="geolocation-geojson-popup"
@@ -61,8 +56,8 @@ class GeolocationWidget(TextWidget):
                     "geometry": {
                         "type": "Point",
                         "coordinates": [
-                            coordinates[1],  # longitude
-                            coordinates[0],  # latitude
+                            self.coordinates[1],  # longitude
+                            self.coordinates[0],  # latitude
                         ],
                     },
                 },
@@ -75,11 +70,6 @@ class GeolocationWidget(TextWidget):
             properties["no_delete"] = True
             properties["latinput"] = f"#{self.id_input_lat}"
             properties["lnginput"] = f"#{self.id_input_lng}"
-            # set default lat/lng to 0 if None
-            if geo_json["features"][0]["geometry"]["coordinates"][0] is None:
-                geo_json["features"][0]["geometry"]["coordinates"][0] = "0"
-            if geo_json["features"][0]["geometry"]["coordinates"][1] is None:
-                geo_json["features"][0]["geometry"]["coordinates"][1] = "0"
 
         return json.dumps(geo_json)
 
@@ -102,31 +92,37 @@ class GeolocationWidget(TextWidget):
                 }
                 for layer in map_layers
             ],
-            "latitude": self.value[0],
-            "longitude": self.value[1],
+            "latitude": self.coordinates[0],
+            "longitude": self.coordinates[1],
         }
+
         if self.mode == "input":
             # geosearch for input is always active
             config["geosearch"] = True
             # zoomcontrol for input is always active
             config["zoomcontrol"] = True
-            # set default lat/lng to 0 if None
-            if config["latitude"] is None:
-                config["latitude"] = getrec("geolocation.default_latitude", default="0")
-            if config["longitude"] is None:
-                config["longitude"] = getrec(
-                    "geolocation.default_longitude", default="0"
-                )
+
         return json.dumps(config)
 
-    def _default_loc(self):
+    def update_default_location(self):
         if getrec("geolocation.use_default_geolocation_as_value"):
-            return (
-                getrec("geolocation.default_latitude"),
-                getrec("geolocation.default_longitude"),
+            # we want to inject default values when creating a content
+            # the values are injected to self.value (input fields)
+            # and self.coordinates (map marker)
+            self.value = self.coordinates = (
+                getrec("geolocation.default_latitude", default="0") or "0",
+                getrec("geolocation.default_longitude", default="0") or "0",
             )
+
+        if self.mode == "input":
+            # fallback to ("0", "0") for input mode to show the map and the marker
+            self.coordinates = ("0", "0")
+
         # no default value for contents not yet geolocated
-        return (None, None)
+        # the display template will not show the map at all
+        # NOTE: when creating a content, self.value is None so we have to
+        # set the initial lat/lng tuple here
+        self.value = (None, None)
 
 
 @implementer(IFieldWidget)
