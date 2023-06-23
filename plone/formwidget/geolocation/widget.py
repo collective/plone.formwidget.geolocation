@@ -111,7 +111,7 @@ class GeolocationWidget(TextWidget):
             # and self.coordinates (map marker)
             self.value = self.coordinates = (
                 getrec("geolocation.default_latitude"),
-                getrec("geolocation.default_longitude")
+                getrec("geolocation.default_longitude"),
             )
 
         if self.coordinates is None or not all(self.coordinates):
