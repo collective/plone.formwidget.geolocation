@@ -110,19 +110,19 @@ class GeolocationWidget(TextWidget):
             # the values are injected to self.value (input fields)
             # and self.coordinates (map marker)
             self.value = self.coordinates = (
-                getrec("geolocation.default_latitude", default="0") or "0",
-                getrec("geolocation.default_longitude", default="0") or "0",
+                getrec("geolocation.default_latitude"),
+                getrec("geolocation.default_longitude")
             )
 
-        if self.mode == "input":
-            # fallback to ("0", "0") for input mode to show the map and the marker
-            self.coordinates = ("0", "0")
-
-        # no default value for contents not yet geolocated
-        # the display template will not show the map at all
-        # NOTE: when creating a content, self.value is None so we have to
-        # set the initial lat/lng tuple here
-        self.value = (None, None)
+        if self.coordinates is None or not all(self.coordinates):
+            # no default value for contents not yet geolocated
+            # the display template will not show the map at all
+            # NOTE: when creating a content, self.value is None so we have to
+            # set the initial lat/lng tuple here
+            self.value = (None, None)
+            if self.mode == "input":
+                # fallback to ("0", "0") for input mode to show the map and the marker
+                self.coordinates = ("0", "0")
 
 
 @implementer(IFieldWidget)
