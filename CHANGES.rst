@@ -7,6 +7,10 @@ Changelog
 - Fix controlpanel icon.
   [petschki]
 
+- Fix showing map when creating content and sanitize default lat/lng
+  values with or without default initial configuration settings.
+  [petschki]
+
 
 3.0.4 (2023-06-02)
 ------------------
