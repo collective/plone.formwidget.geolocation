@@ -38,19 +38,19 @@ msgstr "Longitude par défaut"
 
 #: ../interfaces.py:131
 msgid "Default zoom (edit)"
-msgstr ""
+msgstr "Zoom par défaut (en édition)"
 
 #: ../interfaces.py:138
 msgid "Default zoom (view)"
-msgstr ""
+msgstr "Zoom par défault (en visualisation)"
 
 #: ../interfaces.py:132
 msgid "Default zoom for geolocation widget in edit mode"
-msgstr ""
+msgstr "Niveau de zoom par défaut pour le widget de géolocalisation lors de l'édition du contenu"
 
 #: ../interfaces.py:139
 msgid "Default zoom for geolocation widget in view mode"
-msgstr ""
+msgstr "Niveau de zoom par défaut pour le widget de géolocalisation lors de la visualisation du contenu"
 
 #. Default: "Esri DeLorme"
 #: ../vocabularies.py:82
