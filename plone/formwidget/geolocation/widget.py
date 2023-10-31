@@ -94,6 +94,7 @@ class GeolocationWidget(TextWidget):
             ],
             "latitude": self.coordinates[0],
             "longitude": self.coordinates[1],
+            "zoom": getrec("geolocation.default_display_zoom"),
         }
 
         if self.mode == "input":
@@ -101,6 +102,7 @@ class GeolocationWidget(TextWidget):
             config["geosearch"] = True
             # zoomcontrol for input is always active
             config["zoomcontrol"] = True
+            config["zoom"] = getrec("geolocation.default_input_zoom")
 
         return json.dumps(config)
 

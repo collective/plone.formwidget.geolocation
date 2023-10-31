@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<registry xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+          i18n:domain="plone.formwidget.geolocation"
+>
+
+  <record field="default_input_zoom"
+          interface="plone.formwidget.geolocation.interfaces.IGeolocationSettings"
+          name="geolocation.default_input_zoom"
+  >
+    <field type="plone.registry.field.Int">
+      <title i18n:translate="">Default zoom (edit)</title>
+      <description i18n:translate="">Default zoom for geolocation widget in edit mode</description>
+    </field>
+    <value>14</value>
+  </record>
+  <record field="default_display_zoom"
+          interface="plone.formwidget.geolocation.interfaces.IGeolocationSettings"
+          name="geolocation.default_display_zoom"
+  >
+    <field type="plone.registry.field.Int">
+      <title i18n:translate="">Default zoom (view)</title>
+      <description i18n:translate="">Default zoom for geolocation widget in view mode</description>
+    </field>
+    <value>14</value>
+  </record>
+
+</registry>

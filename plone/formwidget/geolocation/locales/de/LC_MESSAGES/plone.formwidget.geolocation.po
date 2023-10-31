@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.2.0\n"
-"POT-Creation-Date: 2023-03-23 13:47+0000\n"
+"POT-Creation-Date: 2023-10-30 13:29+0000\n"
 "PO-Revision-Date: 2019-04-19 22:15+0000\n"
 "Last-Translator: Johannes Raggam <thetetet@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,74 +17,90 @@ msgstr ""
 "Domain: plone.formwidget.geolocation\n"
 
 #. Default: "CatoDB Dark Matter"
-#: ../vocabularies.py:117
+#: ../vocabularies.py:116
 msgid "CartoDB.DarkMatter"
 msgstr ""
 
 #. Default: "CartoDB Dark Matter No Labels"
-#: ../vocabularies.py:121
+#: ../vocabularies.py:120
 msgid "CartoDB.DarkMatterNoLabels"
 msgstr ""
 
-#: ../interfaces.py:108
+#: ../interfaces.py:106
 msgid "Default latitude"
 msgstr ""
 
-#: ../interfaces.py:116
+#: ../interfaces.py:114
 msgid "Default longitude"
 msgstr ""
 
+#: ../interfaces.py:131
+msgid "Default zoom (edit)"
+msgstr ""
+
+#: ../interfaces.py:138
+msgid "Default zoom (view)"
+msgstr ""
+
+#: ../interfaces.py:132
+msgid "Default zoom for geolocation widget in edit mode"
+msgstr ""
+
+#: ../interfaces.py:139
+msgid "Default zoom for geolocation widget in view mode"
+msgstr ""
+
 #. Default: "Esri DeLorme"
-#: ../vocabularies.py:83
+#: ../vocabularies.py:82
 msgid "Esri.DeLorme"
 msgstr ""
 
 #. Default: "Esri Nat Geo World Map"
-#: ../vocabularies.py:109
+#: ../vocabularies.py:108
 msgid "Esri.NatGeoWorldMap"
 msgstr ""
 
 #. Default: "Esri Ocean Basemap"
-#: ../vocabularies.py:105
+#: ../vocabularies.py:104
 msgid "Esri.OceanBasemap"
 msgstr ""
 
 #. Default: "Esri World Gray Canvas"
-#: ../vocabularies.py:113
+#: ../vocabularies.py:112
 msgid "Esri.WorldGrayCanvas"
 msgstr ""
 
 #. Default: "Esri World Imagery"
-#: ../vocabularies.py:89
+#: ../vocabularies.py:88
 msgid "Esri.WorldImagery"
 msgstr ""
 
 #. Default: "Esri World Physical"
-#: ../vocabularies.py:101
+#: ../vocabularies.py:100
 msgid "Esri.WorldPhysical"
 msgstr ""
 
 #. Default: "Esri World Shaded Relief"
-#: ../vocabularies.py:97
+#: ../vocabularies.py:96
 msgid "Esri.WorldShadedRelief"
 msgstr ""
 
 #. Default: "Esri World Street Map"
-#: ../vocabularies.py:80
+#: ../vocabularies.py:79
 msgid "Esri.WorldStreetMap"
 msgstr ""
 
 #. Default: "Esri World Terrain"
-#: ../vocabularies.py:93
+#: ../vocabularies.py:92
 msgid "Esri.WorldTerrain"
 msgstr ""
 
 #. Default: "Esri World Topo Map"
-#: ../vocabularies.py:85
+#: ../vocabularies.py:84
 msgid "Esri.WorldTopoMap"
 msgstr ""
 
-#: ../configure.zcml:75
+#: ../configure.zcml:88
 msgid "Extension profile for Plone."
 msgstr ""
 
@@ -92,215 +108,215 @@ msgstr ""
 msgid "Geolocation"
 msgstr ""
 
-#: ../controlpanel.py:13
+#: ../controlpanel.py:11
 msgid "Geolocation Settings"
 msgstr ""
 
-#: ../interfaces.py:125
+#: ../interfaces.py:123
 msgid "Geolocation used to center map (see above) will also be used to define the default geolocation on new contents."
 msgstr ""
 
-#: ../interfaces.py:12
+#: ../interfaces.py:11
 msgid "Latitude"
 msgstr ""
 
-#: ../interfaces.py:109
+#: ../interfaces.py:107
 msgid "Latitude value that will be used to center map (on contents not yet geolocated)."
 msgstr ""
 
-#: ../interfaces.py:13
+#: ../interfaces.py:12
 msgid "Longitude"
 msgstr ""
 
-#: ../interfaces.py:117
+#: ../interfaces.py:115
 msgid "Longitude value that will be used to center map (on contents not yet geolocated)."
 msgstr ""
 
 #. Default: "NASA Earth at Night 2012"
-#: ../vocabularies.py:125
+#: ../vocabularies.py:124
 msgid "NASAGIBS.ViirsEarthAtNight2012"
 msgstr ""
 
-#: ../geolocation_display.pt:10
+#: ../geolocation_display.pt:14
 msgid "No geolocation information found."
 msgstr ""
 
 #. Default: "OpenStreetMap Black & White"
-#: ../vocabularies.py:33
+#: ../vocabularies.py:32
 msgid "OpenStreetMap.BlackAndWhite"
 msgstr ""
 
 #. Default: "OpenStreetMap DE"
-#: ../vocabularies.py:36
+#: ../vocabularies.py:35
 msgid "OpenStreetMap.DE"
 msgstr ""
 
 #. Default: "OpenStreetMap France"
-#: ../vocabularies.py:38
+#: ../vocabularies.py:37
 msgid "OpenStreetMap.France"
 msgstr ""
 
 #. Default: "OpenStreetMap Mapnik"
-#: ../vocabularies.py:29
+#: ../vocabularies.py:28
 msgid "OpenStreetMap.Mapnik"
 msgstr ""
 
-#: ../controlpanel.py:14
+#: ../controlpanel.py:12
 msgid "Settings for Maps and API Keys."
 msgstr ""
 
 #. Default: "Stamen Terrain"
-#: ../vocabularies.py:70
+#: ../vocabularies.py:69
 msgid "Stamen.Terrain"
 msgstr ""
 
 #. Default: "Stamen Terrain Background"
-#: ../vocabularies.py:72
+#: ../vocabularies.py:71
 msgid "Stamen.TerrainBackground"
 msgstr ""
 
 #. Default: "Stamen Toner"
-#: ../vocabularies.py:57
+#: ../vocabularies.py:56
 msgid "Stamen.Toner"
 msgstr ""
 
 #. Default: "Stamen Toner Background"
-#: ../vocabularies.py:59
+#: ../vocabularies.py:58
 msgid "Stamen.TonerBackground"
 msgstr ""
 
 #. Default: "Stamen Toner Lite"
-#: ../vocabularies.py:63
+#: ../vocabularies.py:62
 msgid "Stamen.TonerLite"
 msgstr ""
 
 #. Default: "Stamen Relief"
-#: ../vocabularies.py:76
+#: ../vocabularies.py:75
 msgid "Stamen.TopOSMRelief"
 msgstr ""
 
 #. Default: "Stamen Watercolor"
-#: ../vocabularies.py:67
+#: ../vocabularies.py:66
 msgid "Stamen.Watercolor"
 msgstr ""
 
 #. Default: "Thunderforest Cycle Map"
-#: ../vocabularies.py:42
+#: ../vocabularies.py:41
 msgid "Thunderforest.OpenCycleMap"
 msgstr ""
 
 #. Default: "Thunderforest Outdoors"
-#: ../vocabularies.py:54
+#: ../vocabularies.py:53
 msgid "Thunderforest.Outdoors"
 msgstr ""
 
 #. Default: "Thunderforest Transport"
-#: ../vocabularies.py:46
+#: ../vocabularies.py:45
 msgid "Thunderforest.Transport"
 msgstr ""
 
 #. Default: "Thunderforest Transport Dark"
-#: ../vocabularies.py:50
+#: ../vocabularies.py:49
 msgid "Thunderforest.TransportDark"
 msgstr ""
 
-#: ../configure.zcml:82
+#: ../configure.zcml:96
 msgid "Upgrade to version 2000"
 msgstr ""
 
-#: ../interfaces.py:124
+#: ../interfaces.py:122
 msgid "Use default geolocation for contents"
 msgstr ""
 
 #. Default: "Default map layer"
-#: ../interfaces.py:89
+#: ../interfaces.py:87
 msgid "default_map_layer"
 msgstr ""
 
 #. Default: "Set the default map layer"
-#: ../interfaces.py:90
+#: ../interfaces.py:88
 msgid "help_default_map_layer"
 msgstr ""
 
 #. Default: "If you want to use the Google Maps search API for higher accuracy, you have to provide a Google Maps API key here."
-#: ../interfaces.py:70
+#: ../interfaces.py:68
 msgid "help_google_api_key"
 msgstr ""
 
 #. Default: "Show a link to the Google Maps site, which can be used for further actions like routing."
-#: ../interfaces.py:80
+#: ../interfaces.py:78
 msgid "help_google_maps_link"
 msgstr ""
 
 #. Default: "Set the available map layers"
-#: ../interfaces.py:98
+#: ../interfaces.py:96
 msgid "help_map_layers"
 msgstr ""
 
 #. Default: "Google maps API Key"
-#: ../interfaces.py:69
+#: ../interfaces.py:67
 msgid "label_google_api_key"
 msgstr ""
 
 #. Default: "Show Google maps link"
-#: ../interfaces.py:79
+#: ../interfaces.py:77
 msgid "label_google_maps_link"
 msgstr ""
 
 #. Default: "Latitude"
-#: ../geolocation_input.pt:11
+#: ../geolocation_input.pt:15
 msgid "label_latitude"
 msgstr ""
 
 #. Default: "Longitude"
-#: ../geolocation_input.pt:21
+#: ../geolocation_input.pt:33
 msgid "label_longitude"
 msgstr ""
 
 #. Default: "Map Layers"
-#: ../interfaces.py:97
+#: ../interfaces.py:95
 msgid "label_map_layers"
 msgstr ""
 
 #. Default: "Show Fullscreen Control"
-#: ../interfaces.py:27
+#: ../interfaces.py:25
 msgid "label_maps_fullscreen"
 msgstr ""
 
 #. Default: "Geosearch Provider"
-#: ../interfaces.py:63
+#: ../interfaces.py:61
 msgid "label_maps_geosearch_provider"
 msgstr ""
 
 #. Default: "Show Locate Control"
-#: ../interfaces.py:33
+#: ../interfaces.py:31
 msgid "label_maps_locate"
 msgstr ""
 
 #. Default: "Show Add Marker"
-#: ../interfaces.py:57
+#: ../interfaces.py:55
 msgid "label_maps_show_add_marker"
 msgstr ""
 
 #. Default: "Show Geosearch"
-#: ../interfaces.py:51
+#: ../interfaces.py:49
 msgid "label_maps_show_geosearch"
 msgstr ""
 
 #. Default: "Show Minimap"
-#: ../interfaces.py:45
+#: ../interfaces.py:43
 msgid "label_maps_show_minimap"
 msgstr ""
 
 #. Default: "Show Zoom Control"
-#: ../interfaces.py:39
+#: ../interfaces.py:37
 msgid "label_maps_zoom"
 msgstr ""
 
-#: ../configure.zcml:75
+#: ../configure.zcml:88
 msgid "plone.formwidget.geolocation map install"
 msgstr ""
 
-#: ../configure.zcml:89
+#: ../configure.zcml:104
 msgid "plone.formwidget.geolocation map uninstall"
 msgstr ""

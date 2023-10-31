@@ -126,3 +126,17 @@ class IGeolocationSettings(Interface):
         required=False,
         default=True,
     )
+
+    default_input_zoom = schema.Int(
+        title=_("Default zoom (edit)"),
+        description=_("Default zoom for geolocation widget in edit mode"),
+        required=False,
+        default=14,
+    )
+
+    default_display_zoom = schema.Int(
+        title=_("Default zoom (view)"),
+        description=_("Default zoom for geolocation widget in view mode"),
+        required=False,
+        default=14,
+    )
