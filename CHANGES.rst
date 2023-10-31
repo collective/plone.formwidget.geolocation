@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.0.6 (unreleased)
+3.0.6 (2023-10-31)
 ------------------
 
 - Add `default_input_zoom` and `default_display_zoom` options in control panel
