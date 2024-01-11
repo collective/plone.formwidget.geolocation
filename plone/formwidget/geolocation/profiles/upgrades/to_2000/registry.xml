@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <registry>
-  <records interface="Products.CMFPlone.interfaces.IBundleRegistry"
+  <records interface="Products.CMFPlone.interfaces.resources.IBundleRegistry"
            prefix="plone.bundles/bundle-leaflet"
            remove="true"
   />
