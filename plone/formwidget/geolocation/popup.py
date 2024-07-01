@@ -1,4 +1,4 @@
-from Products.CMFPlone.utils import safe_unicode
+from plone.base.utils import safe_text
 from Products.Five.browser import BrowserView
 
 
@@ -13,5 +13,5 @@ class PopupView(BrowserView):
         description = getattr(context, "description", "") or ""
         self.context = context
         self.request = request
-        self.title = safe_unicode(title)
-        self.description = safe_unicode(description)
+        self.title = safe_text(title)
+        self.description = safe_text(description)
