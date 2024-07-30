@@ -228,7 +228,7 @@ msgstr ""
 
 #: ../interfaces.py:122
 msgid "Use default geolocation for contents"
-msgstr "Uiliser la géolocalisation par défaut pour les contenus"
+msgstr "Utiliser la géolocalisation par défaut pour les contenus"
 
 #. Default: "Default map layer"
 #: ../interfaces.py:87
