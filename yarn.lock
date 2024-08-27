@@ -1768,9 +1768,10 @@
     whybundled "^2.0.0"
     yarn "^1.22.22"
 
-"@patternslib/pat-leaflet@Patternslib/pat-leaflet#housekeeping":
-  version "2.1.1"
-  resolved "https://codeload.github.com/Patternslib/pat-leaflet/tar.gz/46f800bac54eafecbfe7c47f76aab90ea15658b0"
+"@patternslib/pat-leaflet@2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@patternslib/pat-leaflet/-/pat-leaflet-2.2.0.tgz#8476f82b6a9409821985ea3be9ea53b0bc493c27"
+  integrity sha512-m5+DXeCqo4+n6djUnrPb1abCpWX7ealG3VV6eBxUgKGNTd22xfAFHs59PqLMCkz/ZB+CcvyYx7YbjvbOBr06Hg==
   dependencies:
     "@patternslib/patternslib" ">=9.9.16"
     fontawesome-free "^1.0.4"

@@ -16,7 +16,7 @@
     "sass-loader": "^13.2.0"
   },
   "dependencies": {
-    "@patternslib/pat-leaflet": "Patternslib/pat-leaflet#housekeeping",
+    "@patternslib/pat-leaflet": "2.2.0",
     "@patternslib/patternslib": "9.9.16"
   },
   "scripts": {
