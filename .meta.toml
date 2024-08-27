@@ -1,9 +1,9 @@
 # Generated from:
-# https://github.com/plone/meta/tree/master/config/default
+# https://github.com/plone/meta/tree/main/config/default
 # See the inline comments on how to expand/tweak this configuration file
 [meta]
 template = "default"
-commit-id = "e08b1234"
+commit-id = "7a017355"
 
 [pyproject]
 codespell_skip = "*.min.js,*.min.js.map,*.svg,yarn.lock"
@@ -12,3 +12,11 @@ codespell_skip = "*.min.js,*.min.js.map,*.svg,yarn.lock"
 extra_lines = """
 node_modules/
 """
+
+[github]
+jobs = [
+    "qa",
+    "test",
+    "coverage",
+    "release_ready",
+    ]

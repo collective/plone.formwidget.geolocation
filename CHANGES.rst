@@ -4,7 +4,8 @@ Changelog
 3.0.7 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Update `pat-leaflet = 2.2.0`. See https://github.com/Patternslib/pat-leaflet/releases/tag/2.2.0 for more information.
+  [petschki]
 
 
 3.0.6 (2023-10-31)
