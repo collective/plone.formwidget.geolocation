@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.0.7 (unreleased)
+3.0.7 (2024-08-28)
 ------------------
 
 - Update `pat-leaflet = 2.2.0`. See https://github.com/Patternslib/pat-leaflet/releases/tag/2.2.0 for more information.
