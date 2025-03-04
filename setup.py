@@ -45,6 +45,7 @@ setup(
         "setuptools",
         "z3c.form",
         "Products.CMFPlone >= 6.0.0",
+        "plone.api",
     ],
     extras_require={
         "test": [
