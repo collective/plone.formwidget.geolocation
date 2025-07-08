@@ -67,7 +67,8 @@ class IGeolocationSettings(Interface):
         title=_("label_google_api_key", default="Google maps API Key"),
         description=_(
             "help_google_api_key",
-            default="If you want to use the Google Maps search API for higher accuracy, you have to provide a Google Maps API key here.",
+            default="If you want to use the Google Maps search API for higher accuracy,"
+                    " you have to provide a Google Maps API key here.",
         ),
         required=False,
         default=None,
@@ -77,7 +78,8 @@ class IGeolocationSettings(Interface):
         title=_("label_google_maps_link", default="Show Google maps link"),
         description=_(
             "help_google_maps_link",
-            default="Show a link to the Google Maps site, which can be used for further actions like routing.",
+            default="Show a link to the Google Maps site, which can be used for further"
+                    " actions like routing."
         ),
         required=False,
         default=False,
@@ -105,7 +107,8 @@ class IGeolocationSettings(Interface):
     default_latitude = schema.Float(
         title=_("Default latitude"),
         description=_(
-            "Latitude value that will be used to center map (on contents not yet geolocated)."
+            "Latitude value that will be used to center map (on contents not yet"
+            " geolocated)."
         ),
         required=False,
     )
@@ -113,7 +116,8 @@ class IGeolocationSettings(Interface):
     default_longitude = schema.Float(
         title=_("Default longitude"),
         description=_(
-            "Longitude value that will be used to center map (on contents not yet geolocated)."
+            "Longitude value that will be used to center map (on contents not yet"
+            " geolocated)."
         ),
         required=False,
     )
@@ -121,7 +125,8 @@ class IGeolocationSettings(Interface):
     use_default_geolocation_as_value = schema.Bool(
         title=_("Use default geolocation for contents"),
         description=_(
-            "Geolocation used to center map (see above) will also be used to define the default geolocation on new contents."
+            "Geolocation used to center map (see above) will also be used to define the"
+            " default geolocation on new contents."
         ),
         required=False,
         default=True,
