@@ -82,6 +82,7 @@ This product has been translated into
 - Dutch
 - French
 - German
+- Spanish
 
 
 Installation

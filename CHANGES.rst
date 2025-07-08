@@ -4,6 +4,9 @@ Changelog
 3.0.8 (unreleased)
 ------------------
 
+- Add Spanish translation
+  [macagua]
+
 - Add new translation strings
   [macagua]
 

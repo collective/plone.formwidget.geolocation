@@ -1,0 +1,329 @@
+# plone.formwidget.geolocation translation file
+# Leonardo J. Caballero G. <leonardocaballero@gmail.com>, 2025.
+msgid ""
+msgstr ""
+"Project-Id-Version: plone.formwidget.geolocation\n"
+"POT-Creation-Date: 2025-07-08 15:48+0000\n"
+"PO-Revision-Date: 2025-07-08 17:52+0200\n"
+"Last-Translator: Leonardo J. Caballero G. <leonardocaballero@gmail.com>\n"
+"Language-Team: ES <LL@li.org>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language-Code: es\n"
+"Language-Name: Español\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: plone.formwidget.geolocation\n"
+"X-Is-Fallback-For: es-ar es-bo es-cl es-co es-cr es-do es-ec es-es es-sv es-gt es-hn es-mx es-ni es-pa es-py es-pe es-pr es-us es-uy es-ve\n"
+"X-Generator: Poedit 3.6\n"
+
+#. Default: "CartoDB Dark Matter"
+#: ../vocabularies.py:116
+msgid "CartoDB.DarkMatter"
+msgstr "CartoDB - Materia oscura"
+
+#. Default: "CartoDB Dark Matter No Labels"
+#: ../vocabularies.py:120
+msgid "CartoDB.DarkMatterNoLabels"
+msgstr "CartoDB - Materia oscura sin etiquetas"
+
+#: ../interfaces.py:108
+msgid "Default latitude"
+msgstr "Latitud por defecto"
+
+#: ../interfaces.py:117
+msgid "Default longitude"
+msgstr "Longitud por defecto"
+
+#: ../interfaces.py:136 ../profiles/upgrades/to_2002/registry.xml
+msgid "Default zoom (edit)"
+msgstr "Zoom por defecto (en modo edición)"
+
+#: ../interfaces.py:143 ../profiles/upgrades/to_2002/registry.xml
+msgid "Default zoom (view)"
+msgstr "Zoom por defecto (en modo vista)"
+
+#: ../interfaces.py:137 ../profiles/upgrades/to_2002/registry.xml
+msgid "Default zoom for geolocation widget in edit mode"
+msgstr "Nivel de zoom predeterminado para el widget de geolocalización al editar contenido"
+
+#: ../interfaces.py:144 ../profiles/upgrades/to_2002/registry.xml
+msgid "Default zoom for geolocation widget in view mode"
+msgstr "Nivel de zoom predeterminado para el widget de geolocalización al visualizar contenidos"
+
+#. Default: "Esri DeLorme"
+#: ../vocabularies.py:82
+msgid "Esri.DeLorme"
+msgstr "Esri - DeLorme"
+
+#. Default: "Esri Nat Geo World Map"
+#: ../vocabularies.py:108
+msgid "Esri.NatGeoWorldMap"
+msgstr "Esri - Mapa mundial Nat Geo"
+
+#. Default: "Esri Ocean Basemap"
+#: ../vocabularies.py:104
+msgid "Esri.OceanBasemap"
+msgstr "Esri - Mapa oceánico"
+
+#. Default: "Esri World Gray Canvas"
+#: ../vocabularies.py:112
+msgid "Esri.WorldGrayCanvas"
+msgstr "Esri - Lienzo Gris del Mundo"
+
+#. Default: "Esri World Imagery"
+#: ../vocabularies.py:88
+msgid "Esri.WorldImagery"
+msgstr "Esri - Imágenes del mundo"
+
+#. Default: "Esri World Physical"
+#: ../vocabularies.py:100
+msgid "Esri.WorldPhysical"
+msgstr "Esri - Mundo físico"
+
+#. Default: "Esri World Shaded Relief"
+#: ../vocabularies.py:96
+msgid "Esri.WorldShadedRelief"
+msgstr "Esri - Relieve sombreado mundial"
+
+#. Default: "Esri World Street Map"
+#: ../vocabularies.py:79
+msgid "Esri.WorldStreetMap"
+msgstr "Esri - Mapa de calle mundial"
+
+#. Default: "Esri World Terrain"
+#: ../vocabularies.py:92
+msgid "Esri.WorldTerrain"
+msgstr "Esri - Terreno mundial"
+
+#. Default: "Esri World Topo Map"
+#: ../vocabularies.py:84
+msgid "Esri.WorldTopoMap"
+msgstr "Esri - Mapa Topográfico Mundial"
+
+#: ../configure.zcml:88
+msgid "Extension profile for Plone."
+msgstr "Perfil de extensión para Plone."
+
+#: ../profiles/default/controlpanel.xml
+msgid "Geolocation"
+msgstr "Geolocalización"
+
+#: ../controlpanel.py:11
+msgid "Geolocation Settings"
+msgstr "Ajustes de geolocalización"
+
+#: ../interfaces.py:127
+msgid "Geolocation used to center map (see above) will also be used to define the default geolocation on new contents."
+msgstr "La geolocalización utilizada para centrar el mapa (véase más arriba) también se utilizará para definir la geolocalización por defecto de los nuevos contenidos."
+
+#: ../interfaces.py:11
+msgid "Latitude"
+msgstr "Latitud"
+
+#: ../interfaces.py:109
+msgid "Latitude value that will be used to center map (on contents not yet geolocated)."
+msgstr "Latitud, que se utilizará para centrar el mapa (en los contenidos que aún no se hayan geoetiquetado)."
+
+#: ../interfaces.py:12
+msgid "Longitude"
+msgstr "Longitud"
+
+#: ../interfaces.py:118
+msgid "Longitude value that will be used to center map (on contents not yet geolocated)."
+msgstr "Longitud, que se utilizará para centrar el mapa (en los contenidos que aún no se hayan geoetiquetado)."
+
+#. Default: "NASA Earth at Night 2012"
+#: ../vocabularies.py:124
+msgid "NASAGIBS.ViirsEarthAtNight2012"
+msgstr "NASA - La Tierra de Noche 2012"
+
+#: ../geolocation_display.pt:14
+msgid "No geolocation information found."
+msgstr "No se ha encontrado información de geolocalización."
+
+#. Default: "OpenStreetMap Black & White"
+#: ../vocabularies.py:32
+msgid "OpenStreetMap.BlackAndWhite"
+msgstr "OpenStreetMap - Blanco y negro"
+
+#. Default: "OpenStreetMap DE"
+#: ../vocabularies.py:35
+msgid "OpenStreetMap.DE"
+msgstr "OpenStreetMap - Alemania"
+
+#. Default: "OpenStreetMap France"
+#: ../vocabularies.py:37
+msgid "OpenStreetMap.France"
+msgstr "OpenStreetMap - Francia"
+
+#. Default: "OpenStreetMap Mapnik"
+#: ../vocabularies.py:28
+msgid "OpenStreetMap.Mapnik"
+msgstr "OpenStreetMap - Mapnik"
+
+#: ../controlpanel.py:12
+msgid "Settings for Maps and API Keys."
+msgstr "Ajustes para Mapas y Claves API."
+
+#. Default: "Stamen Terrain"
+#: ../vocabularies.py:69
+msgid "Stamen.Terrain"
+msgstr "Stamen - Terreno"
+
+#. Default: "Stamen Terrain Background"
+#: ../vocabularies.py:71
+msgid "Stamen.TerrainBackground"
+msgstr "Stamen - Fondo del terreno"
+
+#. Default: "Stamen Toner"
+#: ../vocabularies.py:56
+msgid "Stamen.Toner"
+msgstr "Stamen - Tóner"
+
+#. Default: "Stamen Toner Background"
+#: ../vocabularies.py:58
+msgid "Stamen.TonerBackground"
+msgstr "Stamen - Fondo de tóner"
+
+#. Default: "Stamen Toner Lite"
+#: ../vocabularies.py:62
+msgid "Stamen.TonerLite"
+msgstr "Stamen - Tóner Lite"
+
+#. Default: "Stamen Relief"
+#: ../vocabularies.py:75
+msgid "Stamen.TopOSMRelief"
+msgstr "Stamen - Relieve"
+
+#. Default: "Stamen Watercolor"
+#: ../vocabularies.py:66
+msgid "Stamen.Watercolor"
+msgstr "Stamen - Watercolor"
+
+#. Default: "Thunderforest Cycle Map"
+#: ../vocabularies.py:41
+msgid "Thunderforest.OpenCycleMap"
+msgstr "Thunderforest - Mapa ciclista"
+
+#. Default: "Thunderforest Outdoors"
+#: ../vocabularies.py:53
+msgid "Thunderforest.Outdoors"
+msgstr "Thunderforest - Al aire libre"
+
+#. Default: "Thunderforest Transport"
+#: ../vocabularies.py:45
+msgid "Thunderforest.Transport"
+msgstr "Thunderforest - Transporte"
+
+#. Default: "Thunderforest Transport Dark"
+#: ../vocabularies.py:49
+msgid "Thunderforest.TransportDark"
+msgstr "Thunderforest - Transporte Oscuro"
+
+#: ../configure.zcml:96
+msgid "Upgrade to version 2000"
+msgstr "Actualización a la versión 2000"
+
+#: ../configure.zcml:104
+msgid "Upgrade to version 2002"
+msgstr "Actualización a la versión 2002"
+
+#: ../interfaces.py:126
+msgid "Use default geolocation for contents"
+msgstr "Utilizar la geolocalización por defecto para los contenidos"
+
+#. Default: "Default map layer"
+#: ../interfaces.py:89
+msgid "default_map_layer"
+msgstr "Capa de mapa por defecto"
+
+#. Default: "Set the default map layer"
+#: ../interfaces.py:90
+msgid "help_default_map_layer"
+msgstr "Define la capa cartográfica por defecto"
+
+#. Default: "If you want to use the Google Maps search API for higher accuracy, you have to provide a Google Maps API key here."
+#: ../interfaces.py:68
+msgid "help_google_api_key"
+msgstr "Si desea utilizar la API de búsqueda de Google Maps para mayor precisión, debe proporcionar una clave de API de Google Maps aquí."
+
+#. Default: "Show a link to the Google Maps site, which can be used for further actions like routing."
+#: ../interfaces.py:79
+msgid "help_google_maps_link"
+msgstr "Muestra un enlace al sitio de Google Maps, que puede utilizarse para otras acciones, como la planificación de rutas."
+
+#. Default: "Set the available map layers"
+#: ../interfaces.py:98
+msgid "help_map_layers"
+msgstr "Define las capas de mapas disponibles"
+
+#. Default: "Google maps API Key"
+#: ../interfaces.py:67
+msgid "label_google_api_key"
+msgstr "Clave API de Google Maps"
+
+#. Default: "Show Google maps link"
+#: ../interfaces.py:78
+msgid "label_google_maps_link"
+msgstr "Mostrar enlace a Google Maps"
+
+#. Default: "Latitude"
+#: ../geolocation_input.pt:15
+msgid "label_latitude"
+msgstr "Latitud"
+
+#. Default: "Longitude"
+#: ../geolocation_input.pt:33
+msgid "label_longitude"
+msgstr "Longitud"
+
+#. Default: "Map Layers"
+#: ../interfaces.py:97
+msgid "label_map_layers"
+msgstr "Capas para el mapa"
+
+#. Default: "Show Fullscreen Control"
+#: ../interfaces.py:25
+msgid "label_maps_fullscreen"
+msgstr "Botón de pantalla completa"
+
+#. Default: "Geosearch Provider"
+#: ../interfaces.py:61
+msgid "label_maps_geosearch_provider"
+msgstr "Proveedor de búsqueda geográfica"
+
+#. Default: "Show Locate Control"
+#: ../interfaces.py:31
+msgid "label_maps_locate"
+msgstr "Mostrar control de localización"
+
+#. Default: "Show Add Marker"
+#: ../interfaces.py:55
+msgid "label_maps_show_add_marker"
+msgstr "Mostrar el marcador añadido"
+
+#. Default: "Show Geosearch"
+#: ../interfaces.py:49
+msgid "label_maps_show_geosearch"
+msgstr "Mostrar la búsqueda"
+
+#. Default: "Show Minimap"
+#: ../interfaces.py:43
+msgid "label_maps_show_minimap"
+msgstr "Mostrar imagen miniatura de mapa"
+
+#. Default: "Show Zoom Control"
+#: ../interfaces.py:37
+msgid "label_maps_zoom"
+msgstr "Mostrar los botones de zoom"
+
+#: ../configure.zcml:88
+msgid "plone.formwidget.geolocation map install"
+msgstr "Instalar el complemento plone.formwidget.geolocation"
+
+#: ../configure.zcml:112
+msgid "plone.formwidget.geolocation map uninstall"
+msgstr "Desinstalar el complemento plone.formwidget.geolocation"
