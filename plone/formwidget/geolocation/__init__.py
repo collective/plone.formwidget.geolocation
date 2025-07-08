@@ -1,7 +1,9 @@
 from zope.i18nmessageid import MessageFactory
 
 
-_ = MessageFactory("plone.formwidget.geolocation")
+PACKAGE_NAME = "plone.formwidget.geolocation"
+
+_ = MessageFactory(PACKAGE_NAME)
 
 from plone.formwidget.geolocation.field import GeolocationField  # noqa
 from plone.formwidget.geolocation.geolocation import Geolocation  # noqa

@@ -4,6 +4,9 @@ Changelog
 3.0.8 (unreleased)
 ------------------
 
+- Add more improvements about the sources code
+  [macagua]
+
 - Fixed the warning "Line to long" message
   [macagua]
 

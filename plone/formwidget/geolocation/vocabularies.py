@@ -1,3 +1,4 @@
+from plone.formwidget.geolocation import _
 from zope.globalrequest import getRequest
 from zope.i18n import translate
 from zope.i18nmessageid import MessageFactory
@@ -7,7 +8,6 @@ from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
 
 
-_ = MessageFactory("plone.formwidget.geolocation")
 default_map_layer = "OpenStreetMap.Mapnik"
 default_map_layers = [
     "OpenStreetMap.Mapnik",
