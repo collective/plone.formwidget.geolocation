@@ -113,7 +113,7 @@ def MapLayers(context):
             "Esri.WorldGrayCanvas",
         ),
         (
-            _("CartoDB.DarkMatter", default="CatoDB Dark Matter"),
+            _("CartoDB.DarkMatter", default="CartoDB Dark Matter"),
             "CartoDB.DarkMatter",
         ),
         (

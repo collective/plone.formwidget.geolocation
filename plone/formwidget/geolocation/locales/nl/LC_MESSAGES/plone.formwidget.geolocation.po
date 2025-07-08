@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.2.0\n"
-"POT-Creation-Date: 2024-01-30 10:41+0000\n"
+"POT-Creation-Date: 2025-07-08 15:48+0000\n"
 "PO-Revision-Date: 2023-06-08 13:12+0000\n"
 "Last-Translator: Ingo Van den Broeck <in.vandenbroeck@vmm.be>\n"
 "Language-Team: Zest Software <info@zestsoftware.nl>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Language: nl\n"
 "X-Is-Fallback-For: nl-be nl-nl\n"
 
-#. Default: "CatoDB Dark Matter"
+#. Default: "CartoDB Dark Matter"
 #: ../vocabularies.py:116
 msgid "CartoDB.DarkMatter"
 msgstr ""
@@ -29,30 +29,30 @@ msgstr ""
 msgid "CartoDB.DarkMatterNoLabels"
 msgstr ""
 
-#: ../interfaces.py:106
+#: ../interfaces.py:108
 msgid "Default latitude"
 msgstr "Standaard breedtegraad (latitude)"
 
-#: ../interfaces.py:114
+#: ../interfaces.py:117
 msgid "Default longitude"
 msgstr "Standaard lengtegraad (longitude)"
 
-#: ../interfaces.py:131
+#: ../interfaces.py:136
 #: ../profiles/upgrades/to_2002/registry.xml
 msgid "Default zoom (edit)"
 msgstr ""
 
-#: ../interfaces.py:138
+#: ../interfaces.py:143
 #: ../profiles/upgrades/to_2002/registry.xml
 msgid "Default zoom (view)"
 msgstr ""
 
-#: ../interfaces.py:132
+#: ../interfaces.py:137
 #: ../profiles/upgrades/to_2002/registry.xml
 msgid "Default zoom for geolocation widget in edit mode"
 msgstr ""
 
-#: ../interfaces.py:139
+#: ../interfaces.py:144
 #: ../profiles/upgrades/to_2002/registry.xml
 msgid "Default zoom for geolocation widget in view mode"
 msgstr ""
@@ -119,7 +119,7 @@ msgstr "Geolocatie"
 msgid "Geolocation Settings"
 msgstr "Geolocatie instellingen"
 
-#: ../interfaces.py:123
+#: ../interfaces.py:127
 msgid "Geolocation used to center map (see above) will also be used to define the default geolocation on new contents."
 msgstr "Geolocatie om te centreren op kaart (zie hierboven) zal ook gebruikt worden voor het definiëren van de standaard geolocatie op nieuwe content."
 
@@ -127,7 +127,7 @@ msgstr "Geolocatie om te centreren op kaart (zie hierboven) zal ook gebruikt wor
 msgid "Latitude"
 msgstr "Breedtegraad"
 
-#: ../interfaces.py:107
+#: ../interfaces.py:109
 msgid "Latitude value that will be used to center map (on contents not yet geolocated)."
 msgstr "Waarde breedtegraad om de kaart te centreren (op content die nog geen geolocatie kreeg)."
 
@@ -135,7 +135,7 @@ msgstr "Waarde breedtegraad om de kaart te centreren (op content die nog geen ge
 msgid "Longitude"
 msgstr "Lengtegraad"
 
-#: ../interfaces.py:115
+#: ../interfaces.py:118
 msgid "Longitude value that will be used to center map (on contents not yet geolocated)."
 msgstr "Waarde lengtegraad om de kaart te centreren (op content die nog geen geolocatie kreeg)."
 
@@ -235,17 +235,17 @@ msgstr "Upgraden naar versie 2000"
 msgid "Upgrade to version 2002"
 msgstr ""
 
-#: ../interfaces.py:122
+#: ../interfaces.py:126
 msgid "Use default geolocation for contents"
 msgstr "Gebruik standaard geolocatie voor content"
 
 #. Default: "Default map layer"
-#: ../interfaces.py:87
+#: ../interfaces.py:89
 msgid "default_map_layer"
 msgstr "Standaard kaartlaag"
 
 #. Default: "Set the default map layer"
-#: ../interfaces.py:88
+#: ../interfaces.py:90
 msgid "help_default_map_layer"
 msgstr "Stel de standaard kaartlaag in"
 
@@ -255,12 +255,12 @@ msgid "help_google_api_key"
 msgstr "Als je de Google Maps zoek-API wil gebruiken voor hogere nauwkeurigheid, dan moet je hier een Google Maps API-sleutel invullen."
 
 #. Default: "Show a link to the Google Maps site, which can be used for further actions like routing."
-#: ../interfaces.py:78
+#: ../interfaces.py:79
 msgid "help_google_maps_link"
 msgstr "Toon een link naar de Google Maps site, die gebruikt kan worden voor verdere acties zoals routebegeleiding."
 
 #. Default: "Set the available map layers"
-#: ../interfaces.py:96
+#: ../interfaces.py:98
 msgid "help_map_layers"
 msgstr "Stel de beschikbare kaartlagen in"
 
@@ -270,7 +270,7 @@ msgid "label_google_api_key"
 msgstr "Google Maps API-sleutel"
 
 #. Default: "Show Google maps link"
-#: ../interfaces.py:77
+#: ../interfaces.py:78
 msgid "label_google_maps_link"
 msgstr "Toon link naar Google Maps"
 
@@ -285,7 +285,7 @@ msgid "label_longitude"
 msgstr "Lengtegraad"
 
 #. Default: "Map Layers"
-#: ../interfaces.py:95
+#: ../interfaces.py:97
 msgid "label_map_layers"
 msgstr "Kaartlagen"
 
