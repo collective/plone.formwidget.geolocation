@@ -4,7 +4,8 @@ Changelog
 3.0.8 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fixed the warning "Line to long" message
+  [macagua]
 
 
 3.0.7 (2024-08-28)
