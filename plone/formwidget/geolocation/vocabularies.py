@@ -1,7 +1,6 @@
 from plone.formwidget.geolocation import _
 from zope.globalrequest import getRequest
 from zope.i18n import translate
-from zope.i18nmessageid import MessageFactory
 from zope.interface import provider
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm
