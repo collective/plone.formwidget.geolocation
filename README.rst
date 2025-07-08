@@ -88,7 +88,7 @@ This product has been translated into
 Installation
 ============
 
-Add the ``plone.formwidget.geolocation`` ()name of add-on) in the file ``backend/pyproject.toml`` in the section ``dependencies``.
+Add the ``plone.formwidget.geolocation`` into the file ``backend/pyproject.toml`` in the section ``dependencies``.
 
 ::
 
