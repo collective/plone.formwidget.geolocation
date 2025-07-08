@@ -68,7 +68,7 @@ class IGeolocationSettings(Interface):
         description=_(
             "help_google_api_key",
             default="If you want to use the Google Maps search API for higher accuracy,"
-                    " you have to provide a Google Maps API key here.",
+            " you have to provide a Google Maps API key here.",
         ),
         required=False,
         default=None,
@@ -79,7 +79,7 @@ class IGeolocationSettings(Interface):
         description=_(
             "help_google_maps_link",
             default="Show a link to the Google Maps site, which can be used for further"
-                    " actions like routing."
+            " actions like routing.",
         ),
         required=False,
         default=False,
