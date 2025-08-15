@@ -19,7 +19,7 @@ jobs:
           - "6.0-latest"
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Setup Plone ${{ matrix.plone }} with Python ${{ matrix.python }}
         id: setup
