@@ -16,6 +16,7 @@ Changelog
 - Fixed the warning "Line to long" message
   [macagua]
 
+- Move distribution to src layout [gforcada]
 
 3.0.7 (2024-08-28)
 ------------------
