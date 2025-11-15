@@ -1,24 +1,17 @@
+from pathlib import Path
 from setuptools import find_packages
 from setuptools import setup
 
-import os
-
 
 version = "3.0.8.dev0"
-
-
-def read(*rnames):
-    with open(os.path.join(os.path.dirname(__file__), *rnames)) as f:
-        return f.read()
 
 
 setup(
     name="plone.formwidget.geolocation",
     version=version,
     description="Geolocation field and widget",
-    long_description="{}\n{}".format(
-        read("README.rst"),
-        read("CHANGES.rst"),
+    long_description=(
+        f"{Path('README.rst').read_text()}\n{Path('CHANGES.rst').read_text()}\n"
     ),
     classifiers=[
         "Framework :: Plone",
@@ -36,7 +29,8 @@ setup(
     author_email="dglick@gmail.com",
     url="https://github.com/collective/plone.formwidget.geolocation",
     license="GPL",
-    packages=find_packages(),
+    packages=find_packages("src"),
+    package_dir={"": "src"},
     namespace_packages=["plone", "plone.formwidget"],
     include_package_data=True,
     zip_safe=False,
