@@ -37,16 +37,20 @@ setup(
     python_requires=">=3.8",
     install_requires=[
         "setuptools",
-        "z3c.form",
-        "Products.CMFPlone >= 6.0.0",
         "plone.api",
+        "plone.app.registry",
+        "plone.base",
+        "plone.dexterity",
+        "plone.restapi",
+        "plone.supermodel",
+        "Products.CMFPlone >= 6.0.0",
+        "Products.CMFCore",
+        "Zope",
+        "z3c.form",
     ],
     extras_require={
         "test": [
             "plone.app.testing",
-            "plone.restapi",
-            "plone.testing",
-            "mock",
         ]
     },
     entry_points="""
