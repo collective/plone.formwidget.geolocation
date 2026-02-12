@@ -251,9 +251,6 @@ format: ## Check and fix code base according to Plone standards
 	@echo "$(GREEN)==> Format codebase$(RESET)"
 	@tox -e format
 
-.PHONY: lint ## lint all: check if complies with code-styles black, isort and zpretty
-lint: lint-black lint-isort ## lint-zpretty
-
 ##############################################################################
 # RUN
 
