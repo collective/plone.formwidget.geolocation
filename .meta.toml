@@ -18,3 +18,8 @@ jobs = ["qa", "coverage", "release_ready"]
 
 [tox]
 test_matrix = { "6.0" = ["*"], "6.1" = ["*"] }
+
+[gitignore]
+extra_lines = """
+.mxdev_cache
+"""
