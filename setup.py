@@ -1,6 +1,8 @@
+from setuptools import find_packages
+from setuptools import setup
+
 import os
 
-from setuptools import find_packages, setup
 
 version = "3.0.8.dev0"
 

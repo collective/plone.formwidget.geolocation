@@ -1,11 +1,11 @@
-import unittest
-
-from zope.component import getUtility
-
 from plone.formwidget.geolocation.testing import GEOLOCATION_INTEGRATION_TESTING
 from plone.formwidget.geolocation.tests.utils import IDummyGeolocation
 from plone.supermodel.interfaces import IFieldExportImportHandler
 from plone.supermodel.utils import prettyXML
+from zope.component import getUtility
+
+import unittest
+
 
 SUPERMODEL_XML = """<field name="dummy" type="plone.formwidget.geolocation.GeolocationField">
   <schema>plone.formwidget.geolocation.interfaces.IGeolocation</schema>

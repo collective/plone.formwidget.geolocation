@@ -244,17 +244,12 @@ FORMATTING: style
 .PHONY: lint
 lint: ## Check and fix code base according to Plone standards
 	@echo "$(GREEN)==> Lint codebase$(RESET)"
-	@uvx ruff@latest check --fix --config $(ADDONFOLDER)/pyproject.toml
-	@uvx pyroma@latest -d .
-	@uvx check-python-versions@latest .
-	@uvx zpretty@latest --check $(ADDONFOLDER)/plone
+	@tox -e lint
 
 .PHONY: format
 format: ## Check and fix code base according to Plone standards
 	@echo "$(GREEN)==> Format codebase$(RESET)"
-	@uvx ruff@latest check --select I --fix --config $(ADDONFOLDER)/pyproject.toml
-	@uvx ruff@latest format --config $(ADDONFOLDER)/pyproject.toml
-	@uvx zpretty@latest -i $(ADDONFOLDER)/plone
+	@tox -e format
 
 .PHONY: check
 check: format lint ## Check and fix code base according to Plone standards

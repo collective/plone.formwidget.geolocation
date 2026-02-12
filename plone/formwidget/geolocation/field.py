@@ -1,8 +1,8 @@
+from plone.formwidget.geolocation.geolocation import Geolocation
+from plone.formwidget.geolocation.interfaces import IGeolocation
+from plone.formwidget.geolocation.interfaces import IGeolocationField
 from zope import schema
 from zope.interface import implementer
-
-from plone.formwidget.geolocation.geolocation import Geolocation
-from plone.formwidget.geolocation.interfaces import IGeolocation, IGeolocationField
 
 
 @implementer(IGeolocationField)

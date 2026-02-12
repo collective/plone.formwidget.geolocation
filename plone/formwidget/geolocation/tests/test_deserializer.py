@@ -1,11 +1,11 @@
-import unittest
-
-from zope.component import getMultiAdapter
-
 from plone.formwidget.geolocation.interfaces import IGeolocation
 from plone.formwidget.geolocation.testing import GEOLOCATION_INTEGRATION_TESTING
-from plone.formwidget.geolocation.tests.utils import DummyContent, IDummyGeolocation
+from plone.formwidget.geolocation.tests.utils import DummyContent
+from plone.formwidget.geolocation.tests.utils import IDummyGeolocation
 from plone.restapi.interfaces import IFieldDeserializer
+from zope.component import getMultiAdapter
+
+import unittest
 
 
 class TestDeserializer(unittest.TestCase):

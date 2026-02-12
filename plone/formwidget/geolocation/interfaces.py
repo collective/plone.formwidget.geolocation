@@ -1,13 +1,10 @@
+from plone.formwidget.geolocation import _
+from plone.formwidget.geolocation.vocabularies import default_map_layer
+from plone.formwidget.geolocation.vocabularies import default_map_layers
 from z3c.form.interfaces import IWidget
 from zope import schema
 from zope.interface import Interface
 from zope.schema.interfaces import IObject
-
-from plone.formwidget.geolocation import _
-from plone.formwidget.geolocation.vocabularies import (
-    default_map_layer,
-    default_map_layers,
-)
 
 
 class IGeolocation(Interface):
