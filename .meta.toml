@@ -19,3 +19,7 @@ jobs = [
     "coverage",
     "release_ready",
     ]
+
+
+[tox]
+test_matrix = {"6.2" = ["*"]}
