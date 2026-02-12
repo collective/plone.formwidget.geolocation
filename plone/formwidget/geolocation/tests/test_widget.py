@@ -20,6 +20,7 @@ import unittest
 import zope.browserpage
 import zope.component
 
+
 zcml_wrapper = """<configure
    xmlns='http://namespaces.zope.org/zope'
    xmlns:browser='http://namespaces.zope.org/browser'
@@ -172,7 +173,8 @@ class TestWidget(unittest.TestCase):
         self.assertEqual(popup.strip(), "<h3>Title</h3><p>Description</p>")
 
         template_path = os.path.join(os.path.dirname(__file__), "test_popup.pt")
-        zcml = """
+        zcml = (
+            """
             <browser:page
                 name="geolocation-geojson-popup"
                 for="plone.formwidget.geolocation.tests.test_widget.IDummyContent"
@@ -180,7 +182,9 @@ class TestWidget(unittest.TestCase):
                 template="%s"
                 permission="zope.Public"
                 />
-            """ % template_path
+            """
+            % template_path
+        )
         xmlconfig(StringIO(zcml_wrapper % zcml))
         widget.update()
         json_result = json.loads(widget.data_geojson)

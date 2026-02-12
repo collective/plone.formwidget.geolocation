@@ -6,6 +6,7 @@ from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
 
+
 default_map_layer = "OpenStreetMap.Mapnik"
 default_map_layers = [
     "OpenStreetMap.Mapnik",

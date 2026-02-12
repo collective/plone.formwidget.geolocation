@@ -6,6 +6,7 @@ from zope.component import getUtility
 
 import logging
 
+
 logger = logging.getLogger("plone.formwidget.geolocation upgrade")
 PROFILE_ID = "profile-plone.formwidget.geolocation:default"
 
