@@ -1,18 +1,18 @@
-from plone.api.portal import get_registry_record as getrec
-from plone.formwidget.geolocation.interfaces import IGeolocationField
-from plone.formwidget.geolocation.interfaces import IGeolocationWidget
-from plone.formwidget.geolocation.vocabularies import _
-from z3c.form.browser.text import TextWidget
-from z3c.form.interfaces import IFieldWidget
-from z3c.form.interfaces import IFormLayer
-from z3c.form.widget import FieldWidget
-from zope.component import adapter
-from zope.component import queryMultiAdapter
-from zope.i18n import translate
-from zope.interface import implementer
-from zope.interface import implementer_only
-
 import json
+
+from z3c.form.browser.text import TextWidget
+from z3c.form.interfaces import IFieldWidget, IFormLayer
+from z3c.form.widget import FieldWidget
+from zope.component import adapter, queryMultiAdapter
+from zope.i18n import translate
+from zope.interface import implementer, implementer_only
+
+from plone.api.portal import get_registry_record as getrec
+from plone.formwidget.geolocation.interfaces import (
+    IGeolocationField,
+    IGeolocationWidget,
+)
+from plone.formwidget.geolocation.vocabularies import _
 
 
 @implementer_only(IGeolocationWidget)

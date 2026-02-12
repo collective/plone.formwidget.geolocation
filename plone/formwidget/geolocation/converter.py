@@ -1,9 +1,12 @@
-from plone.formwidget.geolocation.geolocation import Geolocation
-from plone.formwidget.geolocation.interfaces import IGeolocation
-from plone.formwidget.geolocation.interfaces import IGeolocationField
-from plone.formwidget.geolocation.interfaces import IGeolocationWidget
 from z3c.form.converter import BaseDataConverter
 from zope.component import adapter
+
+from plone.formwidget.geolocation.geolocation import Geolocation
+from plone.formwidget.geolocation.interfaces import (
+    IGeolocation,
+    IGeolocationField,
+    IGeolocationWidget,
+)
 
 
 @adapter(IGeolocationField, IGeolocationWidget)

@@ -1,24 +1,25 @@
+import json
+import os
+import unittest
 from io import StringIO
+from unittest import mock
+
+import zope.browserpage
+import zope.component
+from z3c.form.widget import WidgetTemplateFactory
+from zope.configuration.xmlconfig import XMLConfig, xmlconfig
+from zope.interface import Interface, implementer
+from zope.pagetemplate.interfaces import IPageTemplate
+
+import plone.formwidget.geolocation
 from plone.api.portal import set_registry_record
 from plone.formwidget.geolocation.interfaces import IGeolocationWidget
 from plone.formwidget.geolocation.testing import GEOLOCATION_INTEGRATION_TESTING
 from plone.formwidget.geolocation.tests.utils import IDummyGeolocation
-from plone.formwidget.geolocation.widget import GeolocationFieldWidget
-from plone.formwidget.geolocation.widget import GeolocationWidget
-from unittest import mock
-from z3c.form.widget import WidgetTemplateFactory
-from zope.configuration.xmlconfig import XMLConfig
-from zope.configuration.xmlconfig import xmlconfig
-from zope.interface import implementer
-from zope.interface import Interface
-from zope.pagetemplate.interfaces import IPageTemplate
-
-import json
-import os
-import plone.formwidget.geolocation
-import unittest
-import zope.browserpage
-import zope.component
+from plone.formwidget.geolocation.widget import (
+    GeolocationFieldWidget,
+    GeolocationWidget,
+)
 
 zcml_wrapper = """<configure
    xmlns='http://namespaces.zope.org/zope'
@@ -172,7 +173,8 @@ class TestWidget(unittest.TestCase):
         self.assertEqual(popup.strip(), "<h3>Title</h3><p>Description</p>")
 
         template_path = os.path.join(os.path.dirname(__file__), "test_popup.pt")
-        zcml = """
+        zcml = (
+            """
             <browser:page
                 name="geolocation-geojson-popup"
                 for="plone.formwidget.geolocation.tests.test_widget.IDummyContent"
@@ -180,7 +182,9 @@ class TestWidget(unittest.TestCase):
                 template="%s"
                 permission="zope.Public"
                 />
-            """ % template_path
+            """
+            % template_path
+        )
         xmlconfig(StringIO(zcml_wrapper % zcml))
         widget.update()
         json_result = json.loads(widget.data_geojson)

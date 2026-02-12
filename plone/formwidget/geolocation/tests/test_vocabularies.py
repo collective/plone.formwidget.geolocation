@@ -1,8 +1,9 @@
-from plone.formwidget.geolocation.testing import GEOLOCATION_INTEGRATION_TESTING
+import unittest
+
 from zope.component import getUtility
 from zope.schema.interfaces import IVocabularyFactory
 
-import unittest
+from plone.formwidget.geolocation.testing import GEOLOCATION_INTEGRATION_TESTING
 
 
 class TestVocabularies(unittest.TestCase):

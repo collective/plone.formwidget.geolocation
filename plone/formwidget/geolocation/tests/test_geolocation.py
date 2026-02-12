@@ -1,6 +1,6 @@
-from plone.formwidget.geolocation.geolocation import Geolocation
-
 import unittest
+
+from plone.formwidget.geolocation.geolocation import Geolocation
 
 
 class TestGeolocation(unittest.TestCase):

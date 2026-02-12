@@ -1,11 +1,11 @@
+from zope.component import adapter
+from zope.interface import Interface, implementer
+
 from plone.dexterity.interfaces import IDexterityContent
 from plone.formwidget.geolocation.geolocation import Geolocation
 from plone.formwidget.geolocation.interfaces import IGeolocationField
 from plone.restapi.deserializer.dxfields import DefaultFieldDeserializer
 from plone.restapi.interfaces import IFieldDeserializer
-from zope.component import adapter
-from zope.interface import implementer
-from zope.interface import Interface
 
 
 @adapter(IGeolocationField, IDexterityContent, Interface)

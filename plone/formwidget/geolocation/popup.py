@@ -1,5 +1,6 @@
-from plone.base.utils import safe_text
 from Products.Five.browser import BrowserView
+
+from plone.base.utils import safe_text
 
 
 class PopupView(BrowserView):

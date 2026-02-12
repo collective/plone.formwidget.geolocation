@@ -1,10 +1,10 @@
-from plone.formwidget.geolocation import _
 from zope.globalrequest import getRequest
 from zope.i18n import translate
 from zope.interface import provider
 from zope.schema.interfaces import IVocabularyFactory
-from zope.schema.vocabulary import SimpleTerm
-from zope.schema.vocabulary import SimpleVocabulary
+from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
+
+from plone.formwidget.geolocation import _
 
 default_map_layer = "OpenStreetMap.Mapnik"
 default_map_layers = [
