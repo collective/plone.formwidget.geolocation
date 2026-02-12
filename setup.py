@@ -44,7 +44,7 @@ setup(
     install_requires=[
         "setuptools",
         "z3c.form",
-        "Products.CMFPlone >= 6.2.0",
+        "Products.CMFPlone",
         "plone.api",
     ],
     extras_require={
