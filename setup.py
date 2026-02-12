@@ -3,7 +3,6 @@ from setuptools import setup
 
 import os
 
-
 version = "3.0.8.dev0"
 
 
