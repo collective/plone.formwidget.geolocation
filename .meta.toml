@@ -11,6 +11,7 @@ codespell_skip = "*.min.js,*.min.js.map,*.svg,yarn.lock"
 [gitignore]
 extra_lines = """
 node_modules/
+.mxdev_cache
 """
 
 [github]
@@ -19,7 +20,3 @@ jobs = ["qa", "coverage", "release_ready"]
 [tox]
 test_matrix = { "6.0" = ["*"], "6.1" = ["*"] }
 
-[gitignore]
-extra_lines = """
-.mxdev_cache
-"""
