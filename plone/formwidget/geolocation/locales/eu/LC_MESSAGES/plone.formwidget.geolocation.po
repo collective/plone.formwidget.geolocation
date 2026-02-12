@@ -1,0 +1,329 @@
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2025-07-08 15:48+0000\n"
+"PO-Revision-Date: 2026-02-12 10:50+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: eu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: plone.formwidget.geolocation\n"
+"X-Generator: Poedit 3.4.2\n"
+
+#. Default: "CartoDB Dark Matter"
+#: ../vocabularies.py:116
+msgid "CartoDB.DarkMatter"
+msgstr "CartoDB.DarkMatter"
+
+#. Default: "CartoDB Dark Matter No Labels"
+#: ../vocabularies.py:120
+msgid "CartoDB.DarkMatterNoLabels"
+msgstr "CartoDB.DarkMatterNoLabels"
+
+#: ../interfaces.py:108
+msgid "Default latitude"
+msgstr "Defektuzko latituddea"
+
+#: ../interfaces.py:117
+msgid "Default longitude"
+msgstr "Defektuzko longitudea"
+
+#: ../interfaces.py:136 ../profiles/upgrades/to_2002/registry.xml
+msgid "Default zoom (edit)"
+msgstr "Defektuzko zooma (edizio formularioan)"
+
+#: ../interfaces.py:143 ../profiles/upgrades/to_2002/registry.xml
+msgid "Default zoom (view)"
+msgstr "Defektuzko zooma (bistan)"
+
+#: ../interfaces.py:137 ../profiles/upgrades/to_2002/registry.xml
+msgid "Default zoom for geolocation widget in edit mode"
+msgstr "Defektuzko zooma edizio moduan gaudenean"
+
+#: ../interfaces.py:144 ../profiles/upgrades/to_2002/registry.xml
+msgid "Default zoom for geolocation widget in view mode"
+msgstr "Defektuzko zooma bista publikoan gaudenean"
+
+#. Default: "Esri DeLorme"
+#: ../vocabularies.py:82
+msgid "Esri.DeLorme"
+msgstr "Esri.DeLorme"
+
+#. Default: "Esri Nat Geo World Map"
+#: ../vocabularies.py:108
+msgid "Esri.NatGeoWorldMap"
+msgstr "Esri.NatGeoWorldMap"
+
+#. Default: "Esri Ocean Basemap"
+#: ../vocabularies.py:104
+msgid "Esri.OceanBasemap"
+msgstr "Esri.OceanBasemap"
+
+#. Default: "Esri World Gray Canvas"
+#: ../vocabularies.py:112
+msgid "Esri.WorldGrayCanvas"
+msgstr "Esri.WorldGrayCanvas"
+
+#. Default: "Esri World Imagery"
+#: ../vocabularies.py:88
+msgid "Esri.WorldImagery"
+msgstr "Esri.WorldImagery"
+
+#. Default: "Esri World Physical"
+#: ../vocabularies.py:100
+msgid "Esri.WorldPhysical"
+msgstr "Esri.WorldPhysical"
+
+#. Default: "Esri World Shaded Relief"
+#: ../vocabularies.py:96
+msgid "Esri.WorldShadedRelief"
+msgstr "Esri.WorldShadedRelief"
+
+#. Default: "Esri World Street Map"
+#: ../vocabularies.py:79
+msgid "Esri.WorldStreetMap"
+msgstr "Esri.WorldStreetMap"
+
+#. Default: "Esri World Terrain"
+#: ../vocabularies.py:92
+msgid "Esri.WorldTerrain"
+msgstr "Esri.WorldTerrain"
+
+#. Default: "Esri World Topo Map"
+#: ../vocabularies.py:84
+msgid "Esri.WorldTopoMap"
+msgstr "Esri.WorldTopoMap"
+
+#: ../configure.zcml:88
+msgid "Extension profile for Plone."
+msgstr "Plonerako instalazio profila."
+
+#: ../profiles/default/controlpanel.xml
+msgid "Geolocation"
+msgstr "Geokokapena"
+
+#: ../controlpanel.py:11
+msgid "Geolocation Settings"
+msgstr "Geokokapenaren ezarpenak"
+
+#: ../interfaces.py:127
+msgid "Geolocation used to center map (see above) will also be used to define the default geolocation on new contents."
+msgstr "Maparen erdigunea adierazteko kokapena elementu berrien defektuzko kokapen gisa ere erabiliko da."
+
+#: ../interfaces.py:11
+msgid "Latitude"
+msgstr "Latitudea"
+
+#: ../interfaces.py:109
+msgid "Latitude value that will be used to center map (on contents not yet geolocated)."
+msgstr "Mapa zentratzeko erabiliko den latitudea (edo geokokatu gabeko elementuetan erabiliko dena)."
+
+#: ../interfaces.py:12
+msgid "Longitude"
+msgstr "Longitudea"
+
+#: ../interfaces.py:118
+msgid "Longitude value that will be used to center map (on contents not yet geolocated)."
+msgstr "Mapa zentratzeko erabiliko den longitudea (edo geokokatu gabeko elementuetan erabiliko dena)."
+
+#. Default: "NASA Earth at Night 2012"
+#: ../vocabularies.py:124
+msgid "NASAGIBS.ViirsEarthAtNight2012"
+msgstr "NASAGIBS.ViirsEarthAtNight2012"
+
+#: ../geolocation_display.pt:14
+msgid "No geolocation information found."
+msgstr "Ez dago kokapenaren inguruko informaziorik"
+
+#. Default: "OpenStreetMap Black & White"
+#: ../vocabularies.py:32
+msgid "OpenStreetMap.BlackAndWhite"
+msgstr "OpenStreetMap.BlackAndWhite"
+
+#. Default: "OpenStreetMap DE"
+#: ../vocabularies.py:35
+msgid "OpenStreetMap.DE"
+msgstr "OpenStreetMap.DE"
+
+#. Default: "OpenStreetMap France"
+#: ../vocabularies.py:37
+msgid "OpenStreetMap.France"
+msgstr "OpenStreetMap.France"
+
+#. Default: "OpenStreetMap Mapnik"
+#: ../vocabularies.py:28
+msgid "OpenStreetMap.Mapnik"
+msgstr "OpenStreetMap.Mapnik"
+
+#: ../controlpanel.py:12
+msgid "Settings for Maps and API Keys."
+msgstr "Mapa eta API gakoen ezarpenak"
+
+#. Default: "Stamen Terrain"
+#: ../vocabularies.py:69
+msgid "Stamen.Terrain"
+msgstr "Stamen.Terrain"
+
+#. Default: "Stamen Terrain Background"
+#: ../vocabularies.py:71
+msgid "Stamen.TerrainBackground"
+msgstr "Stamen.TerrainBackground"
+
+#. Default: "Stamen Toner"
+#: ../vocabularies.py:56
+msgid "Stamen.Toner"
+msgstr "Stamen.Toner"
+
+#. Default: "Stamen Toner Background"
+#: ../vocabularies.py:58
+msgid "Stamen.TonerBackground"
+msgstr "Stamen.TonerBackground"
+
+#. Default: "Stamen Toner Lite"
+#: ../vocabularies.py:62
+msgid "Stamen.TonerLite"
+msgstr "Stamen.TonerLite"
+
+#. Default: "Stamen Relief"
+#: ../vocabularies.py:75
+msgid "Stamen.TopOSMRelief"
+msgstr "Stamen.TopOSMRelief"
+
+#. Default: "Stamen Watercolor"
+#: ../vocabularies.py:66
+msgid "Stamen.Watercolor"
+msgstr "Stamen.Watercolor"
+
+#. Default: "Thunderforest Cycle Map"
+#: ../vocabularies.py:41
+msgid "Thunderforest.OpenCycleMap"
+msgstr "Thunderforest.OpenCycleMap"
+
+#. Default: "Thunderforest Outdoors"
+#: ../vocabularies.py:53
+msgid "Thunderforest.Outdoors"
+msgstr "Thunderforest.Outdoors"
+
+#. Default: "Thunderforest Transport"
+#: ../vocabularies.py:45
+msgid "Thunderforest.Transport"
+msgstr "Thunderforest.Transport"
+
+#. Default: "Thunderforest Transport Dark"
+#: ../vocabularies.py:49
+msgid "Thunderforest.TransportDark"
+msgstr "Thunderforest.TransportDark"
+
+#: ../configure.zcml:96
+msgid "Upgrade to version 2000"
+msgstr "2000 bertsiora eguneratu"
+
+#: ../configure.zcml:104
+msgid "Upgrade to version 2002"
+msgstr "2002 bertsiora eguneratu"
+
+#: ../interfaces.py:126
+msgid "Use default geolocation for contents"
+msgstr "Edukientzat defektuzko kokapena erabili"
+
+#. Default: "Default map layer"
+#: ../interfaces.py:89
+msgid "default_map_layer"
+msgstr "Maparen defektuzko geruza"
+
+#. Default: "Set the default map layer"
+#: ../interfaces.py:90
+msgid "help_default_map_layer"
+msgstr "Ezarri maparen geruza"
+
+#. Default: "If you want to use the Google Maps search API for higher accuracy, you have to provide a Google Maps API key here."
+#: ../interfaces.py:68
+msgid "help_google_api_key"
+msgstr "Google Mapsen bilaketa erabili nahi baduzu, API gakoa hemen idatzi behar duzu"
+
+#. Default: "Show a link to the Google Maps site, which can be used for further actions like routing."
+#: ../interfaces.py:79
+msgid "help_google_maps_link"
+msgstr "Google Maps webgunerako esteka erakutsi"
+
+#. Default: "Set the available map layers"
+#: ../interfaces.py:98
+msgid "help_map_layers"
+msgstr "Erakutsi erabili daitezkeen geruzak"
+
+#. Default: "Google maps API Key"
+#: ../interfaces.py:67
+msgid "label_google_api_key"
+msgstr "Google Maps API gakoa"
+
+#. Default: "Show Google maps link"
+#: ../interfaces.py:78
+msgid "label_google_maps_link"
+msgstr "Erakutsi Google Maps esteka"
+
+#. Default: "Latitude"
+#: ../geolocation_input.pt:15
+msgid "label_latitude"
+msgstr "Latitudea"
+
+#. Default: "Longitude"
+#: ../geolocation_input.pt:33
+msgid "label_longitude"
+msgstr "Longitudea"
+
+#. Default: "Map Layers"
+#: ../interfaces.py:97
+msgid "label_map_layers"
+msgstr "Maparen geruzak"
+
+#. Default: "Show Fullscreen Control"
+#: ../interfaces.py:25
+msgid "label_maps_fullscreen"
+msgstr "Erakutsi pantaila osoan "
+
+#. Default: "Geosearch Provider"
+#: ../interfaces.py:61
+msgid "label_maps_geosearch_provider"
+msgstr "Geo bilaketaren hornitzazailea"
+
+#. Default: "Show Locate Control"
+#: ../interfaces.py:31
+msgid "label_maps_locate"
+msgstr "Erakutsi kokatzeko kontrola"
+
+#. Default: "Show Add Marker"
+#: ../interfaces.py:55
+msgid "label_maps_show_add_marker"
+msgstr "Erakutsi markatzailea gehitzeko"
+
+#. Default: "Show Geosearch"
+#: ../interfaces.py:49
+msgid "label_maps_show_geosearch"
+msgstr "Erakutsi bilaketa"
+
+#. Default: "Show Minimap"
+#: ../interfaces.py:43
+msgid "label_maps_show_minimap"
+msgstr "Erakutsi mapa txikia"
+
+#. Default: "Show Zoom Control"
+#: ../interfaces.py:37
+msgid "label_maps_zoom"
+msgstr "Erakutsi zoomaren kontrola"
+
+#: ../configure.zcml:88
+msgid "plone.formwidget.geolocation map install"
+msgstr "plone.formwidget.geolocation instalatu"
+
+#: ../configure.zcml:112
+msgid "plone.formwidget.geolocation map uninstall"
+msgstr "plone.formwidget.geolocation desinstalatu"
