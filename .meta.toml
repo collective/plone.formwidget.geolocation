@@ -3,7 +3,7 @@
 # See the inline comments on how to expand/tweak this configuration file
 [meta]
 template = "default"
-commit-id = "2.0.1.dev0"
+commit-id = "2.3.2"
 
 [pyproject]
 codespell_skip = "*.min.js,*.min.js.map,*.svg,yarn.lock"
@@ -14,8 +14,7 @@ node_modules/
 """
 
 [github]
-jobs = [
-    "qa",
-    "coverage",
-    "release_ready",
-    ]
+jobs = ["qa", "coverage", "release_ready"]
+
+[tox]
+test_matrix = { "6.0" = ["*"], "6.1" = ["*"] }
