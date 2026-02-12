@@ -37,7 +37,6 @@ setup(
     url="https://github.com/collective/plone.formwidget.geolocation",
     license="GPL",
     packages=find_packages(),
-    namespace_packages=["plone", "plone.formwidget"],
     include_package_data=True,
     zip_safe=False,
     python_requires=">=3.8",
