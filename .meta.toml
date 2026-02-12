@@ -11,15 +11,14 @@ codespell_skip = "*.min.js,*.min.js.map,*.svg,yarn.lock"
 [gitignore]
 extra_lines = """
 node_modules/
+.mxdev-cache
+constraints-mxdev.txt
+requirements-mxdev.txt
 """
 
 [github]
-jobs = [
-    "qa",
-    "coverage",
-    "release_ready",
-    ]
+jobs = ["qa", "coverage", "release_ready"]
 
 
 [tox]
-test_matrix = {"6.2" = ["*"]}
+test_matrix = { "6.2" = ["*"] }
