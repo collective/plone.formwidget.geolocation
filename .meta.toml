@@ -5,6 +5,9 @@
 template = "default"
 commit-id = "2.4.0"
 
+[tox]
+test_matrix = {"6.2" = ["*"]}
+
 [pyproject]
 codespell_skip = "*.min.js,*.min.js.map,*.svg,yarn.lock"
 
