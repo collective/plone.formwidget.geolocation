@@ -1,5 +1,5 @@
 recursive-include resources *.js
-recursive-include plone *
+recursive-include src *
 recursive-include docs *
 include *
 global-exclude *.pyc
