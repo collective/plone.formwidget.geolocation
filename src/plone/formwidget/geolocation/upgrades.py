@@ -1,11 +1,10 @@
-import logging
-
+from plone import api
 from plone.base.interfaces import IResourceRegistry
 from plone.registry.interfaces import IRegistry
 from Products.CMFCore.utils import getToolByName
 from zope.component import getUtility
 
-from plone import api
+import logging
 
 logger = logging.getLogger("plone.formwidget.geolocation upgrade")
 PROFILE_ID = "profile-plone.formwidget.geolocation:default"
