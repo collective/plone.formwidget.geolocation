@@ -3,7 +3,7 @@
   <records interface="plone.formwidget.geolocation.interfaces.IGeolocationSettings"
            prefix="geolocation"
   />
-  <records interface="Products.CMFPlone.interfaces.IBundleRegistry"
+  <records interface="plone.base.interfaces.IBundleRegistry"
            prefix="plone.bundles/plone-formwidget-geolocation"
   >
     <value key="depends" />
