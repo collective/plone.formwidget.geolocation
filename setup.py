@@ -46,9 +46,9 @@ setup(
     ],
     extras_require={
         "test": [
-            "plone.app.testing",
+            "plone.app.testing>=8.0.0a1",
             "plone.restapi",
-            "plone.testing",
+            "plone.testing>=10.0.0a1",
             "mock",
         ]
     },
