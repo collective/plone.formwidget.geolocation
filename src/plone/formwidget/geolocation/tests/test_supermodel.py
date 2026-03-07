@@ -6,7 +6,6 @@ from zope.component import getUtility
 
 import unittest
 
-
 SUPERMODEL_XML = """<field name="dummy" type="plone.formwidget.geolocation.GeolocationField">
   <schema>plone.formwidget.geolocation.interfaces.IGeolocation</schema>
   <title>Geolocation</title>
