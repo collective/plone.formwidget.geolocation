@@ -1,6 +1,6 @@
+from plone.base.utils import get_installer
 from plone.formwidget.geolocation import PACKAGE_NAME
 from plone.formwidget.geolocation.testing import GEOLOCATION_INTEGRATION_TESTING
-from Products.CMFPlone.utils import get_installer
 
 import unittest
 

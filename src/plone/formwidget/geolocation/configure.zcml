@@ -74,7 +74,7 @@
       />
   <browser:page
       name="geolocation-controlpanel"
-      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      for="plone.base.interfaces.IPloneSiteRoot"
       class=".controlpanel.GeolocationControlPanel"
       permission="plone.app.controlpanel.Site"
       />

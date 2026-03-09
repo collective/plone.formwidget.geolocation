@@ -1,6 +1,7 @@
 recursive-include resources *.js
-recursive-include plone *
+recursive-include src *
 recursive-include docs *
+recursive-include news *
 include *
 global-exclude *.pyc
 exclude *.toml

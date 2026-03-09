@@ -1,6 +1,6 @@
 [report]
 include =
-    plone/*
+    src/plone/*
 
 omit =
     */test*
