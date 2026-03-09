@@ -4,6 +4,15 @@ Changelog
 4.0.0 (unreleased)
 ------------------
 
+- Breaking: Plone 6.2 only support. 
+  [erral]
+
+- Breaking: native namespaces
+  [erral]
+
+- Breaking: src-layout
+  [erral]
+
 - Add Basque translation
   [erral]
 
