@@ -49,6 +49,9 @@ local.cfg
 .installed.txt
 
 node_modules/
+.mxdev_cache
+constraints-mxdev.txt
+requirements-mxdev.txt
 
 ##
 # Add extra configuration options in .meta.toml:

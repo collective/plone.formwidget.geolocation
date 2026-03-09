@@ -23,10 +23,12 @@ setup(
     classifiers=[
         "Framework :: Plone",
         "Framework :: Plone :: 6.0",
+        "Framework :: Plone :: 6.1",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 3.8",
-        "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Development Status :: 5 - Production/Stable",
         "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
@@ -40,7 +42,7 @@ setup(
     namespace_packages=["plone", "plone.formwidget"],
     include_package_data=True,
     zip_safe=False,
-    python_requires=">=3.8",
+    python_requires=">=3.10, <3.14",
     install_requires=[
         "setuptools",
         "z3c.form",
