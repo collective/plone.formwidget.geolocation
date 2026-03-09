@@ -4,6 +4,9 @@ Changelog
 3.0.8 (unreleased)
 ------------------
 
+- Add Basque translation
+  [erral]
+
 - Add Spanish translation
   [macagua]
 
