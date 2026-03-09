@@ -1,8 +1,20 @@
 Changelog
 =========
 
-3.0.8 (unreleased)
+4.0.0 (unreleased)
 ------------------
+
+- Breaking: Plone 6.2 only support. 
+  [erral]
+
+- Breaking: native namespaces
+  [erral]
+
+- Breaking: src-layout
+  [erral]
+
+- Add Basque translation
+  [erral]
 
 - Add Spanish translation
   [macagua]
