@@ -58,7 +58,8 @@ to change it (see ``@@geolocation-geojson-popup`` view).
 Versions
 ========
 
-- plone.formwidget.geolocation 3.0.x -> Plone 6.0.x
+- plone.formwidget.geolocation 4.0.x -> Plone 6.2.x
+- plone.formwidget.geolocation 3.0.x -> Plone 6.0.x and 6.1.x
 - plone.formwidget.geolocation 2.2.x -> Plone 5.2.x
 
 
