@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.2.0\n"
-"POT-Creation-Date: 2025-07-08 15:48+0000\n"
+"POT-Creation-Date: 2026-09-16 09:28+0000\n"
 "PO-Revision-Date: 2023-06-08 13:12+0000\n"
 "Last-Translator: Ingo Van den Broeck <in.vandenbroeck@vmm.be>\n"
 "Language-Team: Zest Software <info@zestsoftware.nl>\n"
@@ -20,94 +20,94 @@ msgstr ""
 "X-Is-Fallback-For: nl-be nl-nl\n"
 
 #. Default: "CartoDB Dark Matter"
-#: ../vocabularies.py:116
+#: ../vocabularies.py:114
 msgid "CartoDB.DarkMatter"
 msgstr ""
 
 #. Default: "CartoDB Dark Matter No Labels"
-#: ../vocabularies.py:120
+#: ../vocabularies.py:118
 msgid "CartoDB.DarkMatterNoLabels"
 msgstr ""
 
-#: ../interfaces.py:108
+#: ../interfaces.py:117
 msgid "Default latitude"
 msgstr "Standaard breedtegraad (latitude)"
 
-#: ../interfaces.py:117
+#: ../interfaces.py:126
 msgid "Default longitude"
 msgstr "Standaard lengtegraad (longitude)"
 
-#: ../interfaces.py:136
+#: ../interfaces.py:145
 #: ../profiles/upgrades/to_2002/registry.xml
 msgid "Default zoom (edit)"
 msgstr ""
 
-#: ../interfaces.py:143
+#: ../interfaces.py:152
 #: ../profiles/upgrades/to_2002/registry.xml
 msgid "Default zoom (view)"
 msgstr ""
 
-#: ../interfaces.py:137
+#: ../interfaces.py:146
 #: ../profiles/upgrades/to_2002/registry.xml
 msgid "Default zoom for geolocation widget in edit mode"
 msgstr ""
 
-#: ../interfaces.py:144
+#: ../interfaces.py:153
 #: ../profiles/upgrades/to_2002/registry.xml
 msgid "Default zoom for geolocation widget in view mode"
 msgstr ""
 
 #. Default: "Esri DeLorme"
-#: ../vocabularies.py:82
+#: ../vocabularies.py:80
 msgid "Esri.DeLorme"
 msgstr ""
 
 #. Default: "Esri Nat Geo World Map"
-#: ../vocabularies.py:108
+#: ../vocabularies.py:106
 msgid "Esri.NatGeoWorldMap"
 msgstr ""
 
 #. Default: "Esri Ocean Basemap"
-#: ../vocabularies.py:104
+#: ../vocabularies.py:102
 msgid "Esri.OceanBasemap"
 msgstr ""
 
 #. Default: "Esri World Gray Canvas"
-#: ../vocabularies.py:112
+#: ../vocabularies.py:110
 msgid "Esri.WorldGrayCanvas"
 msgstr ""
 
 #. Default: "Esri World Imagery"
-#: ../vocabularies.py:88
+#: ../vocabularies.py:86
 msgid "Esri.WorldImagery"
 msgstr ""
 
 #. Default: "Esri World Physical"
-#: ../vocabularies.py:100
+#: ../vocabularies.py:98
 msgid "Esri.WorldPhysical"
 msgstr ""
 
 #. Default: "Esri World Shaded Relief"
-#: ../vocabularies.py:96
+#: ../vocabularies.py:94
 msgid "Esri.WorldShadedRelief"
 msgstr ""
 
 #. Default: "Esri World Street Map"
-#: ../vocabularies.py:79
+#: ../vocabularies.py:77
 msgid "Esri.WorldStreetMap"
 msgstr ""
 
 #. Default: "Esri World Terrain"
-#: ../vocabularies.py:92
+#: ../vocabularies.py:90
 msgid "Esri.WorldTerrain"
 msgstr ""
 
 #. Default: "Esri World Topo Map"
-#: ../vocabularies.py:84
+#: ../vocabularies.py:82
 msgid "Esri.WorldTopoMap"
 msgstr ""
 
-#: ../configure.zcml:88
+#: ../configure.zcml:89
 msgid "Extension profile for Plone."
 msgstr "Uitbreidingsprofiel voor Plone."
 
@@ -115,32 +115,32 @@ msgstr "Uitbreidingsprofiel voor Plone."
 msgid "Geolocation"
 msgstr "Geolocatie"
 
-#: ../controlpanel.py:11
+#: ../controlpanel.py:12
 msgid "Geolocation Settings"
 msgstr "Geolocatie instellingen"
 
-#: ../interfaces.py:127
+#: ../interfaces.py:136
 msgid "Geolocation used to center map (see above) will also be used to define the default geolocation on new contents."
 msgstr "Geolocatie om te centreren op kaart (zie hierboven) zal ook gebruikt worden voor het definiëren van de standaard geolocatie op nieuwe content."
 
-#: ../interfaces.py:11
+#: ../interfaces.py:12
 msgid "Latitude"
 msgstr "Breedtegraad"
 
-#: ../interfaces.py:109
+#: ../interfaces.py:118
 msgid "Latitude value that will be used to center map (on contents not yet geolocated)."
 msgstr "Waarde breedtegraad om de kaart te centreren (op content die nog geen geolocatie kreeg)."
 
-#: ../interfaces.py:12
+#: ../interfaces.py:13
 msgid "Longitude"
 msgstr "Lengtegraad"
 
-#: ../interfaces.py:118
+#: ../interfaces.py:127
 msgid "Longitude value that will be used to center map (on contents not yet geolocated)."
 msgstr "Waarde lengtegraad om de kaart te centreren (op content die nog geen geolocatie kreeg)."
 
 #. Default: "NASA Earth at Night 2012"
-#: ../vocabularies.py:124
+#: ../vocabularies.py:122
 msgid "NASAGIBS.ViirsEarthAtNight2012"
 msgstr ""
 
@@ -149,128 +149,133 @@ msgid "No geolocation information found."
 msgstr "Geen geolocatie-informatie gevonden."
 
 #. Default: "OpenStreetMap Black & White"
-#: ../vocabularies.py:32
+#: ../vocabularies.py:30
 msgid "OpenStreetMap.BlackAndWhite"
 msgstr ""
 
 #. Default: "OpenStreetMap DE"
-#: ../vocabularies.py:35
+#: ../vocabularies.py:33
 msgid "OpenStreetMap.DE"
 msgstr ""
 
 #. Default: "OpenStreetMap France"
-#: ../vocabularies.py:37
+#: ../vocabularies.py:35
 msgid "OpenStreetMap.France"
 msgstr ""
 
 #. Default: "OpenStreetMap Mapnik"
-#: ../vocabularies.py:28
+#: ../vocabularies.py:26
 msgid "OpenStreetMap.Mapnik"
 msgstr ""
 
-#: ../controlpanel.py:12
+#: ../controlpanel.py:13
 msgid "Settings for Maps and API Keys."
 msgstr "Instellingen voor kaarten en API-sleutels."
 
 #. Default: "Stamen Terrain"
-#: ../vocabularies.py:69
+#: ../vocabularies.py:67
 msgid "Stamen.Terrain"
 msgstr ""
 
 #. Default: "Stamen Terrain Background"
-#: ../vocabularies.py:71
+#: ../vocabularies.py:69
 msgid "Stamen.TerrainBackground"
 msgstr ""
 
 #. Default: "Stamen Toner"
-#: ../vocabularies.py:56
+#: ../vocabularies.py:54
 msgid "Stamen.Toner"
 msgstr ""
 
 #. Default: "Stamen Toner Background"
-#: ../vocabularies.py:58
+#: ../vocabularies.py:56
 msgid "Stamen.TonerBackground"
 msgstr ""
 
 #. Default: "Stamen Toner Lite"
-#: ../vocabularies.py:62
+#: ../vocabularies.py:60
 msgid "Stamen.TonerLite"
 msgstr ""
 
 #. Default: "Stamen Relief"
-#: ../vocabularies.py:75
+#: ../vocabularies.py:73
 msgid "Stamen.TopOSMRelief"
 msgstr ""
 
 #. Default: "Stamen Watercolor"
-#: ../vocabularies.py:66
+#: ../vocabularies.py:64
 msgid "Stamen.Watercolor"
 msgstr ""
 
 #. Default: "Thunderforest Cycle Map"
-#: ../vocabularies.py:41
+#: ../vocabularies.py:39
 msgid "Thunderforest.OpenCycleMap"
 msgstr ""
 
 #. Default: "Thunderforest Outdoors"
-#: ../vocabularies.py:53
+#: ../vocabularies.py:51
 msgid "Thunderforest.Outdoors"
 msgstr ""
 
 #. Default: "Thunderforest Transport"
-#: ../vocabularies.py:45
+#: ../vocabularies.py:43
 msgid "Thunderforest.Transport"
 msgstr ""
 
 #. Default: "Thunderforest Transport Dark"
-#: ../vocabularies.py:49
+#: ../vocabularies.py:47
 msgid "Thunderforest.TransportDark"
 msgstr ""
 
-#: ../configure.zcml:96
+#: ../configure.zcml:97
 msgid "Upgrade to version 2000"
 msgstr "Upgraden naar versie 2000"
 
-#: ../configure.zcml:104
+#: ../configure.zcml:105
 msgid "Upgrade to version 2002"
 msgstr ""
 
-#: ../interfaces.py:126
+#: ../interfaces.py:135
 msgid "Use default geolocation for contents"
 msgstr "Gebruik standaard geolocatie voor content"
 
 #. Default: "Default map layer"
-#: ../interfaces.py:89
+#: ../interfaces.py:98
 msgid "default_map_layer"
 msgstr "Standaard kaartlaag"
 
+#. Default: "The entered value is not a valid coordinate."
+#: ../converter.py:39
+msgid "error_invalid_coordinate"
+msgstr ""
+
 #. Default: "Set the default map layer"
-#: ../interfaces.py:90
+#: ../interfaces.py:99
 msgid "help_default_map_layer"
 msgstr "Stel de standaard kaartlaag in"
 
 #. Default: "If you want to use the Google Maps search API for higher accuracy, you have to provide a Google Maps API key here."
-#: ../interfaces.py:68
+#: ../interfaces.py:77
 msgid "help_google_api_key"
 msgstr "Als je de Google Maps zoek-API wil gebruiken voor hogere nauwkeurigheid, dan moet je hier een Google Maps API-sleutel invullen."
 
 #. Default: "Show a link to the Google Maps site, which can be used for further actions like routing."
-#: ../interfaces.py:79
+#: ../interfaces.py:88
 msgid "help_google_maps_link"
 msgstr "Toon een link naar de Google Maps site, die gebruikt kan worden voor verdere acties zoals routebegeleiding."
 
 #. Default: "Set the available map layers"
-#: ../interfaces.py:98
+#: ../interfaces.py:107
 msgid "help_map_layers"
 msgstr "Stel de beschikbare kaartlagen in"
 
 #. Default: "Google maps API Key"
-#: ../interfaces.py:67
+#: ../interfaces.py:76
 msgid "label_google_api_key"
 msgstr "Google Maps API-sleutel"
 
 #. Default: "Show Google maps link"
-#: ../interfaces.py:78
+#: ../interfaces.py:87
 msgid "label_google_maps_link"
 msgstr "Toon link naar Google Maps"
 
@@ -285,49 +290,49 @@ msgid "label_longitude"
 msgstr "Lengtegraad"
 
 #. Default: "Map Layers"
-#: ../interfaces.py:97
+#: ../interfaces.py:106
 msgid "label_map_layers"
 msgstr "Kaartlagen"
 
 #. Default: "Show Fullscreen Control"
-#: ../interfaces.py:25
+#: ../interfaces.py:34
 msgid "label_maps_fullscreen"
 msgstr "Toon knop voor volledig scherm"
 
 #. Default: "Geosearch Provider"
-#: ../interfaces.py:61
+#: ../interfaces.py:70
 msgid "label_maps_geosearch_provider"
 msgstr "Toon aanbieder geolocatie zoeken"
 
 #. Default: "Show Locate Control"
-#: ../interfaces.py:31
+#: ../interfaces.py:40
 msgid "label_maps_locate"
 msgstr "Toon localiseer knop"
 
 #. Default: "Show Add Marker"
-#: ../interfaces.py:55
+#: ../interfaces.py:64
 msgid "label_maps_show_add_marker"
 msgstr "Toon knop toevoegen marker"
 
 #. Default: "Show Geosearch"
-#: ../interfaces.py:49
+#: ../interfaces.py:58
 msgid "label_maps_show_geosearch"
 msgstr "Toon geolocatie zoeken"
 
 #. Default: "Show Minimap"
-#: ../interfaces.py:43
+#: ../interfaces.py:52
 msgid "label_maps_show_minimap"
 msgstr "Toon minikaart"
 
 #. Default: "Show Zoom Control"
-#: ../interfaces.py:37
+#: ../interfaces.py:46
 msgid "label_maps_zoom"
 msgstr "Toon (in/uit)zoom knop"
 
-#: ../configure.zcml:88
+#: ../configure.zcml:89
 msgid "plone.formwidget.geolocation map install"
 msgstr ""
 
-#: ../configure.zcml:112
+#: ../configure.zcml:113
 msgid "plone.formwidget.geolocation map uninstall"
 msgstr ""

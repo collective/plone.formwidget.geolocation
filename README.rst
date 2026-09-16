@@ -58,9 +58,14 @@ to change it (see ``@@geolocation-geojson-popup`` view).
 Versions
 ========
 
-- plone.formwidget.geolocation 4.0.x -> Plone 6.2.x
+- plone.formwidget.geolocation 4.0.x -> Plone 6.1.x and 6.2.x (Python 3.10 - 3.14)
 - plone.formwidget.geolocation 3.0.x -> Plone 6.0.x and 6.1.x
 - plone.formwidget.geolocation 2.2.x -> Plone 5.2.x
+
+Since 4.0.0 the package uses PEP 420 native namespaces. In environments that
+still contain ``pkg_resources``-style ``plone.*`` eggs (typically Plone 6.1
+buildouts) install ``horse-with-no-namespace`` as well, otherwise the
+``plone.formwidget`` namespace cannot be imported.
 
 
 Examples
@@ -120,4 +125,6 @@ If you are having issues, please let us know at our `issue tracker <https://gith
 License
 =======
 
-The project is licensed under the GPLv2.
+The project is licensed under the GNU General Public License, version 2 or
+(at your option) any later version (``GPL-2.0-or-later``), see ``LICENSE.txt``
+and ``LICENSE.GPL``.

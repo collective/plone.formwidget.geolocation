@@ -1,3 +1,4 @@
+from plone.app.z3cform.interfaces import ITextWidget
 from plone.formwidget.geolocation import _
 from plone.formwidget.geolocation.vocabularies import default_map_layer
 from plone.formwidget.geolocation.vocabularies import default_map_layers
@@ -18,6 +19,14 @@ class IGeolocationField(IObject):
 
 class IGeolocationWidget(IWidget):
     pass
+
+
+class ICoordinateWidget(ITextWidget):
+    """Text widget for a single coordinate (latitude or longitude).
+
+    Marker interface so that a locale independent data converter can be
+    registered for it.
+    """
 
 
 class IGeolocationSettings(Interface):

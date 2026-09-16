@@ -4,28 +4,71 @@ Changelog
 4.0.0 (unreleased)
 ------------------
 
-- Breaking: Plone 6.2 only support. 
-  [erral]
+Breaking changes:
 
-- Breaking: native namespaces
-  [erral]
+- Switch to PEP 420 native namespace packages (``plone`` and
+  ``plone.formwidget`` no longer ship an ``__init__.py`` with a
+  ``pkg_resources`` namespace declaration). Mixing native and
+  ``pkg_resources``-style packages in the same namespace does not work; in
+  environments that still contain old-style ``plone.*`` eggs (typically
+  Plone 6.1 buildouts) use ``horse-with-no-namespace``.
+  [erral, petschki]
 
-- Breaking: src-layout
-  [erral]
+- Require Plone 6.1 or 6.2 and Python 3.10 to 3.14, drop support for
+  Plone 6.0 and Python 3.8/3.9.
+  [erral, petschki]
 
-- Add Basque translation
-  [erral]
+New features:
 
-- Add Spanish translation
+- Update ``pat-leaflet`` to 2.2.1 (fixes the initialisation of
+  ``leaflet.locatecontrol``) and Patternslib to 9.10.7, rebuild the bundle.
+  See https://github.com/Patternslib/pat-leaflet/releases/tag/2.2.1
+  [petschki]
+
+- Add Basque translation, complete the German translation.
+  [erral, petschki]
+
+- Add Spanish translation and new translation strings.
   [macagua]
 
-- Add new translation strings
-  [macagua]
+Bug fixes:
 
-- Add more improvements about the sources code
-  [macagua]
+- Control panel: enter and display the default latitude/longitude
+  independent of the request locale. The generic float converter used the
+  localized ``#,##0.###`` pattern, so with e.g. a German locale ``9.7`` was
+  stored as ``97``, values with more than three decimals were rejected and
+  the stored value was shown rounded to three decimals. The new coordinate
+  widget keeps the full precision and accepts ``.`` and ``,`` as decimal
+  separator.
+  [petschki]
 
-- Fixed the warning "Line to long" message
+- Declare ``plone.api`` and every other imported package as a dependency
+  (3.0.x imported ``plone.api`` without declaring it).
+  [erral, petschki]
+
+- Fix the webpack output path after the move to the ``src/`` layout, the
+  bundle was written outside the package.
+  [petschki]
+
+Internal:
+
+- Move to the ``src/`` layout and configure the repository with plone/meta
+  (2.11.1): tox with a Plone 6.1/6.2 test matrix, GitHub workflows,
+  pre-commit with pyupgrade, isort, black, zpretty, flake8, codespell,
+  check-manifest, pyroma, i18ndude. The ``test`` extra no longer pins
+  ``plone.app.testing``/``plone.testing`` so it resolves against the
+  Plone 6.1 constraints.
+  [erral, petschki]
+
+- Use the SPDX license expression ``GPL-2.0-or-later`` (matching the
+  license grant in ``LICENSE.txt``) instead of the deprecated license
+  classifier and move ``LICENSE.txt``/``LICENSE.GPL`` to the package root so
+  they are picked up as license files; remove the duplicate ``setup.cfg``,
+  top-level ``dependabot.yml`` and ``docs/INSTALL.txt``; point the
+  mxdev/Makefile development setup at the Plone 6.2 constraints.
+  [petschki]
+
+- Fixed some errors from code-analysis scripts.
   [macagua]
 
 
