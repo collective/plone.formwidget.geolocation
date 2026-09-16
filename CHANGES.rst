@@ -4,28 +4,60 @@ Changelog
 4.0.0 (unreleased)
 ------------------
 
-- Breaking: Plone 6.2 only support. 
+Breaking changes:
+
+- Switch to PEP 420 native namespace packages (``plone`` and
+  ``plone.formwidget`` no longer ship an ``__init__.py`` with a
+  ``pkg_resources`` namespace declaration). Mixing native and
+  ``pkg_resources``-style packages in the same namespace does not work; in
+  environments that still contain old-style ``plone.*`` eggs (typically
+  Plone 6.1 buildouts) use ``horse-with-no-namespace``.
+  [erral, petschki]
+
+- Require Plone 6.1 or 6.2 and Python 3.10 to 3.14, drop support for
+  Plone 6.0 and Python 3.8/3.9.
+  [erral, petschki]
+
+New features:
+
+- Update ``pat-leaflet`` to 2.2.1 (fixes the initialisation of
+  ``leaflet.locatecontrol``) and Patternslib to 9.10.7, rebuild the bundle.
+  See https://github.com/Patternslib/pat-leaflet/releases/tag/2.2.1
+  [petschki]
+
+- Add Basque translation.
   [erral]
 
-- Breaking: native namespaces
-  [erral]
-
-- Breaking: src-layout
-  [erral]
-
-- Add Basque translation
-  [erral]
-
-- Add Spanish translation
+- Add Spanish translation and new translation strings.
   [macagua]
 
-- Add new translation strings
-  [macagua]
+Bug fixes:
 
-- Add more improvements about the sources code
-  [macagua]
+- Declare ``plone.api`` and every other imported package as a dependency
+  (3.0.x imported ``plone.api`` without declaring it).
+  [erral, petschki]
 
-- Fixed the warning "Line to long" message
+- Fix the webpack output path after the move to the ``src/`` layout, the
+  bundle was written outside the package.
+  [petschki]
+
+Internal:
+
+- Move to the ``src/`` layout and configure the repository with plone/meta
+  (2.11.1): tox with a Plone 6.1/6.2 test matrix, GitHub workflows,
+  pre-commit with pyupgrade, isort, black, zpretty, flake8, codespell,
+  check-manifest, pyroma, i18ndude. The ``test`` extra no longer pins
+  ``plone.app.testing``/``plone.testing`` so it resolves against the
+  Plone 6.1 constraints.
+  [erral, petschki]
+
+- Use an SPDX license expression instead of the deprecated license
+  classifier; remove the duplicate ``setup.cfg``, top-level
+  ``dependabot.yml``, ``docs/INSTALL.txt`` and duplicate license files;
+  point the mxdev/Makefile development setup at the Plone 6.2 constraints.
+  [petschki]
+
+- Fixed some errors from code-analysis scripts.
   [macagua]
 
 
