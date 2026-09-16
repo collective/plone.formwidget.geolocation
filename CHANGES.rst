@@ -60,10 +60,12 @@ Internal:
   Plone 6.1 constraints.
   [erral, petschki]
 
-- Use an SPDX license expression instead of the deprecated license
-  classifier; remove the duplicate ``setup.cfg``, top-level
-  ``dependabot.yml``, ``docs/INSTALL.txt`` and duplicate license files;
-  point the mxdev/Makefile development setup at the Plone 6.2 constraints.
+- Use the SPDX license expression ``GPL-2.0-or-later`` (matching the
+  license grant in ``LICENSE.txt``) instead of the deprecated license
+  classifier and move ``LICENSE.txt``/``LICENSE.GPL`` to the package root so
+  they are picked up as license files; remove the duplicate ``setup.cfg``,
+  top-level ``dependabot.yml`` and ``docs/INSTALL.txt``; point the
+  mxdev/Makefile development setup at the Plone 6.2 constraints.
   [petschki]
 
 - Fixed some errors from code-analysis scripts.
