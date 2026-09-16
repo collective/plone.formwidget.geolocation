@@ -1,4 +1,6 @@
 from plone.api.portal import get_registry_record as getrec
+from plone.app.z3cform.widgets.text import TextWidget as PloneTextWidget
+from plone.formwidget.geolocation.interfaces import ICoordinateWidget
 from plone.formwidget.geolocation.interfaces import IGeolocationField
 from plone.formwidget.geolocation.interfaces import IGeolocationWidget
 from plone.formwidget.geolocation.vocabularies import _
@@ -131,3 +133,22 @@ class GeolocationWidget(TextWidget):
 @adapter(IGeolocationField, IFormLayer)
 def GeolocationFieldWidget(field, request):
     return FieldWidget(field, GeolocationWidget(request))
+
+
+@implementer_only(ICoordinateWidget)
+class CoordinateWidget(PloneTextWidget):
+    """Plain text input for a latitude or longitude value.
+
+    Used for the default coordinates in the control panel. The default
+    z3c.form float converter formats and parses numbers according to the
+    request locale (``#,##0.###``): with a German locale ``9.7`` is read as
+    ``97``, values with more than three decimals are rejected and the stored
+    value is rounded to three decimals when displayed. Coordinates need a
+    locale independent representation, see ``CoordinateDataConverter``.
+    """
+
+    klass = "text-widget coordinate-widget"
+
+
+def CoordinateFieldWidget(field, request):
+    return FieldWidget(field, CoordinateWidget(request))

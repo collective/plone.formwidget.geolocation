@@ -33,6 +33,15 @@ New features:
 
 Bug fixes:
 
+- Control panel: enter and display the default latitude/longitude
+  independent of the request locale. The generic float converter used the
+  localized ``#,##0.###`` pattern, so with e.g. a German locale ``9.7`` was
+  stored as ``97``, values with more than three decimals were rejected and
+  the stored value was shown rounded to three decimals. The new coordinate
+  widget keeps the full precision and accepts ``.`` and ``,`` as decimal
+  separator.
+  [petschki]
+
 - Declare ``plone.api`` and every other imported package as a dependency
   (3.0.x imported ``plone.api`` without declaring it).
   [erral, petschki]

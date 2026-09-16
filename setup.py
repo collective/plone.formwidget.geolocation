@@ -45,6 +45,7 @@ setup(
         "Products.CMFPlone >= 6.1.0",
         "plone.api",
         "plone.app.registry",
+        "plone.app.z3cform",
         "plone.base",
         "plone.dexterity",
         "plone.registry",
