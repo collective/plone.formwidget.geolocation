@@ -25,8 +25,8 @@ New features:
   See https://github.com/Patternslib/pat-leaflet/releases/tag/2.2.1
   [petschki]
 
-- Add Basque translation.
-  [erral]
+- Add Basque translation, complete the German translation.
+  [erral, petschki]
 
 - Add Spanish translation and new translation strings.
   [macagua]
