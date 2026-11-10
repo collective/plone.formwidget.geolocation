@@ -34,12 +34,6 @@ def MapLayers(context):
             "OpenStreetMap.France",
         ),
         (_("OpenTopoMap", default="OpenTopoMap"), "OpenTopoMap"),
-        (_("BasemapAT.basemap", default="basemap.at"), "BasemapAT.basemap"),
-        (_("BasemapAT.grau", default="basemap.at Gray"), "BasemapAT.grau"),
-        (
-            _("BasemapAT.orthofoto", default="basemap.at Orthophoto"),
-            "BasemapAT.orthofoto",
-        ),
         (
             _("Thunderforest.OpenCycleMap", default="Thunderforest Cycle Map"),
             "Thunderforest.OpenCycleMap",

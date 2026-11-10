@@ -16,11 +16,11 @@ class TestVocabularies(unittest.TestCase):
             IVocabularyFactory, "plone.formwidget.geolocation.vocabularies.map_layers"
         )
         vocabulary = factory(self.portal)
-        self.assertEqual(len(vocabulary), 26)
+        self.assertEqual(len(vocabulary), 23)
         # providers that are gone from leaflet-providers leave the map empty
         self.assertNotIn("OpenStreetMap.BlackAndWhite", vocabulary)
         self.assertNotIn("Stamen.TonerLite", vocabulary)
-        self.assertIn("BasemapAT.grau", vocabulary)
+        self.assertIn("CartoDB.Positron", vocabulary)
 
     def test_valid_map_layers(self):
         from plone.formwidget.geolocation.vocabularies import valid_map_layers
