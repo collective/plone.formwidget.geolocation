@@ -2,6 +2,7 @@ from plone.api.portal import get_registry_record as getrec
 from plone.formwidget.geolocation.interfaces import IGeolocationField
 from plone.formwidget.geolocation.interfaces import IGeolocationWidget
 from plone.formwidget.geolocation.vocabularies import _
+from plone.formwidget.geolocation.vocabularies import valid_map_layers
 from z3c.form.browser.text import TextWidget
 from z3c.form.interfaces import IFieldWidget
 from z3c.form.interfaces import IFormLayer
@@ -75,7 +76,11 @@ class GeolocationWidget(TextWidget):
 
     @property
     def map_configuration(self):
-        map_layers = getrec("geolocation.map_layers") or []
+        # stored settings may still name layers that no longer exist
+        map_layers, default_layer = valid_map_layers(
+            getrec("geolocation.map_layers"),
+            getrec("geolocation.default_map_layer"),
+        )
         config = {
             "fullscreencontrol": getrec("geolocation.fullscreen_control"),
             "locatecontrol": getrec("geolocation.locate_control"),
@@ -84,7 +89,7 @@ class GeolocationWidget(TextWidget):
             "addmarker": getrec("geolocation.show_add_marker"),
             "geosearch": getrec("geolocation.show_geosearch"),
             "geosearch_provider": getrec("geolocation.geosearch_provider"),
-            "default_map_layer": getrec("geolocation.default_map_layer"),
+            "default_map_layer": default_layer,
             "map_layers": [
                 {
                     "title": translate(_(layer), context=self.request),

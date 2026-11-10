@@ -1,0 +1,7 @@
+Update the map libraries: pat-leaflet 2.2.2 (leaflet-providers 4.0.0), Patternslib 9.11.1, @patternslib/dev 4.
+The remote entry exports its bundle import as default, so the Module Federation helper waits for the pattern registration.
+Remove map layers whose provider is gone and left the map empty (OpenStreetMap Black & White, all Stamen layers, Esri DeLorme);
+add OpenTopoMap, basemap.at (colour, gray, orthophoto), CartoDB Positron and Voyager.
+The widget ignores stored layers that are no longer offered instead of rendering an empty map.
+Fix the webpack output path for the src layout.
+[petschki]
