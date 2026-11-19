@@ -16,7 +16,7 @@ module.exports = () => {
         config: config,
         package_json: package_json,
     });
-    config.output.path = path.resolve(__dirname, "plone/formwidget/geolocation/static");
+    config.output.path = path.resolve(__dirname, "src/plone/formwidget/geolocation/static");
 
     config.module.rules.push({
         test: /\.svg$/i,
